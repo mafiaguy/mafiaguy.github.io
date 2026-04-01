@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  var p = location.pathname;
+  if (p && p !== '/') {
+    location.replace('/?route=' + encodeURIComponent(p));
+  }
+</script>
+</head>
+<body></body>
+</html>
