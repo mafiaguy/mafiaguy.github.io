@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---- Packages ----
+\usepackage[margin=0.6in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{fontawesome5}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{xcolor}
+
+% ---- Formatting ----
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{leftmargin=1.2em, itemsep=2pt, parsep=0pt, topsep=4pt}
+
+\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\hypersetup{colorlinks=true, urlcolor=blue!70!black}
+
+% ---- Commands ----
+\newcommand{\resumeheading}[4]{%
+  \vspace{4pt}
+  \textbf{#1} \hfill \textit{#2} \\
+  \textit{#3} \hfill \textit{#4}
+  \vspace{2pt}
+}
+
+\newcommand{\achievement}[1]{%
+  \item \textbf{Achievement:} #1
+}
+
+% ---- Document ----
+\begin{document}
+
+% ---- Header ----
+\begin{center}
+  {\LARGE\bfseries Siddhanth Dwivedi} \\[6pt]
+  \faPhone\ +91 8968562055 \quad
+  \faEnvelope\ \href{mailto:iamsiddhanthdwivedi@gmail.com}{iamsiddhanthdwivedi@gmail.com} \quad
+  \faGithub\ \href{https://github.com/mafiaguy}{mafiaguy} \quad
+  \faLinkedin\ \href{http://linkedin.com/in/mafiaguy}{mafiaguy}
+\end{center}
+
+% ---- Summary ----
+\section{Summary}
+Security Operations Engineer with 6+ years of experience securing and operating cloud platforms on AWS. Beyond core security responsibilities, have hands-on experience running ECS/Docker workloads in production, building CloudWatch observability stacks, driving infrastructure cost optimization (30\% AWS spend reduction), and owning incident response for critical systems. Seeking to transition into Site Reliability Engineering, combining deep security expertise with proven infrastructure and reliability skills. Two-time Extra Mile Award recipient for operational excellence.
+
+% ---- Skills ----
+\section{Skills}
+
+\textbf{Containers \& Orchestration:} Docker, Amazon ECS (EC2 \& Fargate), ECR, Kubernetes (personal projects), Container Image Hardening, Task Definition Tuning, Autoscaling, ARM/Graviton Migration \\[3pt]
+\textbf{Observability:} CloudWatch Metrics, Logs, Alarms \& Dashboards, CloudWatch Log Insights, X-Ray Distributed Tracing, Prometheus \& Grafana (personal projects), CloudTrail Audit Logging, Incident Detection \& Response \\[3pt]
+\textbf{Cloud \& Infrastructure:} AWS (EC2, Lambda, ALB/NLB, Route~53, S3, RDS, IAM, VPC, Security Hub, GuardDuty), Infrastructure-as-Code (AWS CDK, CloudFormation), Capacity Planning, Cost Optimization \\[3pt]
+\textbf{Security \& Compliance:} Penetration Testing, Cloud Security (CIS Benchmarks, WAF, Shield), ISO~27001, OWASP Top~10, Secure SDLC, CSPM, SAST, Snyk, CodeQL \\[3pt]
+\textbf{Languages \& Databases:} TypeScript, Python, Node.js, PostgreSQL, MySQL \\[3pt]
+\textbf{Tools:} Burp Suite, Wireshark, Nmap
+
+% ---- Experience ----
+\section{Experience}
+
+\resumeheading{Great Learning}{Bangalore, India}{Lead Security Operations Engineer}{May 2025 -- Present}
+\begin{itemize}
+  \item Cut AWS infrastructure spend by 30\% by migrating ECS workloads to ARM-based Graviton instances and implementing target-tracking autoscaling policies across services.
+  \item Built and maintained CloudWatch observability stack---custom metrics, dashboards, composite alarms, and Log Insights queries---providing end-to-end visibility into ECS service health and application performance.
+  \item Maintained ISO 27001 compliance through quarterly disaster recovery drills, tabletop exercises, and periodic user access reviews.
+  \item Improved application performance by 20--30\% through ECS task definition tuning, container resource right-sizing, and stack modernization.
+  \item Upgraded major PostgreSQL/MySQL databases with zero-downtime strategies, achieving 5\% cost savings and 10\% performance gains.
+  \item Migrated all environments to Infrastructure-as-Code (AWS CDK, CloudFormation), enabling repeatable, auditable, drift-free deployments.
+  \item Owned patching, monitoring, and incident resolution for production infrastructure; improved alerting fidelity and reduced mean time to resolution through runbook automation.
+  \achievement{Extra Mile Award (May 2025) for cost optimization and security leadership.}
+\end{itemize}
+
+\resumeheading{Great Learning}{Bangalore, India}{Senior Security Operations Engineer}{Apr 2022 -- May 2025}
+\begin{itemize}
+  \item Architected cloud security posture aligned with CIS AWS Benchmarks; managed Security Hub, GuardDuty, and CloudTrail for continuous monitoring.
+  \item Operated and maintained ECS-based container platform running production microservices, managing rolling deployments, service health, and scaling.
+  \item Built CloudWatch observability pipelines---structured logging, metric filters, anomaly detection alarms, and dashboards---to track service availability, latency, and error rates.
+  \item Deployed AWS WAF and CDK-based disaster recovery systems, reducing recovery time by 30\%.
+  \item Achieved ISO 27001:2013 certification by authoring security policies, governance documentation, and operational procedures.
+  \item Automated toil-heavy operational and security workflows using AWS Lambda (Python/Node.js), significantly reducing manual intervention and MTTR.
+  \item Conducted penetration testing and vulnerability assessments; integrated Snyk \& CodeQL into CI/CD pipelines, reducing critical vulnerabilities by 25\%.
+  \item Hardened Docker images by enforcing multi-stage builds, non-root users, minimal base images, and regular vulnerability scanning via ECR image scanning.
+  \item Strengthened platform resilience with IAM least-privilege policies, DDoS prevention via Shield \& WAF, and CloudTrail-based audit monitoring.
+  \achievement{Extra Mile Award (Sep 2023) for ISO certification success and advancing DevSecOps adoption.}
+\end{itemize}
+
+\resumeheading{Great Learning}{Bangalore, India}{Security Operations Engineer}{Feb 2021 -- May 2022}
+\begin{itemize}
+  \item Conducted penetration testing, source code reviews, and vulnerability assessments across web and mobile applications (iOS \& Android, OWASP Top~10).
+  \item Managed WAF rules and CloudWatch alarm configurations, improving incident detection and response capabilities.
+  \item Orchestrated phishing simulations and security awareness training, reducing employee risk behavior by 35\%.
+  \item Built standardized security and operational reporting dashboards for leadership visibility into risk posture and system health.
+\end{itemize}
+
+\resumeheading{Great Learning}{Delhi, India}{Cyber Security Instructor}{Sep 2019 -- Feb 2021}
+\begin{itemize}
+  \item Delivered penetration testing and cloud security training sessions; mentored students on hands-on security practices.
+  \item Developed and maintained cybersecurity curriculum content and lab environments.
+\end{itemize}
+
+% ---- Projects ----
+\section{Projects}
+
+\textbf{Kubernetes Observability Home Lab} \hfill \href{https://github.com/mafiaguy}{github.com/mafiaguy} \\
+Deployed a multi-service application on a local Kubernetes cluster (Minikube/kind), set up Prometheus for metrics collection and alerting rules, and built Grafana dashboards for monitoring pod health, resource utilization, and service latency. Gained hands-on experience with Helm charts, kubectl operations, and Kubernetes networking.
+
+% ---- Education ----
+\section{Education}
+
+\textbf{B.Tech, Computer Science \& Engineering} \hfill 2017 -- 2020 \\
+Maharaja Surajmal Institute of Technology, Delhi \\[6pt]
+\textbf{Diploma, Computer Science \& Engineering} \hfill 2013 -- 2016 \\
+Government Polytechnic College, Mohali
+
+% ---- Achievements ----
+\section{Achievements}
+
+\textbf{Extra Mile Award} -- Great Learning (Sep 2023, May 2025) for exceptional contributions to ISO certification, DevSecOps adoption, and cloud cost/reliability optimization.
+
+\end{document}
