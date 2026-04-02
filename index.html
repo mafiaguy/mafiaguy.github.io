@@ -8,7 +8,7 @@
 <meta name="keywords" content="Siddhanth Dwivedi, Security Engineer, SRE, AWS, ECS, Docker, CloudWatch, DevSecOps, Penetration Testing, Bangalore">
 <meta name="author" content="Siddhanth Dwivedi"><meta name="robots" content="index, follow">
 <link rel="canonical" href="https://mafiaguy.github.io/">
-<meta property="og:title" content="Siddhanth Dwivedi | SecOps × SRE"><meta property="og:description" content="6+ years securing AWS. Free security tools, blog, open to SRE roles."><meta property="og:type" content="website"><meta property="og:url" content="https://mafiaguy.github.io/">
+<meta property="og:title" content="Siddhanth Dwivedi | SecOps x SRE"><meta property="og:description" content="6+ years securing AWS. Open to SRE roles."><meta property="og:type" content="website"><meta property="og:url" content="https://mafiaguy.github.io/">
 <meta name="twitter:card" content="summary"><meta name="twitter:site" content="@mafiaaguy">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Siddhanth Dwivedi","jobTitle":"Lead Security Operations Engineer","url":"https://mafiaguy.github.io/","email":"iamsiddhanthdwivedi@gmail.com","telephone":"+918968562055","address":{"@type":"PostalAddress","addressLocality":"Bangalore","addressCountry":"IN"},"sameAs":["https://github.com/mafiaguy","http://linkedin.com/in/mafiaguy","https://twitter.com/mafiaaguy","https://mafiaguy.medium.com"],"knowsAbout":["AWS","ECS","Docker","Kubernetes","CloudWatch","Prometheus","Grafana","Penetration Testing","ISO 27001","DevSecOps","SRE"],"worksFor":{"@type":"Organization","name":"Great Learning"}}</script>
 <style>
@@ -19,49 +19,85 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,.008) 2px,rgba(0,255,136,.008) 4px);pointer-events:none;z-index:9999}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--green2);border-radius:2px}
 a{color:inherit;text-decoration:none}
+
+/* SCROLL PROGRESS */
+#scrollProg{position:fixed;top:0;left:0;height:2px;background:var(--green);z-index:9998;width:0;transition:width .1s linear;box-shadow:0 0 8px rgba(0,255,136,.5)}
+
 /* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(6,6,10,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:2px;width:100%;z-index:100;background:rgba(6,6,10,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .ni{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 1.5rem}
 .nl{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;color:var(--green);cursor:pointer}.nl span{color:var(--text3)}
 .nk{display:flex;gap:1.6rem;list-style:none}
 .nk a{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;transition:color .2s;cursor:pointer}.nk a:hover,.nk a.active{color:var(--green)}
-.nr{display:flex;gap:.5rem}.nb{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:.4rem .8rem;border:1px solid var(--green);color:var(--green);border-radius:4px;cursor:pointer;background:transparent;transition:all .2s}.nb:hover{background:var(--gD)}
+.nb{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:.4rem .8rem;border:1px solid var(--green);color:var(--green);border-radius:4px;cursor:pointer;background:transparent;transition:all .2s}.nb:hover{background:var(--gD)}
 .hm{display:none;background:none;border:none;color:var(--green);font-size:1.1rem;cursor:pointer;font-family:'JetBrains Mono',monospace}
+
 /* SHARED */
-section{padding:5rem 1.5rem}.si{max-width:1140px;margin:0 auto}
-.sl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);letter-spacing:.15em;margin-bottom:.4rem}
+section{padding:5rem 1.5rem;position:relative}.si{max-width:1140px;margin:0 auto}
+.sl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--green);letter-spacing:.15em;margin-bottom:.4rem;opacity:0;transform:translateX(-30px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.sl.vis{opacity:1;transform:translateX(0)}
 .st{font-size:1.7rem;font-weight:700;margin-bottom:.4rem;letter-spacing:-.02em}
 .sd{color:var(--text2);font-size:.88rem;margin-bottom:2.5rem;max-width:500px}
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.3rem;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:500;letter-spacing:.03em;transition:all .2s;border:1px solid transparent;cursor:pointer;background:transparent}
 .bg{background:var(--green);color:var(--bg);border-color:var(--green)}.bg:hover{background:transparent;color:var(--green)}
 .bo{border-color:var(--border2);color:var(--text2)}.bo:hover{border-color:var(--green);color:var(--green)}
+
+/* ANIM ENGINE */
+[data-a]{opacity:0;transition:all .7s cubic-bezier(.16,1,.3,1)}
+[data-a].vis{opacity:1}
+[data-a="up"]{transform:translateY(40px)}[data-a="up"].vis{transform:translateY(0)}
+[data-a="left"]{transform:translateX(-40px)}[data-a="left"].vis{transform:translateX(0)}
+[data-a="right"]{transform:translateX(40px)}[data-a="right"].vis{transform:translateX(0)}
+[data-a="scale"]{transform:scale(.9)}[data-a="scale"].vis{transform:scale(1)}
+[data-a="flip"]{transform:perspective(600px) rotateY(15deg)}[data-a="flip"].vis{transform:perspective(600px) rotateY(0)}
+
 /* HERO */
-header{min-height:100vh;display:flex;align-items:center;padding:6rem 1.5rem 4rem;position:relative}
+header{min-height:100vh;display:flex;align-items:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(0,255,136,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(0,229,255,.03) 0%,transparent 50%)}
 .hi{max-width:1140px;margin:0 auto;position:relative;width:100%}
-.ht{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);margin-bottom:1rem;letter-spacing:.1em}
-.blink{animation:bl 1s infinite}@keyframes bl{0%,50%{opacity:1}51%,100%{opacity:0}}
+.ht{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);margin-bottom:1rem;letter-spacing:.1em;min-height:1.2em}
+.ht .cursor{animation:blink 1s infinite}@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
 header h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;margin-bottom:.8rem;letter-spacing:-.03em}
 .ac{color:var(--green);text-shadow:0 0 40px rgba(0,255,136,.2)}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.glitch.active::before{color:var(--cyan);animation:glitch1 .3s linear 2;clip-path:inset(20% 0 40% 0)}
+.glitch.active::after{color:var(--red);animation:glitch2 .3s linear 2;clip-path:inset(60% 0 10% 0)}
+@keyframes glitch1{0%{transform:translate(2px,-1px)}25%{transform:translate(-2px,1px)}50%{transform:translate(1px,2px)}100%{transform:translate(0)}}
+@keyframes glitch2{0%{transform:translate(-2px,1px)}25%{transform:translate(2px,-1px)}50%{transform:translate(-1px,-2px)}100%{transform:translate(0)}}
 .hs{color:var(--text2);font-size:1.05rem;max-width:580px;margin-bottom:1.5rem;line-height:1.7}.hs strong{color:var(--text);font-weight:500}
 .hst{display:flex;gap:2.5rem;margin-bottom:2rem;flex-wrap:wrap}
 .hst .n{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--green)}.hst .l{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
 .hb{display:flex;gap:.8rem;flex-wrap:wrap}
-/* CARDS */
-.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:.8rem}
-.sc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem;transition:border-color .3s;position:relative;overflow:hidden}.sc:hover{border-color:var(--green)}
-.sc::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:0 2px 2px 0}
+
+/* SKILLS */
+#skillsCanvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.5s}
+#skillsCanvas.vis{opacity:1}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:.8rem;position:relative;z-index:1}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}.sc:hover{border-color:var(--green);transform:translateY(-3px)}
+.sc::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;border-radius:0 2px 2px 0;transition:height .8s cubic-bezier(.16,1,.3,1)}
+.sc.vis::before{height:100%}
 .sc:nth-child(1)::before{background:var(--green)}.sc:nth-child(2)::before{background:var(--cyan)}.sc:nth-child(3)::before{background:var(--purple)}.sc:nth-child(4)::before{background:var(--orange)}.sc:nth-child(5)::before{background:var(--red)}.sc:nth-child(6)::before{background:var(--text2)}
 .sc h3{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600;margin-bottom:.5rem}.sc p{color:var(--text2);font-size:.8rem;line-height:1.7}
+
 /* TIMELINE */
-.ei{position:relative;padding-left:2.2rem;padding-bottom:2.5rem;border-left:1px solid var(--border)}.ei:last-child{border-left-color:transparent;padding-bottom:0}
-.ed{position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--border2);border:2px solid var(--bg)}.ei:first-child .ed{background:var(--green);box-shadow:0 0 12px rgba(0,255,136,.4)}
+.tl-line{position:absolute;left:5px;top:6px;width:1px;background:var(--green);height:0;transition:height 2s cubic-bezier(.16,1,.3,1);box-shadow:0 0 6px rgba(0,255,136,.3)}
+.exp-wrap{position:relative;padding-left:2.2rem}
+.ei{position:relative;padding-left:0;padding-bottom:2.5rem}.ei:last-child{padding-bottom:0}
+.ed{position:absolute;left:-2.2rem;top:6px;width:9px;height:9px;border-radius:50%;background:var(--border2);border:2px solid var(--bg);transition:all .5s;transform:scale(0)}
+.ed.vis{transform:scale(1)}
+.ei:first-child .ed.vis{background:var(--green);box-shadow:0 0 12px rgba(0,255,136,.4)}
 .eh{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.4rem}
 .er{font-size:1rem;font-weight:600}.edt{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3)}
 .ec{font-size:.82rem;color:var(--green2);margin-bottom:.6rem}
-.el{list-style:none}.el li{position:relative;padding-left:1.2rem;margin-bottom:.4rem;color:var(--text2);font-size:.82rem;line-height:1.65}.el li::before{content:'›';position:absolute;left:0;color:var(--green);font-weight:700}
-.ea{display:inline-flex;align-items:center;margin-top:.5rem;padding:.2rem .7rem;border-radius:3px;background:rgba(255,138,0,.08);border:1px solid rgba(255,138,0,.2);font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--orange)}
+.el{list-style:none}.el li{position:relative;padding-left:1.2rem;margin-bottom:.4rem;color:var(--text2);font-size:.82rem;line-height:1.65}.el li::before{content:'>';position:absolute;left:0;color:var(--green);font-family:'JetBrains Mono',monospace;font-weight:700}
+.ea{display:inline-flex;align-items:center;margin-top:.5rem;padding:.2rem .7rem;border-radius:3px;background:rgba(255,138,0,.08);border:1px solid rgba(255,138,0,.2);font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--orange);opacity:0;transform:translateY(10px) scale(.9);transition:all .5s cubic-bezier(.34,1.56,.64,1)}
+.ea.vis{opacity:1;transform:translateY(0) scale(1)}
+
 /* PROJECTS */
+.boot-seq{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);padding:1rem 0;line-height:2;min-height:80px}
+.boot-seq .ln{opacity:0;transform:translateX(-10px);transition:all .3s}
+.boot-seq .ln.show{opacity:1;transform:translateX(0)}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:.8rem}
 .pc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem;transition:all .3s;display:flex;flex-direction:column;cursor:pointer}.pc:hover{border-color:var(--green);transform:translateY(-2px)}
 .pt{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem}.pf{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3)}
@@ -69,25 +105,31 @@ header h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;ma
 .pc h3{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;margin-bottom:.4rem}.pc p{color:var(--text2);font-size:.8rem;flex:1;line-height:1.6}
 .pl{margin-top:.7rem;display:flex;gap:.5rem;flex-wrap:wrap}.pl span{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.15rem .5rem;border-radius:3px;background:var(--gD);color:var(--green2)}
 .pld{grid-column:1/-1;text-align:center;padding:3rem;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:.8rem}
+
 /* BLOG */
 .bg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:.8rem}
-.bc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem;transition:all .3s;display:flex;flex-direction:column}.bc:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.bc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem;transition:all .4s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}.bc:hover{border-color:var(--cyan);transform:translateY(-3px)}
 .bdt{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text3);margin-bottom:.5rem}
 .bc h3{font-size:.9rem;font-weight:600;margin-bottom:.4rem;line-height:1.4}.bc p{color:var(--text2);font-size:.8rem;flex:1;line-height:1.6}
 .bl{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cyan);margin-top:.7rem}
+
 /* CONTACT */
-.cs{background:linear-gradient(180deg,var(--bg),#080812);border-top:1px solid var(--green);position:relative}
-.cs::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);box-shadow:0 0 20px rgba(0,255,136,.3)}
+.cs{background:linear-gradient(180deg,var(--bg),#080812);border-top:1px solid var(--green);position:relative;overflow:hidden}
+.cs::before{content:'';position:absolute;top:0;left:0;width:80px;height:1px;background:var(--green);box-shadow:0 0 20px var(--green);animation:scanline 3s linear infinite}
+@keyframes scanline{0%{left:-80px}100%{left:100%}}
 .cc{text-align:center;margin-bottom:2.5rem}.cc h2{font-size:2rem;font-weight:700;margin-bottom:.5rem}.cc p{color:var(--text2);font-size:.95rem}
 .cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;max-width:900px;margin:0 auto}
 .ck{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all .3s}.ck:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,255,136,.08)}
 .ci{width:42px;height:42px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0}
 .clb{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}.cv{font-size:.82rem;color:var(--text);margin-top:.1rem;word-break:break-all}
-.ch{text-align:center;margin-top:2.5rem}.ch a{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;background:var(--green);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;border-radius:6px;transition:all .3s;border:2px solid var(--green)}.ch a:hover{background:transparent;color:var(--green)}
-/* TOOLS PAGE */
+.ch{text-align:center;margin-top:2.5rem}
+.ch a{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;background:var(--green);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:600;border-radius:6px;transition:all .3s;border:2px solid var(--green);animation:glow 2s ease-in-out infinite alternate}
+.ch a:hover{background:transparent;color:var(--green)}
+@keyframes glow{from{box-shadow:0 0 10px rgba(0,255,136,.2)}to{box-shadow:0 0 30px rgba(0,255,136,.4)}}
+
+/* TOOL+GAME modals/pages stay same */
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem}
-.tool-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;cursor:pointer;transition:all .3s}.tool-btn:hover{border-color:var(--green);transform:translateY(-2px)}
-.tool-btn .ti{font-size:1.5rem;margin-bottom:.4rem}.tool-btn .tn{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500}.tool-btn .td{font-size:.68rem;color:var(--text3);margin-top:.2rem}
+.tool-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;cursor:pointer;transition:all .3s}.tool-btn:hover{border-color:var(--green);transform:translateY(-2px)}.tool-btn .ti{font-size:1.5rem;margin-bottom:.4rem}.tool-btn .tn{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500}.tool-btn .td{font-size:.68rem;color:var(--text3);margin-top:.2rem}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem}.modal-bg.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--green);border-radius:12px;width:min(560px,100%);max-height:85vh;overflow-y:auto}
 .modal-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:1;border-radius:12px 12px 0 0}
@@ -104,8 +146,7 @@ header h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;ma
 .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
 .game-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .game-card-head{padding:1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.game-card-head h3{font-family:'JetBrains Mono',monospace;font-size:.85rem}
-.game-card-head span{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3)}
+.game-card-head h3{font-family:'JetBrains Mono',monospace;font-size:.85rem}.game-card-head span{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3)}
 .ga{position:relative;height:350px;overflow:hidden;cursor:crosshair}
 .ga-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(6,6,10,.92);z-index:2;text-align:center;padding:1rem}
 .ga-overlay h4{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--green);margin-bottom:.5rem}
@@ -114,17 +155,12 @@ header h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;ma
 .ga-hud{display:flex;justify-content:space-between;padding:.5rem .8rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;background:rgba(0,0,0,.3);position:relative;z-index:1}
 .bug{position:absolute;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;user-select:none;animation:bugPop .3s ease-out;transition:transform .1s}.bug:hover{transform:scale(1.1)}.bug.hit{animation:bugHit .3s forwards}
 @keyframes bugPop{from{transform:scale(0)}to{transform:scale(1)}}@keyframes bugHit{to{transform:scale(0) rotate(180deg);opacity:0}}
-/* Memory */
 .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px;height:100%}
 .mem-card{background:var(--border);border:1px solid var(--border2);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;color:transparent;transition:all .3s;user-select:none;text-align:center;padding:4px}
-.mem-card.flip{background:var(--gD);border-color:var(--green);color:var(--green)}
-.mem-card.matched{background:rgba(0,229,255,.08);border-color:var(--cyan);color:var(--cyan);cursor:default}
-/* Type Attack */
+.mem-card.flip{background:var(--gD);border-color:var(--green);color:var(--green)}.mem-card.matched{background:rgba(0,229,255,.08);border-color:var(--cyan);color:var(--cyan);cursor:default}
 .type-zone{position:relative;height:calc(100% - 50px);overflow:hidden}
-.type-word{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--orange);font-weight:600;transition:top .1s linear;white-space:nowrap}
-.type-input{width:calc(100% - 16px);margin:8px;background:var(--bg);border:1px solid var(--border);color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.85rem;padding:.5rem;border-radius:4px;outline:none}
-.type-input:focus{border-color:var(--green)}
-/* Cipher */
+.type-word{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--orange);font-weight:600;white-space:nowrap}
+.type-input{width:calc(100% - 16px);margin:8px;background:var(--bg);border:1px solid var(--border);color:var(--green);font-family:'JetBrains Mono',monospace;font-size:.85rem;padding:.5rem;border-radius:4px;outline:none}.type-input:focus{border-color:var(--green)}
 .cipher-box{padding:1rem;height:100%;display:flex;flex-direction:column;gap:.8rem}
 .cipher-display{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.8rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--orange);text-align:center;letter-spacing:.15em;line-height:1.8}
 .cipher-controls{display:flex;align-items:center;gap:.8rem;justify-content:center}
@@ -137,262 +173,252 @@ header h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.05;ma
 .rw{max-width:800px;margin:2rem auto;padding:0 1rem}
 .rtb{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;margin-bottom:.5rem;position:sticky;top:0;z-index:10;background:rgba(0,0,0,.8);backdrop-filter:blur(12px)}
 .rtb small{color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:.65rem;margin-left:.8rem}
-.rp{background:#fefefe;color:#1a1a1a;padding:48px 56px;border-radius:6px;font-family:'EB Garamond',Georgia,'Times New Roman',serif;font-size:11pt;line-height:1.4;box-shadow:0 4px 30px rgba(0,0,0,.3)}
-.rp h1{font-size:20pt;font-weight:700;text-align:center;margin-bottom:4px;color:#000;letter-spacing:.5px}
-.rp .rc{text-align:center;font-size:9.5pt;color:#333;margin-bottom:16px;line-height:1.6}.rp .rc a{color:#00529e;text-decoration:none}
-.rp .rs{font-size:10.5pt;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;border-bottom:1.2px solid #000;padding-bottom:2px;margin:16px 0 8px;color:#000;font-variant:small-caps}
-.rp .rh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:1px}
-.rp .rtl{font-weight:700;font-size:10pt}.rp .rlc{font-style:italic;font-size:9.5pt;color:#444}
-.rp .rsh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:4px}
-.rp .rrl{font-style:italic;font-size:9.5pt}.rp .rdt{font-style:italic;font-size:9.5pt;color:#444}
+.rp{background:#fefefe;color:#1a1a1a;padding:48px 56px;border-radius:6px;font-family:'EB Garamond',Georgia,serif;font-size:11pt;line-height:1.4;box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.rp h1{font-size:20pt;font-weight:700;text-align:center;margin-bottom:4px;color:#000}.rp .rc{text-align:center;font-size:9.5pt;color:#333;margin-bottom:16px;line-height:1.8}.rp .rc a{color:#00529e;text-decoration:none}
+.rp .rs{font-size:10.5pt;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;border-bottom:1.2px solid #000;padding-bottom:2px;margin:16px 0 8px;font-variant:small-caps;color:#000}
+.rp .rh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:1px}.rp .rtl{font-weight:700;font-size:10pt}.rp .rlc,.rp .rdt{font-style:italic;font-size:9.5pt;color:#444}
+.rp .rsh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:4px}.rp .rrl{font-style:italic;font-size:9.5pt}
 .rp ul{padding-left:18px;margin-bottom:8px}.rp li{margin-bottom:2px;font-size:9.5pt;line-height:1.45}
-.rp .rsk p{font-size:9.5pt;margin-bottom:3px;line-height:1.5}.rp .rsk strong{font-weight:700}
-.rp .rph{display:flex;justify-content:space-between;flex-wrap:wrap}.rp .rph strong{font-size:10pt}.rp .rph a{font-size:9pt;color:#00529e}
-.rp .rei{margin-bottom:6px}.rp .rei p{font-size:9.5pt;color:#444}
+.rp .rsk p{font-size:9.5pt;margin-bottom:3px;line-height:1.5}
+.rp .rph{display:flex;justify-content:space-between;flex-wrap:wrap}.rp .rph strong{font-size:10pt}.rp .rph a{font-size:9pt;color:#00529e}.rp .rei{margin-bottom:6px}.rp .rei p{font-size:9.5pt;color:#444}
 /* TERMINAL */
 .ttg{position:fixed;bottom:1.5rem;right:1.5rem;z-index:90;font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:.6rem 1rem;background:var(--card);border:1px solid var(--green);color:var(--green);border-radius:6px;cursor:pointer;transition:all .3s;box-shadow:0 0 15px rgba(0,255,136,.1)}.ttg:hover{background:var(--gD)}
 .tp{position:fixed;bottom:0;right:0;width:min(520px,100vw);height:380px;z-index:95;background:#0d1117;border:1px solid var(--green);border-bottom:none;border-radius:10px 10px 0 0;display:none;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.5)}.tp.open{display:flex}
 .tb{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem;background:#161b22;border-bottom:1px solid #30363d;border-radius:10px 10px 0 0}
 .tds{display:flex;gap:6px}.tds span{width:10px;height:10px;border-radius:50%}
-.ttl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#7d8590}
-.tcl{background:none;border:none;color:#7d8590;cursor:pointer;font-size:1.1rem}
+.ttl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#7d8590}.tcl{background:none;border:none;color:#7d8590;cursor:pointer;font-size:1.1rem}
 .tbd{flex:1;overflow-y:auto;padding:.8rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;line-height:1.8}
 .tbd .ln{margin-bottom:2px}.tbd .g{color:var(--green)}.tbd .c{color:var(--cyan)}.tbd .o{color:var(--orange)}.tbd .r{color:var(--red)}.tbd .d{color:#7d8590}
-.tir{display:flex;align-items:center;padding:.4rem 1rem .6rem;border-top:1px solid #30363d}
-.tpr{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);margin-right:.5rem;white-space:nowrap}
+.tir{display:flex;align-items:center;padding:.4rem 1rem .6rem;border-top:1px solid #30363d}.tpr{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);margin-right:.5rem;white-space:nowrap}
 .tin{flex:1;background:none;border:none;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.75rem;outline:none;caret-color:var(--green)}
 footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center}
 .fl{display:flex;justify-content:center;gap:1.5rem;margin-bottom:.8rem}.fl a{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);transition:color .2s}.fl a:hover{color:var(--green)}
 footer p{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text3)}
 .page{display:none}.page.active{display:block}
-.sub-hero{padding:7rem 1.5rem 3rem;text-align:center}
-.sub-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.5rem}.sub-hero p{color:var(--text2);max-width:500px;margin:0 auto}
+.sub-hero{padding:7rem 1.5rem 3rem;text-align:center}.sub-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.5rem}.sub-hero p{color:var(--text2);max-width:500px;margin:0 auto}
 .back-link{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text3);cursor:pointer;transition:color .2s}.back-link:hover{color:var(--green)}
-@media(max-width:768px){.nk{display:none}.hm{display:block}.nk.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg2);padding:1rem 1.5rem;border-bottom:1px solid var(--border);gap:.8rem}section{padding:3.5rem 1.2rem}header{padding:5rem 1.2rem 3rem}header h1{font-size:2.2rem}.sg,.pg,.bg2,.cg,.tools-grid,.games-grid{grid-template-columns:1fr}.eh{flex-direction:column}.tp{width:100%}.rp{padding:24px 20px}.hst{gap:1.5rem}.ga{height:300px}}
+@media(max-width:768px){.nk{display:none}.hm{display:block}.nk.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg2);padding:1rem 1.5rem;border-bottom:1px solid var(--border);gap:.8rem}section{padding:3.5rem 1.2rem}header{padding:5rem 1.2rem 3rem}header h1{font-size:2.2rem}.sg,.pg,.bg2,.cg,.tools-grid,.games-grid{grid-template-columns:1fr}.eh{flex-direction:column}.tp{width:100%}.rp{padding:24px 20px}.hst{gap:1.5rem}.ga{height:300px}#skillsCanvas{display:none}}
 </style>
 </head>
 <body>
 
+<!-- SCROLL PROGRESS -->
+<div id="scrollProg"></div>
+
 <nav><div class="ni">
 <a class="nl" onclick="nav('/')">sd<span>@</span>secops<span>:~$</span></a>
 <button class="hm" onclick="document.querySelector('.nk').classList.toggle('open')">[ = ]</button>
-<ul class="nk">
-<li><a href="#skills" data-page="/">skills</a></li>
-<li><a href="#experience" data-page="/">exp</a></li>
-<li><a href="#projects" data-page="/">projects</a></li>
-<li><a onclick="nav('/tools')" data-page="/tools">tools</a></li>
-<li><a onclick="nav('/play')" data-page="/play">play</a></li>
-<li><a href="#blog" data-page="/">blog</a></li>
-<li><a href="#contact" data-page="/">contact</a></li>
-</ul>
-<div class="nr"><button class="nb" onclick="openResume()">resume</button></div>
+<ul class="nk"><li><a href="#skills" data-page="/">skills</a></li><li><a href="#experience" data-page="/">exp</a></li><li><a href="#projects" data-page="/">projects</a></li><li><a onclick="nav('/tools')" data-page="/tools">tools</a></li><li><a onclick="nav('/play')" data-page="/play">play</a></li><li><a href="#blog" data-page="/">blog</a></li><li><a href="#contact" data-page="/">contact</a></li></ul>
+<div><button class="nb" onclick="openResume()">resume</button></div>
 </div></nav>
 
 <!-- =================== MAIN PAGE =================== -->
 <div id="page-main" class="page active">
 
 <header id="about"><div class="hi">
-<div class="ht">$ whoami <span class="blink">_</span></div>
-<h1>Siddhanth<br><span class="ac">Dwivedi</span></h1>
-<p class="hs">Security Operations Engineer building and securing <strong>cloud platforms on AWS</strong>. 6+ years of ECS, Docker, CloudWatch observability, and incident response. Now bringing a <strong>security-first mindset to SRE</strong>.</p>
-<div class="hst"><div><div class="n">6+</div><div class="l">Years Exp</div></div><div><div class="n">30%</div><div class="l">AWS Cost Cut</div></div><div><div class="n">2×</div><div class="l">Awards</div></div><div><div class="n">ISO</div><div class="l">27001</div></div></div>
-<div class="hb"><a href="#contact" class="btn bg">Hire Me</a><button class="btn bo" onclick="openResume()">View Resume</button><a href="https://github.com/mafiaguy" target="_blank" class="btn bo">GitHub</a><a href="http://linkedin.com/in/mafiaguy" target="_blank" class="btn bo">LinkedIn</a></div>
+<div class="ht" id="heroType"></div>
+<h1 data-a="left" data-d="300">Siddhanth<br><span class="ac glitch" id="glitchName" data-text="Dwivedi">Dwivedi</span></h1>
+<p class="hs" data-a="up" data-d="500">Security Operations Engineer building and securing <strong>cloud platforms on AWS</strong>. 6+ years of ECS, Docker, CloudWatch observability, and incident response. Now bringing a <strong>security-first mindset to SRE</strong>.</p>
+<div class="hst" data-a="up" data-d="700">
+<div><div class="n" data-count="6">0</div><div class="l">Years Exp</div></div>
+<div><div class="n" data-count="30">0</div><div class="l">AWS Cost Cut</div></div>
+<div><div class="n" data-count="2">0</div><div class="l">Awards</div></div>
+<div><div class="n" data-counttext="ISO">...</div><div class="l">27001</div></div>
+</div>
+<div class="hb" data-a="up" data-d="900"><a href="#contact" class="btn bg">Hire Me</a><button class="btn bo" onclick="openResume()">View Resume</button><a href="https://github.com/mafiaguy" target="_blank" class="btn bo">GitHub</a><a href="http://linkedin.com/in/mafiaguy" target="_blank" class="btn bo">LinkedIn</a></div>
 </div></header>
 
-<section id="skills" style="background:var(--bg2)"><div class="si"><div class="sl">01 // SKILLS</div><h2 class="st">Tech Stack</h2><div class="sd">What I work with daily — and what I'm expanding into.</div><div class="sg">
-<article class="sc"><h3>Containers & Orchestration</h3><p>Docker · ECS (EC2 & Fargate) · ECR · Kubernetes (personal) · Image Hardening · Task Tuning · Autoscaling · Graviton</p></article>
-<article class="sc"><h3>Observability</h3><p>CloudWatch Metrics/Logs/Alarms/Dashboards · Log Insights · X-Ray · Prometheus & Grafana (personal) · CloudTrail · Incident Response</p></article>
-<article class="sc"><h3>Cloud & Infrastructure</h3><p>AWS (EC2 · Lambda · ALB/NLB · Route 53 · S3 · RDS · IAM · VPC · Security Hub · GuardDuty) · IaC (CDK · CloudFormation)</p></article>
-<article class="sc"><h3>Security & Compliance</h3><p>Pentesting · CIS Benchmarks · WAF · Shield · ISO 27001 · OWASP Top 10 · SDLC · CSPM · SAST · Snyk · CodeQL</p></article>
-<article class="sc"><h3>Languages & Databases</h3><p>TypeScript · Python · Node.js · PostgreSQL · MySQL</p></article>
-<article class="sc"><h3>Tools</h3><p>Burp Suite · Wireshark · Nmap · Snyk · CodeQL</p></article>
+<!-- SKILLS -->
+<section id="skills" style="background:var(--bg2);position:relative">
+<canvas id="skillsCanvas"></canvas>
+<div class="si">
+<div class="sl" data-sl>01 // SKILLS</div><h2 class="st" data-a="up">Tech Stack</h2><div class="sd" data-a="up" data-d="100">What I work with daily - and what I'm expanding into.</div>
+<div class="sg">
+<article class="sc" data-a="up" data-d="0"><h3>Containers & Orchestration</h3><p>Docker . ECS (EC2 & Fargate) . ECR . Kubernetes (personal) . Image Hardening . Task Tuning . Autoscaling . Graviton</p></article>
+<article class="sc" data-a="up" data-d="80"><h3>Observability</h3><p>CloudWatch Metrics/Logs/Alarms/Dashboards . Log Insights . X-Ray . Prometheus & Grafana (personal) . CloudTrail . Incident Response</p></article>
+<article class="sc" data-a="up" data-d="160"><h3>Cloud & Infrastructure</h3><p>AWS (EC2 . Lambda . ALB/NLB . Route 53 . S3 . RDS . IAM . VPC . Security Hub . GuardDuty) . IaC (CDK . CloudFormation)</p></article>
+<article class="sc" data-a="up" data-d="240"><h3>Security & Compliance</h3><p>Pentesting . CIS Benchmarks . WAF . Shield . ISO 27001 . OWASP Top 10 . SDLC . CSPM . SAST . Snyk . CodeQL</p></article>
+<article class="sc" data-a="up" data-d="320"><h3>Languages & Databases</h3><p>TypeScript . Python . Node.js . PostgreSQL . MySQL</p></article>
+<article class="sc" data-a="up" data-d="400"><h3>Tools</h3><p>Burp Suite . Wireshark . Nmap . Snyk . CodeQL</p></article>
 </div></div></section>
 
-<section id="experience"><div class="si"><div class="sl">02 // EXPERIENCE</div><h2 class="st">Where I've Worked</h2><div class="sd">All at Great Learning — from instructor to leading SecOps.</div><div style="margin-top:2rem">
-<article class="ei"><div class="ed"></div><div class="eh"><span class="er">Lead Security Operations Engineer</span><span class="edt">MAY 2025 — PRESENT</span></div><div class="ec">Great Learning · Bangalore</div><ul class="el"><li>Cut AWS spend 30% via ARM Graviton + autoscaling.</li><li>Built CloudWatch observability — metrics, dashboards, alarms, Log Insights.</li><li>ISO 27001 via quarterly DR drills and access reviews.</li><li>Performance +20–30% through ECS task tuning and right-sizing.</li><li>Zero-downtime DB upgrades — 5% cost, 10% perf gains.</li><li>Migrated all envs to IaC (CDK, CloudFormation).</li><li>Owned incident resolution; reduced MTTR via runbook automation.</li></ul><span class="ea">★ Extra Mile — May 2025</span></article>
-<article class="ei"><div class="ed"></div><div class="eh"><span class="er">Senior Security Operations Engineer</span><span class="edt">APR 2022 — MAY 2025</span></div><div class="ec">Great Learning · Bangalore</div><ul class="el"><li>CIS Benchmarks; Security Hub, GuardDuty, CloudTrail.</li><li>Operated ECS platform — rolling deploys, health, scaling.</li><li>CloudWatch pipelines — logging, anomaly detection, dashboards.</li><li>WAF + CDK DR, cutting recovery 30%.</li><li>ISO 27001:2013 — authored policies and procedures.</li><li>Lambda automation; reduced MTTR significantly.</li><li>Snyk & CodeQL in CI/CD — vulns down 25%.</li><li>Docker hardening — multi-stage, non-root, ECR scanning.</li><li>IAM least-privilege, Shield/WAF DDoS prevention.</li></ul><span class="ea">★ Extra Mile — Sep 2023</span></article>
-<article class="ei"><div class="ed"></div><div class="eh"><span class="er">Security Operations Engineer</span><span class="edt">FEB 2021 — MAY 2022</span></div><div class="ec">Great Learning · Bangalore</div><ul class="el"><li>Pentesting & code reviews (OWASP Top 10, iOS/Android).</li><li>WAF rules & CloudWatch alarms for incident detection.</li><li>Phishing sims — risk behavior down 35%.</li><li>Security dashboards for leadership.</li></ul></article>
-<article class="ei"><div class="ed"></div><div class="eh"><span class="er">Cyber Security Instructor</span><span class="edt">SEP 2019 — FEB 2021</span></div><div class="ec">Great Learning · Delhi</div><ul class="el"><li>Pentesting & cloud security training.</li><li>Curriculum and lab development.</li></ul></article>
+<!-- EXPERIENCE -->
+<section id="experience"><div class="si">
+<div class="sl" data-sl>02 // EXPERIENCE</div><h2 class="st" data-a="up">Where I've Worked</h2><div class="sd" data-a="up" data-d="100">All at Great Learning - from instructor to leading SecOps.</div>
+<div class="exp-wrap" style="margin-top:2rem">
+<div class="tl-line" id="tlLine"></div>
+<article class="ei" data-a="left" data-d="0"><div class="ed" data-dot></div><div class="eh"><span class="er">Lead Security Operations Engineer</span><span class="edt">MAY 2025 - PRESENT</span></div><div class="ec">Great Learning . Bangalore</div><ul class="el"><li>Cut AWS spend 30% via ARM Graviton + autoscaling.</li><li>Built CloudWatch observability - metrics, dashboards, alarms, Log Insights.</li><li>ISO 27001 via quarterly DR drills and access reviews.</li><li>Performance +20-30% through ECS task tuning and right-sizing.</li><li>Zero-downtime DB upgrades - 5% cost, 10% perf gains.</li><li>Migrated all envs to IaC (CDK, CloudFormation).</li><li>Owned incident resolution; reduced MTTR via runbook automation.</li></ul><span class="ea" data-badge>* Extra Mile - May 2025</span></article>
+<article class="ei" data-a="left" data-d="200"><div class="ed" data-dot></div><div class="eh"><span class="er">Senior Security Operations Engineer</span><span class="edt">APR 2022 - MAY 2025</span></div><div class="ec">Great Learning . Bangalore</div><ul class="el"><li>CIS Benchmarks; Security Hub, GuardDuty, CloudTrail.</li><li>Operated ECS platform - rolling deploys, health, scaling.</li><li>CloudWatch pipelines - logging, anomaly detection, dashboards.</li><li>WAF + CDK DR, cutting recovery 30%.</li><li>ISO 27001:2013 - authored policies and procedures.</li><li>Lambda automation; reduced MTTR significantly.</li><li>Snyk & CodeQL in CI/CD - vulns down 25%.</li><li>Docker hardening - multi-stage, non-root, ECR scanning.</li></ul><span class="ea" data-badge>* Extra Mile - Sep 2023</span></article>
+<article class="ei" data-a="left" data-d="400"><div class="ed" data-dot></div><div class="eh"><span class="er">Security Operations Engineer</span><span class="edt">FEB 2021 - MAY 2022</span></div><div class="ec">Great Learning . Bangalore</div><ul class="el"><li>Pentesting & code reviews (OWASP Top 10, iOS/Android).</li><li>WAF rules & CloudWatch alarms for incident detection.</li><li>Phishing sims - risk behavior down 35%.</li><li>Security dashboards for leadership.</li></ul></article>
+<article class="ei" data-a="left" data-d="600"><div class="ed" data-dot></div><div class="eh"><span class="er">Cyber Security Instructor</span><span class="edt">SEP 2019 - FEB 2021</span></div><div class="ec">Great Learning . Delhi</div><ul class="el"><li>Pentesting & cloud security training.</li><li>Curriculum and lab development.</li></ul></article>
 </div></div></section>
 
-<section id="projects" style="background:var(--bg2)"><div class="si"><div class="sl">03 // PROJECTS</div><h2 class="st">Open Source</h2><div class="sd">Fetched live from GitHub.</div><div class="pg" id="pgrid"><div class="pld">$ fetching repos...</div></div></div></section>
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--bg2)"><div class="si">
+<div class="sl" data-sl>03 // PROJECTS</div><h2 class="st" data-a="up">Open Source</h2><div class="sd" data-a="up" data-d="100">Fetched live from GitHub.</div>
+<div class="boot-seq" id="bootSeq"></div>
+<div class="pg" id="pgrid" style="opacity:0;transition:opacity .6s"></div>
+</div></section>
 
-<section id="blog"><div class="si"><div class="sl">04 // BLOG</div><h2 class="st">Writing</h2><div class="sd">Technical deep-dives on ECS, AWS, and cloud ops.</div><div class="bg2">
-<a href="https://mafiaguy.medium.com/how-to-secure-your-vibe-coding-projects-1db8f5c16d67" target="_blank" class="bc"><div class="bdt">FEB 2025</div><h3>Secure Your Vibe Coding Projects</h3><p>Ship fast without shipping insecure.</p><span class="bl">read →</span></a>
-<a href="https://mafiaguy.medium.com/ecs-service-discovery-%EF%B8%8F-because-just-hardcoding-the-ip-is-not-a-plan-3db7c45155d2" target="_blank" class="bc"><div class="bdt">AUG 2025</div><h3>ECS Service Discovery</h3><p>Hardcoding IP is not a plan.</p><span class="bl">read →</span></a>
-<a href="https://mafiaguy.medium.com/a-complete-guide-on-scaling-redis-like-a-pro-331df0023f49" target="_blank" class="bc"><div class="bdt">DEC 2024</div><h3>Scaling Redis Like a Pro</h3><p>Production Redis scaling.</p><span class="bl">read →</span></a>
-<a href="https://mafiaguy.medium.com/a-complete-guide-on-how-to-deploy-gpu-based-ecs-containers-application-using-cdk-f51c82649de7" target="_blank" class="bc"><div class="bdt">AUG 2024</div><h3>GPU ECS Containers with CDK</h3><p>GPU workloads via IaC.</p><span class="bl">read →</span></a>
-<a href="https://mafiaguy.medium.com/a-complete-guide-on-how-to-autoscale-your-ecs-ec2-based-application-with-auto-scaling-groups-using-fe78b76c2354" target="_blank" class="bc"><div class="bdt">APR 2024</div><h3>Autoscale ECS EC2 with ASGs</h3><p>ECS autoscaling guide.</p><span class="bl">read →</span></a>
-<a href="https://mafiaguy.medium.com/from-code-to-cloud-a-comprehensive-guide-to-deploy-your-code-on-the-cloud-1c78cf615cc0" target="_blank" class="bc"><div class="bdt">DEC 2023</div><h3>From Code to Cloud</h3><p>Deploy to AWS end-to-end.</p><span class="bl">read →</span></a>
+<!-- BLOG -->
+<section id="blog"><div class="si">
+<div class="sl" data-sl>04 // BLOG</div><h2 class="st" data-a="up">Writing</h2><div class="sd" data-a="up" data-d="100">Technical deep-dives on ECS, AWS, and cloud ops.</div>
+<div class="bg2">
+<a href="https://mafiaguy.medium.com/how-to-secure-your-vibe-coding-projects-1db8f5c16d67" target="_blank" class="bc" data-a="scale" data-d="0"><div class="bdt">FEB 2025</div><h3>Secure Your Vibe Coding Projects</h3><p>Ship fast without shipping insecure.</p><span class="bl">read &rarr;</span></a>
+<a href="https://mafiaguy.medium.com/ecs-service-discovery-%EF%B8%8F-because-just-hardcoding-the-ip-is-not-a-plan-3db7c45155d2" target="_blank" class="bc" data-a="scale" data-d="80"><div class="bdt">AUG 2025</div><h3>ECS Service Discovery</h3><p>Hardcoding IP is not a plan.</p><span class="bl">read &rarr;</span></a>
+<a href="https://mafiaguy.medium.com/a-complete-guide-on-scaling-redis-like-a-pro-331df0023f49" target="_blank" class="bc" data-a="scale" data-d="160"><div class="bdt">DEC 2024</div><h3>Scaling Redis Like a Pro</h3><p>Production Redis scaling.</p><span class="bl">read &rarr;</span></a>
+<a href="https://mafiaguy.medium.com/a-complete-guide-on-how-to-deploy-gpu-based-ecs-containers-application-using-cdk-f51c82649de7" target="_blank" class="bc" data-a="scale" data-d="240"><div class="bdt">AUG 2024</div><h3>GPU ECS Containers with CDK</h3><p>GPU workloads via IaC.</p><span class="bl">read &rarr;</span></a>
+<a href="https://mafiaguy.medium.com/a-complete-guide-on-how-to-autoscale-your-ecs-ec2-based-application-with-auto-scaling-groups-using-fe78b76c2354" target="_blank" class="bc" data-a="scale" data-d="320"><div class="bdt">APR 2024</div><h3>Autoscale ECS EC2 with ASGs</h3><p>ECS autoscaling guide.</p><span class="bl">read &rarr;</span></a>
+<a href="https://mafiaguy.medium.com/from-code-to-cloud-a-comprehensive-guide-to-deploy-your-code-on-the-cloud-1c78cf615cc0" target="_blank" class="bc" data-a="scale" data-d="400"><div class="bdt">DEC 2023</div><h3>From Code to Cloud</h3><p>Deploy to AWS end-to-end.</p><span class="bl">read &rarr;</span></a>
 </div></div></section>
 
-<section id="edu" style="background:var(--bg2)"><div class="si"><div class="sl">05 // EDUCATION</div><h2 class="st">Education</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.8rem;margin-top:1.5rem">
-<article style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem"><h3 style="font-size:.92rem;font-weight:600">B.Tech, CS&E</h3><div style="color:var(--green2);font-size:.82rem">MSIT, Delhi</div><div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);margin-top:.3rem">2017 — 2020</div></article>
-<article style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem"><h3 style="font-size:.92rem;font-weight:600">Diploma, CS&E</h3><div style="color:var(--green2);font-size:.82rem">Govt Polytechnic, Mohali</div><div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);margin-top:.3rem">2013 — 2016</div></article>
+<!-- EDUCATION -->
+<section id="edu" style="background:var(--bg2)"><div class="si">
+<div class="sl" data-sl>05 // EDUCATION</div><h2 class="st" data-a="up">Education</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.8rem;margin-top:1.5rem">
+<article data-a="up" data-d="0" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem"><h3 style="font-size:.92rem;font-weight:600">B.Tech, CS&E</h3><div style="color:var(--green2);font-size:.82rem">MSIT, Delhi</div><div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);margin-top:.3rem">2017 - 2020</div></article>
+<article data-a="up" data-d="100" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.3rem"><h3 style="font-size:.92rem;font-weight:600">Diploma, CS&E</h3><div style="color:var(--green2);font-size:.82rem">Govt Polytechnic, Mohali</div><div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);margin-top:.3rem">2013 - 2016</div></article>
 </div></div></section>
 
+<!-- CONTACT -->
 <section id="contact" class="cs"><div class="si">
-<div class="cc"><div class="sl">06 // CONTACT</div><h2>Let's <span class="ac">Work Together</span></h2><p>Open to SRE and Security Engineering roles.</p></div>
+<div class="cc"><div class="sl" data-sl>06 // CONTACT</div><h2 data-a="up">Let's <span class="ac">Work Together</span></h2><p data-a="up" data-d="100">Open to SRE and Security Engineering roles.</p></div>
 <div class="cg">
-<a href="mailto:iamsiddhanthdwivedi@gmail.com" class="ck"><div class="ci" style="background:var(--gD);color:var(--green)">✉</div><div><div class="clb">Email</div><div class="cv">iamsiddhanthdwivedi@gmail.com</div></div></a>
-<a href="tel:+918968562055" class="ck"><div class="ci" style="background:var(--cD);color:var(--cyan)">☎</div><div><div class="clb">Phone</div><div class="cv">+91 8968562055</div></div></a>
-<a href="https://github.com/mafiaguy" target="_blank" class="ck"><div class="ci" style="background:rgba(167,139,250,.08);color:var(--purple)">⌘</div><div><div class="clb">GitHub</div><div class="cv">mafiaguy</div></div></a>
-<a href="http://linkedin.com/in/mafiaguy" target="_blank" class="ck"><div class="ci" style="background:var(--cD);color:var(--cyan)">in</div><div><div class="clb">LinkedIn</div><div class="cv">in/mafiaguy</div></div></a>
-<a href="https://twitter.com/mafiaaguy" target="_blank" class="ck"><div class="ci" style="background:rgba(255,138,0,.08);color:var(--orange)">𝕏</div><div><div class="clb">Twitter</div><div class="cv">@mafiaaguy</div></div></a>
-<a href="https://mafiaguy.medium.com" target="_blank" class="ck"><div class="ci" style="background:rgba(255,62,62,.08);color:var(--red)">M</div><div><div class="clb">Medium</div><div class="cv">mafiaguy.medium.com</div></div></a>
+<a href="mailto:iamsiddhanthdwivedi@gmail.com" class="ck" data-a="up" data-d="0"><div class="ci" style="background:var(--gD);color:var(--green)">E</div><div><div class="clb">Email</div><div class="cv">iamsiddhanthdwivedi@gmail.com</div></div></a>
+<a href="tel:+918968562055" class="ck" data-a="up" data-d="80"><div class="ci" style="background:var(--cD);color:var(--cyan)">P</div><div><div class="clb">Phone</div><div class="cv">+91 8968562055</div></div></a>
+<a href="https://github.com/mafiaguy" target="_blank" class="ck" data-a="up" data-d="160"><div class="ci" style="background:rgba(167,139,250,.08);color:var(--purple)">G</div><div><div class="clb">GitHub</div><div class="cv">mafiaguy</div></div></a>
+<a href="http://linkedin.com/in/mafiaguy" target="_blank" class="ck" data-a="up" data-d="240"><div class="ci" style="background:var(--cD);color:var(--cyan)">in</div><div><div class="clb">LinkedIn</div><div class="cv">in/mafiaguy</div></div></a>
+<a href="https://twitter.com/mafiaaguy" target="_blank" class="ck" data-a="up" data-d="320"><div class="ci" style="background:rgba(255,138,0,.08);color:var(--orange)">X</div><div><div class="clb">Twitter</div><div class="cv">@mafiaaguy</div></div></a>
+<a href="https://mafiaguy.medium.com" target="_blank" class="ck" data-a="up" data-d="400"><div class="ci" style="background:rgba(255,62,62,.08);color:var(--red)">M</div><div><div class="clb">Medium</div><div class="cv">mafiaguy.medium.com</div></div></a>
 </div>
-<div class="ch"><a href="mailto:iamsiddhanthdwivedi@gmail.com">→ iamsiddhanthdwivedi@gmail.com ←</a></div>
+<div class="ch" data-a="scale" data-d="500"><a href="mailto:iamsiddhanthdwivedi@gmail.com">&rarr; iamsiddhanthdwivedi@gmail.com &larr;</a></div>
 </div></section>
 </div>
 
 <!-- =================== TOOLS PAGE =================== -->
 <div id="page-tools" class="page">
-<div class="sub-hero" style="background:var(--bg2)"><div class="sl">SECURITY TOOLKIT</div><h1><span class="ac">Browser-Based</span> Security Tools</h1><p>All tools run 100% client-side. No data leaves your browser.</p><br><a class="back-link" onclick="nav('/')">← back to portfolio</a></div>
+<div class="sub-hero" style="background:var(--bg2)"><div class="sl vis">SECURITY TOOLKIT</div><h1><span class="ac">Browser-Based</span> Security Tools</h1><p>All tools run 100% client-side. No data leaves your browser.</p><br><a class="back-link" onclick="nav('/')">&larr; back to portfolio</a></div>
 <section><div class="si"><div class="tools-grid">
-<div class="tool-btn" onclick="openTool('password')"><div class="ti">🔐</div><div class="tn">Password Gen</div><div class="td">Secure passwords</div></div>
-<div class="tool-btn" onclick="openTool('hash')"><div class="ti">🧬</div><div class="tn">Hash Generator</div><div class="td">SHA / MD5</div></div>
-<div class="tool-btn" onclick="openTool('base64')"><div class="ti">🔄</div><div class="tn">Base64</div><div class="td">Encode / Decode</div></div>
-<div class="tool-btn" onclick="openTool('jwt')"><div class="ti">🎟️</div><div class="tn">JWT Decoder</div><div class="td">Parse tokens</div></div>
-<div class="tool-btn" onclick="openTool('url')"><div class="ti">🔗</div><div class="tn">URL Encode</div><div class="td">Encode / Decode</div></div>
-<div class="tool-btn" onclick="openTool('uuid')"><div class="ti">🆔</div><div class="tn">UUID Gen</div><div class="td">v4 UUIDs</div></div>
-<div class="tool-btn" onclick="openTool('subnet')"><div class="ti">🌐</div><div class="tn">Subnet Calc</div><div class="td">CIDR calculator</div></div>
-<div class="tool-btn" onclick="openTool('regex')"><div class="ti">🔍</div><div class="tn">Regex Tester</div><div class="td">Live matching</div></div>
-<div class="tool-btn" onclick="openTool('json')"><div class="ti">📋</div><div class="tn">JSON Format</div><div class="td">Prettify & validate</div></div>
-<div class="tool-btn" onclick="openTool('headers')"><div class="ti">📡</div><div class="tn">HTTP Headers</div><div class="td">Inspect any URL</div></div>
+<div class="tool-btn" onclick="openTool('password')"><div class="ti">&#128274;</div><div class="tn">Password Gen</div><div class="td">Secure passwords</div></div>
+<div class="tool-btn" onclick="openTool('hash')"><div class="ti">&#129516;</div><div class="tn">Hash Generator</div><div class="td">SHA / MD5</div></div>
+<div class="tool-btn" onclick="openTool('base64')"><div class="ti">&#128260;</div><div class="tn">Base64</div><div class="td">Encode / Decode</div></div>
+<div class="tool-btn" onclick="openTool('jwt')"><div class="ti">&#127915;</div><div class="tn">JWT Decoder</div><div class="td">Parse tokens</div></div>
+<div class="tool-btn" onclick="openTool('url')"><div class="ti">&#128279;</div><div class="tn">URL Encode</div><div class="td">Encode / Decode</div></div>
+<div class="tool-btn" onclick="openTool('uuid')"><div class="ti">&#127380;</div><div class="tn">UUID Gen</div><div class="td">v4 UUIDs</div></div>
+<div class="tool-btn" onclick="openTool('subnet')"><div class="ti">&#127760;</div><div class="tn">Subnet Calc</div><div class="td">CIDR</div></div>
+<div class="tool-btn" onclick="openTool('regex')"><div class="ti">&#128269;</div><div class="tn">Regex Tester</div><div class="td">Live matching</div></div>
+<div class="tool-btn" onclick="openTool('json')"><div class="ti">&#128203;</div><div class="tn">JSON Format</div><div class="td">Prettify</div></div>
+<div class="tool-btn" onclick="openTool('headers')"><div class="ti">&#128225;</div><div class="tn">HTTP Headers</div><div class="td">Inspect URL</div></div>
 </div></div></section>
 </div>
 
 <!-- =================== PLAY PAGE =================== -->
 <div id="page-play" class="page">
-<div class="sub-hero" style="background:var(--bg2)"><div class="sl">ARCADE</div><h1><span class="ac">Security</span> Games</h1><p>Take a break. Patch some vulns. Crack some ciphers.</p><br><a class="back-link" onclick="nav('/')">← back to portfolio</a></div>
-<section><div class="si">
-<div class="games-grid">
-
-<!-- Game 1: Patch the Vulns -->
-<div class="game-card"><div class="game-card-head"><h3>🛡️ Patch the Vulns</h3><span>whack-a-mole</span></div>
-<div class="ga" id="g1area">
-<div class="ga-hud"><span style="color:var(--green)" id="g1s">Score: 0</span><span style="color:var(--cyan)" id="g1t">Time: 30s</span><span style="color:var(--red)" id="g1m">Missed: 0/5</span></div>
-<div class="ga-overlay" id="g1start"><h4>Patch the Vulns</h4><p>Bugs pop up — click to patch. Miss 5 and you're breached. Survive 30s!</p><button class="btn bg" onclick="g1Start()">Start</button></div>
-<div class="ga-overlay" id="g1over" style="display:none"><h4 id="g1ot"></h4><div class="fs" id="g1os"></div><button class="btn bg" onclick="g1Start()">Again</button></div>
-</div></div>
-
-<!-- Game 2: Memory Match -->
-<div class="game-card"><div class="game-card-head"><h3>🧠 Security Memory</h3><span>match pairs</span></div>
-<div class="ga" id="g2area">
-<div class="ga-hud"><span style="color:var(--green)" id="g2s">Pairs: 0/6</span><span style="color:var(--cyan)" id="g2m">Moves: 0</span></div>
-<div class="ga-overlay" id="g2start"><h4>Security Memory Match</h4><p>Match security acronyms with their meanings. 6 pairs, fewest moves wins!</p><button class="btn bg" onclick="g2Start()">Start</button></div>
-<div class="ga-overlay" id="g2over" style="display:none"><h4 style="color:var(--green)">All Matched!</h4><div class="fs" id="g2os"></div><button class="btn bg" onclick="g2Start()">Again</button></div>
-<div class="mem-grid" id="g2grid" style="display:none"></div>
-</div></div>
-
-<!-- Game 3: Type Defense -->
-<div class="game-card"><div class="game-card-head"><h3>⌨️ Type Defense</h3><span>typing speed</span></div>
-<div class="ga" id="g3area">
-<div class="ga-hud"><span style="color:var(--green)" id="g3s">Score: 0</span><span style="color:var(--cyan)" id="g3t">Time: 45s</span><span style="color:var(--red)" id="g3m">Missed: 0/3</span></div>
-<div class="ga-overlay" id="g3start"><h4>Type Defense</h4><p>Security terms fall from the top. Type them before they reach the bottom!</p><button class="btn bg" onclick="g3Start()">Start</button></div>
-<div class="ga-overlay" id="g3over" style="display:none"><h4 id="g3ot"></h4><div class="fs" id="g3os"></div><button class="btn bg" onclick="g3Start()">Again</button></div>
-<div class="type-zone" id="g3zone" style="display:none"></div>
-<input class="type-input" id="g3in" placeholder="type here..." style="display:none" autocomplete="off" spellcheck="false">
-</div></div>
-
-<!-- Game 4: Caesar Cipher -->
-<div class="game-card"><div class="game-card-head"><h3>🔑 Cipher Decode</h3><span>caesar cipher</span></div>
-<div class="ga" id="g4area" style="cursor:default">
-<div class="ga-hud"><span style="color:var(--green)" id="g4s">Round: 1/5</span><span style="color:var(--cyan)" id="g4sc">Score: 0</span></div>
-<div class="ga-overlay" id="g4start"><h4>Cipher Decode</h4><p>Decode Caesar cipher messages by finding the right shift. 5 rounds!</p><button class="btn bg" onclick="g4Start()">Start</button></div>
-<div class="ga-overlay" id="g4over" style="display:none"><h4 style="color:var(--green)">Complete!</h4><div class="fs" id="g4os"></div><button class="btn bg" onclick="g4Start()">Again</button></div>
-<div class="cipher-box" id="g4box" style="display:none">
-<div class="cipher-display" id="g4enc"></div>
-<div class="cipher-controls"><label>Shift:</label><input type="range" id="g4shift" min="1" max="25" value="1" oninput="g4Preview()"><span id="g4sv">1</span></div>
-<div class="cipher-answer" id="g4dec"></div>
-<div style="text-align:center"><button class="btn bg" onclick="g4Check()" style="font-size:.75rem;padding:.4rem 1rem">Submit</button></div>
-</div>
-</div></div>
-
-</div>
-</div></section>
+<div class="sub-hero" style="background:var(--bg2)"><div class="sl vis">ARCADE</div><h1><span class="ac">Security</span> Games</h1><p>Take a break. Patch some vulns. Crack some ciphers.</p><br><a class="back-link" onclick="nav('/')">&larr; back to portfolio</a></div>
+<section><div class="si"><div class="games-grid">
+<div class="game-card"><div class="game-card-head"><h3>&#128737; Patch the Vulns</h3><span>whack-a-mole</span></div><div class="ga" id="g1area"><div class="ga-hud"><span style="color:var(--green)" id="g1s">Score: 0</span><span style="color:var(--cyan)" id="g1t">Time: 30s</span><span style="color:var(--red)" id="g1m">Missed: 0/5</span></div><div class="ga-overlay" id="g1start"><h4>Patch the Vulns</h4><p>Bugs pop up - click to patch. Miss 5 = breached. Survive 30s!</p><button class="btn bg" onclick="g1Start()">Start</button></div><div class="ga-overlay" id="g1over" style="display:none"><h4 id="g1ot"></h4><div class="fs" id="g1os"></div><button class="btn bg" onclick="g1Start()">Again</button></div></div></div>
+<div class="game-card"><div class="game-card-head"><h3>&#129504; Security Memory</h3><span>match pairs</span></div><div class="ga" id="g2area"><div class="ga-hud"><span style="color:var(--green)" id="g2s">Pairs: 0/6</span><span style="color:var(--cyan)" id="g2m">Moves: 0</span></div><div class="ga-overlay" id="g2start"><h4>Memory Match</h4><p>Match security acronyms with meanings. Fewest moves wins!</p><button class="btn bg" onclick="g2Start()">Start</button></div><div class="ga-overlay" id="g2over" style="display:none"><h4 style="color:var(--green)">All Matched!</h4><div class="fs" id="g2os"></div><button class="btn bg" onclick="g2Start()">Again</button></div><div class="mem-grid" id="g2grid" style="display:none"></div></div></div>
+<div class="game-card"><div class="game-card-head"><h3>&#9000; Type Defense</h3><span>typing</span></div><div class="ga" id="g3area"><div class="ga-hud"><span style="color:var(--green)" id="g3s">Score: 0</span><span style="color:var(--cyan)" id="g3t">Time: 45s</span><span style="color:var(--red)" id="g3m">Missed: 0/3</span></div><div class="ga-overlay" id="g3start"><h4>Type Defense</h4><p>Security terms fall. Type them before they hit bottom!</p><button class="btn bg" onclick="g3Start()">Start</button></div><div class="ga-overlay" id="g3over" style="display:none"><h4 id="g3ot"></h4><div class="fs" id="g3os"></div><button class="btn bg" onclick="g3Start()">Again</button></div><div class="type-zone" id="g3zone" style="display:none"></div><input class="type-input" id="g3in" placeholder="type here..." style="display:none" autocomplete="off" spellcheck="false"></div></div>
+<div class="game-card"><div class="game-card-head"><h3>&#128273; Cipher Decode</h3><span>caesar</span></div><div class="ga" id="g4area" style="cursor:default"><div class="ga-hud"><span style="color:var(--green)" id="g4s">Round: 1/5</span><span style="color:var(--cyan)" id="g4sc">Score: 0</span></div><div class="ga-overlay" id="g4start"><h4>Cipher Decode</h4><p>Decode Caesar cipher messages by finding the right shift. 5 rounds!</p><button class="btn bg" onclick="g4Start()">Start</button></div><div class="ga-overlay" id="g4over" style="display:none"><h4 style="color:var(--green)">Complete!</h4><div class="fs" id="g4os"></div><button class="btn bg" onclick="g4Start()">Again</button></div><div class="cipher-box" id="g4box" style="display:none"><div class="cipher-display" id="g4enc"></div><div class="cipher-controls"><label>Shift:</label><input type="range" id="g4shift" min="1" max="25" value="1" oninput="g4Preview()"><span id="g4sv">1</span></div><div class="cipher-answer" id="g4dec"></div><div style="text-align:center"><button class="btn bg" onclick="g4Check()" style="font-size:.75rem;padding:.4rem 1rem">Submit</button></div></div></div></div>
+</div></div></section>
 </div>
 
 <!-- TOOL MODAL -->
-<div class="modal-bg" id="toolModal" onclick="if(event.target===this)closeTool()"><div class="modal"><div class="modal-head"><h3 id="toolTitle">Tool</h3><button class="mcl" onclick="closeTool()">✕</button></div><div class="mb" id="toolBody"></div></div></div>
+<div class="modal-bg" id="toolModal" onclick="if(event.target===this)closeTool()"><div class="modal"><div class="modal-head"><h3 id="toolTitle">Tool</h3><button class="mcl" onclick="closeTool()">X</button></div><div class="mb" id="toolBody"></div></div></div>
 
 <!-- RESUME -->
-<div class="ro" id="rOverlay"><div class="rw"><div class="rtb"><div><button class="btn bg" onclick="dlResume()">↓ Download PDF</button><small>Tip: uncheck "Headers & Footers" in print dialog</small></div><button class="mcl" onclick="closeResume()">✕ close</button></div>
+<div class="ro" id="rOverlay"><div class="rw"><div class="rtb"><div><button class="btn bg" onclick="dlResume()">Download PDF</button><small>Uncheck "Headers & Footers" in print dialog</small></div><button class="mcl" onclick="closeResume()">X close</button></div>
 <div class="rp" id="rPage">
 <h1>Siddhanth Dwivedi</h1>
-<div class="rc">☎ +91 8968562055 &ensp;|&ensp; ✉ <a href="mailto:iamsiddhanthdwivedi@gmail.com">iamsiddhanthdwivedi@gmail.com</a> &ensp;|&ensp; <a href="https://github.com/mafiaguy">GitHub</a> &ensp;|&ensp; <a href="http://linkedin.com/in/mafiaguy">LinkedIn</a></div>
+<div class="rc">+91 8968562055 &#x7C; <a href="mailto:iamsiddhanthdwivedi@gmail.com">iamsiddhanthdwivedi@gmail.com</a> &#x7C; <a href="https://github.com/mafiaguy">github.com/mafiaguy</a> &#x7C; <a href="http://linkedin.com/in/mafiaguy">linkedin.com/in/mafiaguy</a></div>
 <div class="rs">Summary</div>
 <p style="font-size:9.5pt;line-height:1.5">Security Operations Engineer with 6+ years securing and operating AWS cloud platforms. Hands-on with ECS/Docker in production, CloudWatch observability, infrastructure cost optimization (30% reduction), and incident response. Seeking SRE roles combining deep security expertise with proven reliability skills. Two-time Extra Mile Award recipient.</p>
 <div class="rs">Skills</div>
-<div class="rsk"><p><strong>Containers & Orchestration:</strong> Docker, Amazon ECS (EC2 & Fargate), ECR, Kubernetes (personal projects), Container Image Hardening, Task Definition Tuning, Autoscaling, ARM/Graviton</p><p><strong>Observability:</strong> CloudWatch Metrics/Logs/Alarms/Dashboards, Log Insights, X-Ray, Prometheus & Grafana (personal projects), CloudTrail, Incident Detection & Response</p><p><strong>Cloud & Infra:</strong> AWS (EC2, Lambda, ALB/NLB, Route 53, S3, RDS, IAM, VPC, Security Hub, GuardDuty), IaC (AWS CDK, CloudFormation), Capacity Planning, Cost Optimization</p><p><strong>Security:</strong> Penetration Testing, CIS Benchmarks, WAF, Shield, ISO 27001, OWASP Top 10, Secure SDLC, CSPM, SAST, Snyk, CodeQL</p><p><strong>Languages:</strong> TypeScript, Python, Node.js, PostgreSQL, MySQL &emsp; <strong>Tools:</strong> Burp Suite, Wireshark, Nmap</p></div>
+<div class="rsk"><p><strong>Containers & Orchestration:</strong> Docker, Amazon ECS (EC2 & Fargate), ECR, Kubernetes (personal projects), Container Image Hardening, Task Definition Tuning, Autoscaling, ARM/Graviton</p><p><strong>Observability:</strong> CloudWatch Metrics/Logs/Alarms/Dashboards, Log Insights, X-Ray, Prometheus & Grafana (personal projects), CloudTrail, Incident Detection & Response</p><p><strong>Cloud & Infra:</strong> AWS (EC2, Lambda, ALB/NLB, Route 53, S3, RDS, IAM, VPC, Security Hub, GuardDuty), IaC (AWS CDK, CloudFormation), Capacity Planning, Cost Optimization</p><p><strong>Security:</strong> Penetration Testing, CIS Benchmarks, WAF, Shield, ISO 27001, OWASP Top 10, Secure SDLC, CSPM, SAST, Snyk, CodeQL</p><p><strong>Languages:</strong> TypeScript, Python, Node.js, PostgreSQL, MySQL | <strong>Tools:</strong> Burp Suite, Wireshark, Nmap</p></div>
 <div class="rs">Experience</div>
-<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Lead Security Operations Engineer</span><span class="rdt">May 2025 – Present</span></div><ul><li>Cut AWS spend 30% via ECS ARM Graviton migration + autoscaling.</li><li>Built CloudWatch observability—metrics, dashboards, composite alarms, Log Insights—for full ECS visibility.</li><li>ISO 27001 compliance via quarterly DR drills, tabletop exercises, access reviews.</li><li>Performance +20–30% through ECS task tuning, container right-sizing, modernization.</li><li>Zero-downtime DB upgrades—5% cost savings, 10% performance gains.</li><li>Migrated all envs to IaC (CDK, CloudFormation).</li><li>Owned incident resolution; reduced MTTR via runbook automation.</li><li><strong>Achievement:</strong> Extra Mile Award (May 2025).</li></ul>
-<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Senior Security Operations Engineer</span><span class="rdt">Apr 2022 – May 2025</span></div><ul><li>CIS Benchmarks; Security Hub, GuardDuty, CloudTrail monitoring.</li><li>Operated ECS container platform—rolling deploys, service health, scaling.</li><li>CloudWatch observability—structured logging, metric filters, anomaly detection.</li><li>WAF + CDK DR, cutting recovery 30%. ISO 27001:2013 certification.</li><li>Lambda automation reducing MTTR. Snyk & CodeQL—vulns down 25%.</li><li>Docker hardening—multi-stage, non-root, ECR scanning.</li><li>IAM least-privilege, Shield/WAF DDoS prevention, CloudTrail audit.</li><li><strong>Achievement:</strong> Extra Mile Award (Sep 2023).</li></ul>
-<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Security Operations Engineer</span><span class="rdt">Feb 2021 – May 2022</span></div><ul><li>Pentesting, code reviews, vuln assessments (OWASP Top 10, iOS/Android).</li><li>WAF & CloudWatch alarms. Phishing sims—risk down 35%. Dashboards for leadership.</li></ul>
-<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Delhi, India</span></div><div class="rsh"><span class="rrl">Cyber Security Instructor</span><span class="rdt">Sep 2019 – Feb 2021</span></div><ul><li>Pentesting & cloud security training. Curriculum and lab development.</li></ul>
+<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Lead Security Operations Engineer</span><span class="rdt">May 2025 - Present</span></div><ul><li>Cut AWS spend 30% via ECS ARM Graviton migration + autoscaling.</li><li>Built CloudWatch observability - metrics, dashboards, composite alarms, Log Insights - for full ECS visibility.</li><li>ISO 27001 compliance via quarterly DR drills, tabletop exercises, access reviews.</li><li>Performance +20-30% through ECS task tuning, container right-sizing, modernization.</li><li>Zero-downtime DB upgrades - 5% cost savings, 10% performance gains.</li><li>Migrated all envs to IaC (CDK, CloudFormation).</li><li>Owned incident resolution; reduced MTTR via runbook automation.</li><li><strong>Achievement:</strong> Extra Mile Award (May 2025).</li></ul>
+<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Senior Security Operations Engineer</span><span class="rdt">Apr 2022 - May 2025</span></div><ul><li>CIS Benchmarks; Security Hub, GuardDuty, CloudTrail monitoring.</li><li>Operated ECS container platform - rolling deploys, service health, scaling.</li><li>CloudWatch observability - structured logging, metric filters, anomaly detection.</li><li>WAF + CDK DR, cutting recovery 30%. ISO 27001:2013 certification.</li><li>Lambda automation reducing MTTR. Snyk & CodeQL - vulns down 25%.</li><li>Docker hardening - multi-stage, non-root, ECR scanning.</li><li>IAM least-privilege, Shield/WAF DDoS prevention, CloudTrail audit.</li><li><strong>Achievement:</strong> Extra Mile Award (Sep 2023).</li></ul>
+<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Bangalore, India</span></div><div class="rsh"><span class="rrl">Security Operations Engineer</span><span class="rdt">Feb 2021 - May 2022</span></div><ul><li>Pentesting, code reviews, vuln assessments (OWASP Top 10, iOS/Android).</li><li>WAF & CloudWatch alarms. Phishing sims - risk down 35%. Dashboards for leadership.</li></ul>
+<div class="rh"><span class="rtl">Great Learning</span><span class="rlc">Delhi, India</span></div><div class="rsh"><span class="rrl">Cyber Security Instructor</span><span class="rdt">Sep 2019 - Feb 2021</span></div><ul><li>Pentesting & cloud security training. Curriculum and lab development.</li></ul>
 <div class="rs">Projects</div>
 <div class="rph"><strong>Kubernetes Observability Home Lab</strong> <a href="https://github.com/mafiaguy">github.com/mafiaguy</a></div><p style="font-size:9.5pt;line-height:1.5;margin-top:2px">Multi-service app on Kubernetes (Minikube/kind), Prometheus metrics + alerting, Grafana dashboards for pod health and latency. Helm charts, kubectl, K8s networking.</p>
 <div class="rs">Education</div>
-<div class="rei"><div class="rh"><span class="rtl">B.Tech, CS&E</span><span class="rlc">2017–2020</span></div><p style="font-size:9.5pt;color:#444">Maharaja Surajmal Institute of Technology, Delhi</p></div>
-<div class="rei"><div class="rh"><span class="rtl">Diploma, CS&E</span><span class="rlc">2013–2016</span></div><p style="font-size:9.5pt;color:#444">Government Polytechnic College, Mohali</p></div>
+<div class="rei"><div class="rh"><span class="rtl">B.Tech, CS&E</span><span class="rlc">2017-2020</span></div><p style="font-size:9.5pt;color:#444">Maharaja Surajmal Institute of Technology, Delhi</p></div>
+<div class="rei"><div class="rh"><span class="rtl">Diploma, CS&E</span><span class="rlc">2013-2016</span></div><p style="font-size:9.5pt;color:#444">Government Polytechnic College, Mohali</p></div>
 <div class="rs">Achievements</div>
-<p style="font-size:9.5pt"><strong>Extra Mile Award</strong> — Great Learning (Sep 2023, May 2025) for ISO certification, DevSecOps adoption, cloud cost/reliability optimization.</p>
+<p style="font-size:9.5pt"><strong>Extra Mile Award</strong> - Great Learning (Sep 2023, May 2025) for ISO certification, DevSecOps adoption, cloud cost/reliability optimization.</p>
 </div></div></div>
 
-<footer><div class="fl"><a href="https://github.com/mafiaguy" target="_blank">github</a><a href="http://linkedin.com/in/mafiaguy" target="_blank">linkedin</a><a href="https://mafiaguy.medium.com" target="_blank">medium</a><a href="https://twitter.com/mafiaaguy" target="_blank">twitter</a></div><p>© 2026 siddhanth dwivedi · built with paranoia and too much chai</p></footer>
+<footer><div class="fl"><a href="https://github.com/mafiaguy" target="_blank">github</a><a href="http://linkedin.com/in/mafiaguy" target="_blank">linkedin</a><a href="https://mafiaguy.medium.com" target="_blank">medium</a><a href="https://twitter.com/mafiaaguy" target="_blank">twitter</a></div><p>&copy; 2026 siddhanth dwivedi . built with paranoia and too much chai</p></footer>
 
 <!-- TERMINAL -->
 <button class="ttg" id="ttg" onclick="toggleTerm()">[ >_ ]</button>
-<div class="tp" id="tPanel"><div class="tb"><div class="tds"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span></div><span class="ttl">sd@secops</span><button class="tcl" onclick="toggleTerm()">✕</button></div><div class="tbd" id="tBody"></div><div class="tir"><span class="tpr">$</span><input class="tin" id="tIn" type="text" autocomplete="off" spellcheck="false"></div></div>
+<div class="tp" id="tPanel"><div class="tb"><div class="tds"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span></div><span class="ttl">sd@secops</span><button class="tcl" onclick="toggleTerm()">X</button></div><div class="tbd" id="tBody"></div><div class="tir"><span class="tpr">$</span><input class="tin" id="tIn" type="text" autocomplete="off" spellcheck="false"></div></div>
 
 <script>
-// ==== ROUTING ====
-function nav(path){history.pushState(null,'',path);route();window.scrollTo(0,0);document.querySelector('.nk').classList.remove('open')}
-function route(){
-  var p=location.pathname.replace(/\/$/,'')||'/';
-  var params=new URLSearchParams(location.search);
-  if(params.has('route')){p=params.get('route').replace(/\/$/,'')||'/';history.replaceState(null,'',p==='/'?'/':p)}
-  document.querySelectorAll('.page').forEach(function(el){el.classList.remove('active')});
-  if(p==='/tools')document.getElementById('page-tools').classList.add('active');
-  else if(p==='/play')document.getElementById('page-play').classList.add('active');
-  else document.getElementById('page-main').classList.add('active');
-  document.querySelectorAll('.nk a').forEach(function(a){a.classList.toggle('active',a.dataset.page===p)});
-}
+// ===================== ROUTING =====================
+function nav(p){history.pushState(null,'',p);route();window.scrollTo(0,0);document.querySelector('.nk').classList.remove('open')}
+function route(){var p=location.pathname.replace(/\/$/,'')||'/';var q=new URLSearchParams(location.search);if(q.has('route')){p=q.get('route').replace(/\/$/,'')||'/';history.replaceState(null,'',p==='/'?'/':p)}document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});if(p==='/tools')document.getElementById('page-tools').classList.add('active');else if(p==='/play')document.getElementById('page-play').classList.add('active');else document.getElementById('page-main').classList.add('active');document.querySelectorAll('.nk a').forEach(function(a){a.classList.toggle('active',a.dataset.page===p)})}
 window.addEventListener('popstate',route);route();
+document.querySelectorAll('.nk a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){if(a.dataset.page==='/'){var cp=location.pathname.replace(/\/$/,'')||'/';if(cp!=='/'){e.preventDefault();nav('/');setTimeout(function(){document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})},100)}}document.querySelector('.nk').classList.remove('open')})});
 
-// ==== RESUME ====
+// ===================== SCROLL PROGRESS =====================
+window.addEventListener('scroll',function(){var h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('scrollProg').style.width=(window.scrollY/h*100)+'%'},{passive:true});
+
+// ===================== INTERSECTION OBSERVER (ANIM ENGINE) =====================
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=+(e.target.dataset.d||0);setTimeout(function(){e.target.classList.add('vis')},d);obs.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('[data-a],[data-sl],[data-dot],[data-badge]').forEach(function(el){obs.observe(el)});
+
+// ===================== HERO TYPEWRITER =====================
+(function(){var text='$ whoami';var el=document.getElementById('heroType');var i=0;el.innerHTML='<span class="cursor">_</span>';setTimeout(function tick(){if(i<text.length){el.innerHTML=text.substring(0,i+1)+'<span class="cursor">_</span>';i++;setTimeout(tick,80)}else{el.innerHTML=text+' <span class="cursor">_</span>';setTimeout(function(){var g=document.getElementById('glitchName');g.classList.add('active');setTimeout(function(){g.classList.remove('active')},700)},300)}},600)})();
+
+// ===================== HERO COUNTER =====================
+var counterObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var el=e.target;var target=el.dataset.count;var txt=el.dataset.counttext;if(txt){el.textContent=txt;counterObs.unobserve(el);return}var suffix=el.textContent.includes('%')?'%':el.textContent.includes('x')?'x':'+';var v=0;var end=parseInt(target);var step=Math.max(1,Math.floor(end/30));var iv=setInterval(function(){v+=step;if(v>=end){v=end;clearInterval(iv)}el.textContent=v+suffix},40);counterObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('[data-count],[data-counttext]').forEach(function(el){counterObs.observe(el)});
+
+// ===================== SKILLS PARTICLE CANVAS =====================
+(function(){var canvas=document.getElementById('skillsCanvas');if(!canvas)return;var ctx=canvas.getContext('2d');var particles=[];var N=60;var animId;
+var skillObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){canvas.classList.add('vis');startParticles();skillObs.unobserve(e.target)}})},{threshold:.2});
+skillObs.observe(canvas.parentElement);
+function resize(){canvas.width=canvas.parentElement.offsetWidth;canvas.height=canvas.parentElement.offsetHeight}
+function startParticles(){resize();particles=[];for(var i=0;i<N;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:1.5+Math.random()*1.5});draw()}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);for(var i=0;i<particles.length;i++){var p=particles[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(0,255,136,.3)';ctx.fill();for(var j=i+1;j<particles.length;j++){var q=particles[j];var dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle='rgba(0,255,136,'+(1-dist/120)*.12+')';ctx.stroke()}}}animId=requestAnimationFrame(draw)}
+window.addEventListener('resize',resize)})();
+
+// ===================== TIMELINE LINE DRAW =====================
+var tlObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){document.getElementById('tlLine').style.height=e.target.scrollHeight+'px';tlObs.unobserve(e.target)}})},{threshold:.1});
+var ew=document.querySelector('.exp-wrap');if(ew)tlObs.observe(ew);
+
+// ===================== PROJECT BOOT SEQUENCE =====================
+var bootDone=false;
+var bootObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting&&!bootDone){bootDone=true;bootObs.unobserve(e.target);var seq=['$ git fetch --all','$ scanning repositories...','$ loading mafiaguy/repos','$ done.'];var bs=document.getElementById('bootSeq');var i=0;function addLine(){if(i>=seq.length){setTimeout(function(){document.getElementById('pgrid').style.opacity='1';bs.style.display='none'},300);return}var ln=document.createElement('div');ln.className='ln';ln.textContent=seq[i];bs.appendChild(ln);setTimeout(function(){ln.classList.add('show')},50);i++;setTimeout(addLine,400)}addLine()}})},{threshold:.3});
+bootObs.observe(document.getElementById('bootSeq'));
+
+// ===================== GITHUB =====================
+(async function(){var g=document.getElementById('pgrid');try{var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');var d=await r.json();var f=d.filter(function(x){return!x.fork&&x.name.toLowerCase()!=='mafiaguy'}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).slice(0,9);if(!f.length){g.innerHTML='<div class="pld">no repos.</div>';return}g.innerHTML=f.map(function(x,i){return'<a href="'+x.html_url+'" target="_blank" class="pc" data-a="flip" data-d="'+(i*80)+'"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stargazers_count?'<span class="star">* '+x.stargazers_count+'</span>':'')+(x.forks_count?'<span>Y '+x.forks_count+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.description||'No description.')+'</p>'+(x.language?'<div class="pl"><span>'+x.language+'</span></div>':'')+'</a>'}).join('');document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)})}catch(e){g.innerHTML='<a href="https://github.com/mafiaguy?tab=repositories" target="_blank" class="pc"><h3>View on GitHub</h3></a>';g.style.opacity='1'}})();
+
+// ===================== RESUME =====================
 function openResume(){document.getElementById('rOverlay').classList.add('open');document.body.style.overflow='hidden'}
 function closeResume(){document.getElementById('rOverlay').classList.remove('open');document.body.style.overflow=''}
 document.getElementById('rOverlay').addEventListener('click',function(e){if(e.target===this)closeResume()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeResume();closeTool()}});
-function dlResume(){
-  var c=document.getElementById('rPage').innerHTML;
-  var html='<!DOCTYPE html><html><head><title>Siddhanth Dwivedi - Resume</title><style>@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");@page{size:A4;margin:0}*{margin:0;padding:0;box-sizing:border-box}body{font-family:"EB Garamond",Georgia,serif;font-size:11pt;line-height:1.4;color:#1a1a1a;padding:40px 48px;max-width:210mm}h1{font-size:20pt;font-weight:700;text-align:center;margin-bottom:4px;letter-spacing:.5px}.rc{text-align:center;font-size:9.5pt;color:#333;margin-bottom:16px;line-height:1.6}.rc a{color:#00529e;text-decoration:none}.rs{font-size:10.5pt;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;border-bottom:1.2px solid #000;padding-bottom:2px;margin:16px 0 8px;font-variant:small-caps}.rh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:1px}.rtl{font-weight:700;font-size:10pt}.rlc,.rdt{font-style:italic;font-size:9.5pt;color:#444}.rsh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:4px}.rrl{font-style:italic;font-size:9.5pt}ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:2px;font-size:9.5pt;line-height:1.45}.rsk p{font-size:9.5pt;margin-bottom:3px;line-height:1.5}.rph{display:flex;justify-content:space-between;flex-wrap:wrap}.rph strong{font-size:10pt}.rph a{font-size:9pt;color:#00529e}.rei{margin-bottom:6px}.rei p{font-size:9.5pt;color:#444}p{font-size:9.5pt;line-height:1.5}</style></head><body>'+c+'</body></html>';
-  var blob=new Blob([html],{type:'text/html'});
-  var url=URL.createObjectURL(blob);
-  var w=window.open(url);
-  setTimeout(function(){w.print();setTimeout(function(){URL.revokeObjectURL(url)},1000)},600);
-}
+function dlResume(){var c=document.getElementById('rPage').innerHTML;var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Siddhanth Dwivedi - Resume</title><style>@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");@page{size:A4;margin:14mm 16mm}*{margin:0;padding:0;box-sizing:border-box}body{font-family:"EB Garamond",Georgia,serif;font-size:11pt;line-height:1.4;color:#1a1a1a}h1{font-size:20pt;font-weight:700;text-align:center;margin-bottom:4px;letter-spacing:.5px}.rc{text-align:center;font-size:9.5pt;color:#333;margin-bottom:16px;line-height:1.8}.rc a{color:#00529e;text-decoration:none}.rs{font-size:10.5pt;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;border-bottom:1.2px solid #000;padding-bottom:2px;margin:16px 0 8px;font-variant:small-caps}.rh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:1px}.rtl{font-weight:700;font-size:10pt}.rlc,.rdt{font-style:italic;font-size:9.5pt;color:#444}.rsh{display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:4px}.rrl{font-style:italic;font-size:9.5pt}ul{padding-left:18px;margin-bottom:8px}li{margin-bottom:2px;font-size:9.5pt;line-height:1.45}.rsk p{font-size:9.5pt;margin-bottom:3px;line-height:1.5}.rph{display:flex;justify-content:space-between;flex-wrap:wrap}.rph strong{font-size:10pt}.rph a{font-size:9pt;color:#00529e}.rei{margin-bottom:6px}.rei p{font-size:9.5pt;color:#444}p{font-size:9.5pt;line-height:1.5}</style></head><body>'+c+'</body></html>';var blob=new Blob([new TextEncoder().encode(html)],{type:'text/html;charset=utf-8'});var url=URL.createObjectURL(blob);var w=window.open(url);w.onload=function(){setTimeout(function(){w.print()},400)};setTimeout(function(){URL.revokeObjectURL(url)},10000)}
 
-// ==== GITHUB ====
-(async function(){var g=document.getElementById('pgrid');try{var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');var d=await r.json();var f=d.filter(function(x){return!x.fork&&x.name.toLowerCase()!=='mafiaguy'}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).slice(0,9);if(!f.length){g.innerHTML='<div class="pld">no repos.</div>';return}g.innerHTML=f.map(function(x){return'<a href="'+x.html_url+'" target="_blank" class="pc"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stargazers_count?'<span class="star">★ '+x.stargazers_count+'</span>':'')+(x.forks_count?'<span>⑂ '+x.forks_count+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.description||'No description.')+'</p>'+(x.language?'<div class="pl"><span>'+x.language+'</span></div>':'')+'</a>'}).join('')}catch(e){g.innerHTML='<a href="https://github.com/mafiaguy?tab=repositories" target="_blank" class="pc"><h3>View on GitHub →</h3></a>'}})();
-document.querySelectorAll('.nk a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){if(a.dataset.page==='/'){var cp=location.pathname.replace(/\/$/,'')||'/';if(cp!=='/'){e.preventDefault();nav('/');setTimeout(function(){document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})},100)}}document.querySelector('.nk').classList.remove('open')})});
-
-// ==== TOOLS ====
+// ===================== TOOLS =====================
 function openTool(t){document.getElementById('toolTitle').textContent=TD[t].title;document.getElementById('toolBody').innerHTML=TD[t].html;document.getElementById('toolModal').classList.add('open');document.body.style.overflow='hidden';if(TD[t].init)TD[t].init()}
 function closeTool(){document.getElementById('toolModal').classList.remove('open');document.body.style.overflow=''}
 function cpOut(id){navigator.clipboard.writeText(document.getElementById(id).textContent)}
 var TD={
-password:{title:'🔐 Password Generator',html:'<label>Length</label><input type="range" id="pwL" min="8" max="64" value="20" oninput="genPw()"><span id="pwLV" style="font-family:monospace;font-size:.75rem;color:var(--green);margin-left:.5rem">20</span><div class="chk-row"><label><input type="checkbox" id="pwU" checked onchange="genPw()">A-Z</label><label><input type="checkbox" id="pwLo" checked onchange="genPw()">a-z</label><label><input type="checkbox" id="pwN" checked onchange="genPw()">0-9</label><label><input type="checkbox" id="pwS" checked onchange="genPw()">!@#$</label></div><div class="strength-bar"><div id="pwStr"></div></div><label>Password <button class="cbtn" onclick="cpOut(\'pwO\')">copy</button></label><div class="out" id="pwO"></div><button class="mbtn" onclick="genPw()">Regenerate</button>',init:function(){genPw()}},
-hash:{title:'🧬 Hash Generator',html:'<label>Input</label><textarea id="hI" placeholder="Text to hash..." oninput="genH()"></textarea><label>SHA-256 <button class="cbtn" onclick="cpOut(\'h256\')">copy</button></label><div class="out" id="h256"></div><label>SHA-512 <button class="cbtn" onclick="cpOut(\'h512\')">copy</button></label><div class="out" id="h512"></div><label>SHA-1 <button class="cbtn" onclick="cpOut(\'h1o\')">copy</button></label><div class="out" id="h1o"></div>'},
-base64:{title:'🔄 Base64',html:'<label>Encode</label><textarea id="b6I" placeholder="Text..." oninput="b6E()"></textarea><label>Encoded <button class="cbtn" onclick="cpOut(\'b6O\')">copy</button></label><div class="out" id="b6O"></div><label>Decode</label><textarea id="b6D" placeholder="Base64..." oninput="b6De()"></textarea><label>Decoded <button class="cbtn" onclick="cpOut(\'b6DO\')">copy</button></label><div class="out" id="b6DO"></div>'},
-jwt:{title:'🎟️ JWT Decoder',html:'<label>JWT Token</label><textarea id="jI" placeholder="eyJhbG..." oninput="decJ()"></textarea><label>Header</label><div class="out" id="jH"></div><label>Payload</label><div class="out" id="jP"></div><label>Signature</label><div class="out" id="jS"></div>'},
-url:{title:'🔗 URL Encode/Decode',html:'<label>Encode</label><textarea id="uI" placeholder="Text or URL..." oninput="uE()"></textarea><label>Encoded <button class="cbtn" onclick="cpOut(\'uO\')">copy</button></label><div class="out" id="uO"></div><label>Decode</label><textarea id="uD" placeholder="Encoded..." oninput="uDe()"></textarea><label>Decoded <button class="cbtn" onclick="cpOut(\'uDO\')">copy</button></label><div class="out" id="uDO"></div>'},
-uuid:{title:'🆔 UUID Generator',html:'<label>UUIDs <button class="cbtn" onclick="cpOut(\'uuO\')">copy</button></label><div class="out" id="uuO"></div><div style="display:flex;gap:.5rem;margin-top:.8rem"><button class="mbtn" onclick="gU(1)">×1</button><button class="mbtn sec" onclick="gU(5)">×5</button><button class="mbtn sec" onclick="gU(10)">×10</button></div>',init:function(){gU(1)}},
-subnet:{title:'🌐 Subnet Calculator',html:'<label>CIDR (e.g. 192.168.1.0/24)</label><input type="text" id="sI" placeholder="192.168.1.0/24" oninput="cSub()"><div style="margin-top:.8rem" id="sO"></div>'},
-regex:{title:'🔍 Regex Tester',html:'<label>Pattern</label><input type="text" id="rxP" placeholder="/pattern/flags" oninput="tRx()"><label>Test String</label><textarea id="rxT" placeholder="Test text..." oninput="tRx()"></textarea><label>Matches</label><div class="out" id="rxO">No matches</div>'},
-json:{title:'📋 JSON Formatter',html:'<label>Paste JSON</label><textarea id="jsI" style="min-height:120px"></textarea><div style="display:flex;gap:.5rem;margin-top:.5rem"><button class="mbtn" onclick="fJ()">Format</button><button class="mbtn sec" onclick="mJ()">Minify</button><button class="cbtn" onclick="cpOut(\'jsO\')">copy</button></div><label>Output</label><div class="out" id="jsO" style="min-height:120px"></div>'},
-headers:{title:'📡 HTTP Headers',html:'<label>URL (must support CORS)</label><input type="text" id="hdU" placeholder="https://httpbin.org/headers"><button class="mbtn" onclick="fHd()">Inspect</button><label>Headers</label><div class="out" id="hdO" style="min-height:100px">Enter URL and click inspect.</div>'}
+password:{title:'Password Generator',html:'<label>Length</label><input type="range" id="pwL" min="8" max="64" value="20" oninput="genPw()"><span id="pwLV" style="font-family:monospace;font-size:.75rem;color:var(--green);margin-left:.5rem">20</span><div class="chk-row"><label><input type="checkbox" id="pwU" checked onchange="genPw()">A-Z</label><label><input type="checkbox" id="pwLo" checked onchange="genPw()">a-z</label><label><input type="checkbox" id="pwN" checked onchange="genPw()">0-9</label><label><input type="checkbox" id="pwS" checked onchange="genPw()">Symbols</label></div><div class="strength-bar"><div id="pwStr"></div></div><label>Password <button class="cbtn" onclick="cpOut(\'pwO\')">copy</button></label><div class="out" id="pwO"></div><button class="mbtn" onclick="genPw()">Regenerate</button>',init:function(){genPw()}},
+hash:{title:'Hash Generator',html:'<label>Input</label><textarea id="hI" placeholder="Text to hash..." oninput="genH()"></textarea><label>SHA-256 <button class="cbtn" onclick="cpOut(\'h256\')">copy</button></label><div class="out" id="h256"></div><label>SHA-512 <button class="cbtn" onclick="cpOut(\'h512\')">copy</button></label><div class="out" id="h512"></div><label>SHA-1 <button class="cbtn" onclick="cpOut(\'h1o\')">copy</button></label><div class="out" id="h1o"></div>'},
+base64:{title:'Base64',html:'<label>Encode</label><textarea id="b6I" placeholder="Text..." oninput="b6E()"></textarea><label>Encoded <button class="cbtn" onclick="cpOut(\'b6O\')">copy</button></label><div class="out" id="b6O"></div><label>Decode</label><textarea id="b6D" placeholder="Base64..." oninput="b6De()"></textarea><label>Decoded <button class="cbtn" onclick="cpOut(\'b6DO\')">copy</button></label><div class="out" id="b6DO"></div>'},
+jwt:{title:'JWT Decoder',html:'<label>JWT Token</label><textarea id="jI" placeholder="eyJhbG..." oninput="decJ()"></textarea><label>Header</label><div class="out" id="jH"></div><label>Payload</label><div class="out" id="jP"></div><label>Signature</label><div class="out" id="jS"></div>'},
+url:{title:'URL Encode/Decode',html:'<label>Encode</label><textarea id="uI" placeholder="Text or URL..." oninput="uE()"></textarea><label>Encoded <button class="cbtn" onclick="cpOut(\'uO\')">copy</button></label><div class="out" id="uO"></div><label>Decode</label><textarea id="uD" placeholder="Encoded..." oninput="uDe()"></textarea><label>Decoded <button class="cbtn" onclick="cpOut(\'uDO\')">copy</button></label><div class="out" id="uDO"></div>'},
+uuid:{title:'UUID Generator',html:'<label>UUIDs <button class="cbtn" onclick="cpOut(\'uuO\')">copy</button></label><div class="out" id="uuO"></div><div style="display:flex;gap:.5rem;margin-top:.8rem"><button class="mbtn" onclick="gU(1)">x1</button><button class="mbtn sec" onclick="gU(5)">x5</button><button class="mbtn sec" onclick="gU(10)">x10</button></div>',init:function(){gU(1)}},
+subnet:{title:'Subnet Calculator',html:'<label>CIDR (e.g. 192.168.1.0/24)</label><input type="text" id="sI" placeholder="192.168.1.0/24" oninput="cSub()"><div style="margin-top:.8rem" id="sO"></div>'},
+regex:{title:'Regex Tester',html:'<label>Pattern</label><input type="text" id="rxP" placeholder="/pattern/flags" oninput="tRx()"><label>Test String</label><textarea id="rxT" placeholder="Test text..." oninput="tRx()"></textarea><label>Matches</label><div class="out" id="rxO">No matches</div>'},
+json:{title:'JSON Formatter',html:'<label>Paste JSON</label><textarea id="jsI" style="min-height:120px"></textarea><div style="display:flex;gap:.5rem;margin-top:.5rem"><button class="mbtn" onclick="fJ()">Format</button><button class="mbtn sec" onclick="mJ()">Minify</button><button class="cbtn" onclick="cpOut(\'jsO\')">copy</button></div><label>Output</label><div class="out" id="jsO" style="min-height:120px"></div>'},
+headers:{title:'HTTP Headers',html:'<label>URL (must support CORS)</label><input type="text" id="hdU" placeholder="https://httpbin.org/headers"><button class="mbtn" onclick="fHd()">Inspect</button><label>Headers</label><div class="out" id="hdO" style="min-height:100px">Enter URL and click inspect.</div>'}
 };
 function genPw(){var l=+document.getElementById('pwL').value;document.getElementById('pwLV').textContent=l;var c='';if(document.getElementById('pwU').checked)c+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(document.getElementById('pwLo').checked)c+='abcdefghijklmnopqrstuvwxyz';if(document.getElementById('pwN').checked)c+='0123456789';if(document.getElementById('pwS').checked)c+='!@#$%^&*()_+-=[]{}|;:,.<>?';if(!c)c='abcdefghijklmnopqrstuvwxyz';var a=new Uint32Array(l);crypto.getRandomValues(a);var p='';for(var i=0;i<l;i++)p+=c[a[i]%c.length];document.getElementById('pwO').textContent=p;var s=Math.min(100,l*2+(c.length>60?20:0));var b=document.getElementById('pwStr');b.style.width=s+'%';b.style.background=s<40?'var(--red)':s<70?'var(--orange)':'var(--green)'}
 async function genH(){var t=document.getElementById('hI').value;if(!t){['h256','h512','h1o'].forEach(function(x){document.getElementById(x).textContent=''});return}var e=new TextEncoder().encode(t);var h=await crypto.subtle.digest('SHA-256',e);document.getElementById('h256').textContent=hex(h);h=await crypto.subtle.digest('SHA-512',e);document.getElementById('h512').textContent=hex(h);h=await crypto.subtle.digest('SHA-1',e);document.getElementById('h1o').textContent=hex(h)}
@@ -403,47 +429,43 @@ function decJ(){var t=document.getElementById('jI').value.trim(),p=t.split('.');
 function uE(){document.getElementById('uO').textContent=encodeURIComponent(document.getElementById('uI').value)}
 function uDe(){try{document.getElementById('uDO').textContent=decodeURIComponent(document.getElementById('uD').value)}catch(e){document.getElementById('uDO').textContent='Invalid'}}
 function gU(n){var o=[];for(var i=0;i<n;i++)o.push(crypto.randomUUID());document.getElementById('uuO').textContent=o.join('\n')}
-function cSub(){var v=document.getElementById('sI').value.trim(),m=v.match(/^(\d+\.\d+\.\d+\.\d+)\/(\d+)$/);if(!m){document.getElementById('sO').innerHTML='';return}var ip=m[1].split('.').map(Number),c=+m[2];if(c<0||c>32)return;var mask=c===0?0:(0xFFFFFFFF<<(32-c))>>>0;var ipn=(ip[0]<<24|ip[1]<<16|ip[2]<<8|ip[3])>>>0;var net=(ipn&mask)>>>0;var bc=(net|(~mask>>>0))>>>0;function toI(n){return[(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.')}document.getElementById('sO').innerHTML='<div class="out" style="line-height:2"><span style="color:var(--cyan)">Network:</span> '+toI(net)+'\n<span style="color:var(--cyan)">Broadcast:</span> '+toI(bc)+'\n<span style="color:var(--cyan)">Mask:</span> '+toI(mask)+'\n<span style="color:var(--cyan)">Range:</span> '+toI(net+1)+' – '+toI(bc-1)+'\n<span style="color:var(--cyan)">Hosts:</span> '+Math.max(0,Math.pow(2,32-c)-2).toLocaleString()+'</div>'}
+function cSub(){var v=document.getElementById('sI').value.trim(),m=v.match(/^(\d+\.\d+\.\d+\.\d+)\/(\d+)$/);if(!m){document.getElementById('sO').innerHTML='';return}var ip=m[1].split('.').map(Number),c=+m[2];if(c<0||c>32)return;var mask=c===0?0:(0xFFFFFFFF<<(32-c))>>>0;var ipn=(ip[0]<<24|ip[1]<<16|ip[2]<<8|ip[3])>>>0;var net=(ipn&mask)>>>0;var bc=(net|(~mask>>>0))>>>0;function toI(n){return[(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.')}document.getElementById('sO').innerHTML='<div class="out" style="line-height:2"><span style="color:var(--cyan)">Network:</span> '+toI(net)+'\n<span style="color:var(--cyan)">Broadcast:</span> '+toI(bc)+'\n<span style="color:var(--cyan)">Mask:</span> '+toI(mask)+'\n<span style="color:var(--cyan)">Range:</span> '+toI(net+1)+' - '+toI(bc-1)+'\n<span style="color:var(--cyan)">Hosts:</span> '+Math.max(0,Math.pow(2,32-c)-2).toLocaleString()+'</div>'}
 function tRx(){var p=document.getElementById('rxP').value,t=document.getElementById('rxT').value;if(!p||!t){document.getElementById('rxO').textContent='No matches';return}try{var rm=p.match(/^\/(.+)\/([gimsuvy]*)$/);var r=rm?new RegExp(rm[1],rm[2]):new RegExp(p,'g');var ms=t.match(r);document.getElementById('rxO').textContent=ms?ms.length+' match(es):\n'+ms.join('\n'):'No matches'}catch(e){document.getElementById('rxO').textContent='Invalid: '+e.message}}
 function fJ(){try{document.getElementById('jsO').textContent=JSON.stringify(JSON.parse(document.getElementById('jsI').value),null,2)}catch(e){document.getElementById('jsO').textContent='Invalid: '+e.message}}
 function mJ(){try{document.getElementById('jsO').textContent=JSON.stringify(JSON.parse(document.getElementById('jsI').value))}catch(e){document.getElementById('jsO').textContent='Invalid: '+e.message}}
 async function fHd(){var u=document.getElementById('hdU').value.trim();if(!u)return;document.getElementById('hdO').textContent='Fetching...';try{var r=await fetch(u,{method:'HEAD',mode:'cors'});var h='Status: '+r.status+'\n\n';r.headers.forEach(function(v,k){h+=k+': '+v+'\n'});document.getElementById('hdO').textContent=h}catch(e){document.getElementById('hdO').textContent='Error: '+e.message+'\n\nTry: https://httpbin.org/headers'}}
 
-// ==== GAME 1: PATCH THE VULNS ====
+// ===================== GAMES =====================
+var vulns=['\uD83D\uDC1B','\uD83D\uDC80','\uD83D\uDD77','\u26A0\uFE0F','\uD83D\uDD13','\uD83D\uDCA3','\uD83E\uDDA0','\uD83D\uDC7E','\uD83E\uDDE8','\uD83D\uDC1E'];
 var g1={s:0,m:0,t:30,run:false,ti:null,sp:null};
-var vulns=['🐛','💀','🕷️','⚠️','🔓','💣','🦠','👾','🧨','🐞'];
 function g1Start(){g1.s=0;g1.m=0;g1.t=30;g1.run=true;document.getElementById('g1s').textContent='Score: 0';document.getElementById('g1t').textContent='Time: 30s';document.getElementById('g1m').textContent='Missed: 0/5';document.getElementById('g1start').style.display='none';document.getElementById('g1over').style.display='none';document.getElementById('g1area').querySelectorAll('.bug').forEach(function(b){b.remove()});g1.ti=setInterval(function(){g1.t--;document.getElementById('g1t').textContent='Time: '+g1.t+'s';if(g1.t<=0)g1End(true)},1000);g1.sp=setInterval(g1Spawn,800)}
 function g1Spawn(){if(!g1.run)return;var a=document.getElementById('g1area'),b=document.createElement('div');b.className='bug';b.textContent=vulns[Math.floor(Math.random()*vulns.length)];var sz=40+Math.random()*20;b.style.cssText='width:'+sz+'px;height:'+sz+'px;font-size:'+(sz*.6)+'px;left:'+Math.random()*(a.offsetWidth-sz)+'px;top:'+(40+Math.random()*(a.offsetHeight-sz-50))+'px;background:rgba(255,62,62,.15)';b.onclick=function(){if(!g1.run)return;g1.s++;document.getElementById('g1s').textContent='Score: '+g1.s;b.classList.add('hit');setTimeout(function(){b.remove()},300)};a.appendChild(b);setTimeout(function(){if(b.parentNode&&!b.classList.contains('hit')){b.remove();if(g1.run){g1.m++;document.getElementById('g1m').textContent='Missed: '+g1.m+'/5';if(g1.m>=5)g1End(false)}}},1800-Math.min(g1.s*30,800))}
-function g1End(w){g1.run=false;clearInterval(g1.ti);clearInterval(g1.sp);document.getElementById('g1area').querySelectorAll('.bug').forEach(function(b){b.remove()});var o=document.getElementById('g1over');o.style.display='flex';document.getElementById('g1ot').textContent=w?'🛡️ SYSTEM SECURED':'💀 BREACHED';document.getElementById('g1os').textContent=g1.s+' patched'}
+function g1End(w){g1.run=false;clearInterval(g1.ti);clearInterval(g1.sp);document.getElementById('g1area').querySelectorAll('.bug').forEach(function(b){b.remove()});document.getElementById('g1over').style.display='flex';document.getElementById('g1ot').textContent=w?'SYSTEM SECURED':'BREACHED';document.getElementById('g1os').textContent=g1.s+' patched'}
 
-// ==== GAME 2: MEMORY MATCH ====
 var g2={pairs:[['XSS','Cross-Site\nScripting'],['MITM','Man in\nthe Middle'],['DDoS','Distributed\nDenial'],['CSRF','Cross-Site\nRequest'],['RCE','Remote Code\nExecution'],['SSRF','Server-Side\nRequest']],flipped:[],matched:0,moves:0,lock:false};
 function g2Start(){g2.matched=0;g2.moves=0;g2.lock=false;g2.flipped=[];document.getElementById('g2s').textContent='Pairs: 0/6';document.getElementById('g2m').textContent='Moves: 0';document.getElementById('g2start').style.display='none';document.getElementById('g2over').style.display='none';var grid=document.getElementById('g2grid');grid.style.display='grid';grid.innerHTML='';var cards=[];g2.pairs.forEach(function(p,i){cards.push({id:i,text:p[0],pair:i});cards.push({id:i,text:p[1],pair:i})});cards.sort(function(){return Math.random()-.5});cards.forEach(function(c,idx){var d=document.createElement('div');d.className='mem-card';d.textContent=c.text;d.dataset.pair=c.pair;d.dataset.idx=idx;d.onclick=function(){g2Flip(d)};grid.appendChild(d)})}
 function g2Flip(card){if(g2.lock||card.classList.contains('flip')||card.classList.contains('matched'))return;card.classList.add('flip');g2.flipped.push(card);if(g2.flipped.length===2){g2.moves++;document.getElementById('g2m').textContent='Moves: '+g2.moves;g2.lock=true;var a=g2.flipped[0],b=g2.flipped[1];if(a.dataset.pair===b.dataset.pair&&a.dataset.idx!==b.dataset.idx){a.classList.add('matched');b.classList.add('matched');g2.matched++;document.getElementById('g2s').textContent='Pairs: '+g2.matched+'/6';g2.flipped=[];g2.lock=false;if(g2.matched===6){setTimeout(function(){document.getElementById('g2grid').style.display='none';document.getElementById('g2over').style.display='flex';document.getElementById('g2os').textContent=g2.moves+' moves'},500)}}else{setTimeout(function(){a.classList.remove('flip');b.classList.remove('flip');g2.flipped=[];g2.lock=false},800)}}}
 
-// ==== GAME 3: TYPE DEFENSE ====
 var g3={s:0,m:0,t:45,run:false,ti:null,sp:null,mv:null,words:[]};
-var secWords=['firewall','malware','phishing','trojan','rootkit','exploit','payload','cipher','botnet','ransomware','keylogger','backdoor','spoofing','worm','adware','spyware','honeypot','sandbox','forensic','nmap','burpsuite','wireshark','sniffing','injection','overflow'];
+var secWords=['firewall','malware','phishing','trojan','rootkit','exploit','payload','cipher','botnet','ransomware','keylogger','backdoor','spoofing','worm','honeypot','sandbox','forensic','nmap','sniffing','injection','overflow'];
 function g3Start(){g3.s=0;g3.m=0;g3.t=45;g3.run=true;g3.words=[];document.getElementById('g3s').textContent='Score: 0';document.getElementById('g3t').textContent='Time: 45s';document.getElementById('g3m').textContent='Missed: 0/3';document.getElementById('g3start').style.display='none';document.getElementById('g3over').style.display='none';var z=document.getElementById('g3zone');z.style.display='block';z.innerHTML='';var inp=document.getElementById('g3in');inp.style.display='block';inp.value='';inp.focus();g3.ti=setInterval(function(){g3.t--;document.getElementById('g3t').textContent='Time: '+g3.t+'s';if(g3.t<=0)g3End(true)},1000);g3.sp=setInterval(g3Spawn,2000);g3.mv=setInterval(g3Move,50)}
 function g3Spawn(){if(!g3.run)return;var z=document.getElementById('g3zone'),w=secWords[Math.floor(Math.random()*secWords.length)];var el=document.createElement('div');el.className='type-word';el.textContent=w;el.dataset.word=w;el.style.left=Math.random()*(z.offsetWidth-100)+'px';el.style.top='0px';z.appendChild(el);g3.words.push(el)}
 function g3Move(){if(!g3.run)return;var z=document.getElementById('g3zone'),h=z.offsetHeight;g3.words=g3.words.filter(function(el){if(!el.parentNode)return false;var t=parseFloat(el.style.top)+1.2;el.style.top=t+'px';if(t>h-20){el.remove();g3.m++;document.getElementById('g3m').textContent='Missed: '+g3.m+'/3';if(g3.m>=3)g3End(false);return false}return true})}
-document.getElementById('g3in').addEventListener('keydown',function(e){if(e.key!=='Enter'||!g3.run)return;var v=this.value.trim().toLowerCase();this.value='';var found=g3.words.find(function(el){return el.dataset.word===v});if(found){g3.s++;document.getElementById('g3s').textContent='Score: '+g3.s;found.style.color='var(--green)';found.style.transition='opacity .3s';setTimeout(function(){found.remove()},200);g3.words=g3.words.filter(function(w){return w!==found})}});
-function g3End(w){g3.run=false;clearInterval(g3.ti);clearInterval(g3.sp);clearInterval(g3.mv);document.getElementById('g3zone').style.display='none';document.getElementById('g3in').style.display='none';var o=document.getElementById('g3over');o.style.display='flex';document.getElementById('g3ot').textContent=w?'⌨️ DEFENDED':'💀 BREACHED';document.getElementById('g3os').textContent=g3.s+' destroyed'}
+document.getElementById('g3in').addEventListener('keydown',function(e){if(e.key!=='Enter'||!g3.run)return;var v=this.value.trim().toLowerCase();this.value='';var found=g3.words.find(function(el){return el.dataset.word===v});if(found){g3.s++;document.getElementById('g3s').textContent='Score: '+g3.s;found.style.color='var(--green)';setTimeout(function(){found.remove()},200);g3.words=g3.words.filter(function(w){return w!==found})}});
+function g3End(w){g3.run=false;clearInterval(g3.ti);clearInterval(g3.sp);clearInterval(g3.mv);document.getElementById('g3zone').style.display='none';document.getElementById('g3in').style.display='none';document.getElementById('g3over').style.display='flex';document.getElementById('g3ot').textContent=w?'DEFENDED':'BREACHED';document.getElementById('g3os').textContent=g3.s+' destroyed'}
 
-// ==== GAME 4: CAESAR CIPHER ====
 var g4={round:0,shift:0,msg:'',score:0,msgs:['patch your servers','encrypt all traffic','never trust user input','rotate your api keys','enable two factor auth']};
 function g4Start(){g4.round=0;g4.score=0;document.getElementById('g4start').style.display='none';document.getElementById('g4over').style.display='none';document.getElementById('g4box').style.display='flex';g4Next()}
-function g4Next(){if(g4.round>=5){document.getElementById('g4box').style.display='none';document.getElementById('g4over').style.display='flex';document.getElementById('g4os').textContent=g4.score+'/5 correct';return}g4.msg=g4.msgs[g4.round];g4.shift=Math.floor(Math.random()*25)+1;document.getElementById('g4s').textContent='Round: '+(g4.round+1)+'/5';document.getElementById('g4sc').textContent='Score: '+g4.score;document.getElementById('g4enc').textContent=caesar(g4.msg,g4.shift);document.getElementById('g4shift').value=1;document.getElementById('g4sv').textContent='1';g4Preview()}
-function caesar(t,s){return t.split('').map(function(c){if(c>='a'&&c<='z')return String.fromCharCode(((c.charCodeAt(0)-97+s)%26)+97);if(c>='A'&&c<='Z')return String.fromCharCode(((c.charCodeAt(0)-65+s)%26)+65);return c}).join('')}
-function g4Preview(){var s=+document.getElementById('g4shift').value;document.getElementById('g4sv').textContent=s;var enc=document.getElementById('g4enc').textContent;document.getElementById('g4dec').textContent=caesar(enc,26-s)}
+function g4Next(){if(g4.round>=5){document.getElementById('g4box').style.display='none';document.getElementById('g4over').style.display='flex';document.getElementById('g4os').textContent=g4.score+'/5';return}g4.msg=g4.msgs[g4.round];g4.shift=Math.floor(Math.random()*25)+1;document.getElementById('g4s').textContent='Round: '+(g4.round+1)+'/5';document.getElementById('g4sc').textContent='Score: '+g4.score;document.getElementById('g4enc').textContent=caesar(g4.msg,g4.shift);document.getElementById('g4shift').value=1;document.getElementById('g4sv').textContent='1';g4Preview()}
+function caesar(t,s){return t.split('').map(function(c){if(c>='a'&&c<='z')return String.fromCharCode(((c.charCodeAt(0)-97+s)%26)+97);return c}).join('')}
+function g4Preview(){var s=+document.getElementById('g4shift').value;document.getElementById('g4sv').textContent=s;document.getElementById('g4dec').textContent=caesar(document.getElementById('g4enc').textContent,26-s)}
 function g4Check(){var s=+document.getElementById('g4shift').value;if(s===g4.shift)g4.score++;g4.round++;g4Next()}
 
-// ==== TERMINAL ====
-var tOpen=false,tBody=document.getElementById('tBody'),tIn=document.getElementById('tIn');
-function toggleTerm(){tOpen=!tOpen;document.getElementById('tPanel').classList.toggle('open',tOpen);document.getElementById('ttg').style.display=tOpen?'none':'block';if(tOpen&&!tBody.children.length){tl('Welcome to sd@secops. Type <span class="g">help</span>.','d');tl('')}if(tOpen)tIn.focus()}
-function tl(t,c){var d=document.createElement('div');d.className='ln';d.innerHTML=c?'<span class="'+c+'">'+t+'</span>':t;tBody.appendChild(d);tBody.scrollTop=tBody.scrollHeight}
-tIn.addEventListener('keydown',function(e){if(e.key!=='Enter')return;var cmd=tIn.value.trim().toLowerCase();tIn.value='';if(!cmd)return;tl('<span class="g">$</span> '+cmd);
-switch(cmd){case'help':tl('about skills contact blog neofetch clear exit hire','d');break;case'about':tl('Siddhanth Dwivedi · Lead SecOps · 6+ yrs AWS','d');break;case'skills':tl('ECS Docker CloudWatch K8s Pentesting Python TS','d');break;case'contact':tl('✉ iamsiddhanthdwivedi@gmail.com','g');tl('⌘ github.com/mafiaguy','g');break;case'blog':tl('→ mafiaguy.medium.com','d');break;case'neofetch':tl('OS: SecOps Linux · Host: AWS ap-south-1','d');tl('Uptime: 6+ yrs · Coffee: too much chai','d');break;case'clear':tBody.innerHTML='';break;case'sudo':tl('[ACCESS DENIED] nice try ;)','r');break;case'exit':toggleTerm();break;case'hire':window.location.href='mailto:iamsiddhanthdwivedi@gmail.com';tl('Opening mail...','g');break;default:tl('not found: '+cmd+' — try help','r')}tl('')});
+// ===================== TERMINAL =====================
+var tOpen=false;
+function toggleTerm(){tOpen=!tOpen;document.getElementById('tPanel').classList.toggle('open',tOpen);document.getElementById('ttg').style.display=tOpen?'none':'block';if(tOpen&&!document.getElementById('tBody').children.length){tl('Welcome. Type <span class="g">help</span>.','d');tl('')}if(tOpen)document.getElementById('tIn').focus()}
+function tl(t,c){var d=document.createElement('div');d.className='ln';d.innerHTML=c?'<span class="'+c+'">'+t+'</span>':t;var tb=document.getElementById('tBody');tb.appendChild(d);tb.scrollTop=tb.scrollHeight}
+document.getElementById('tIn').addEventListener('keydown',function(e){if(e.key!=='Enter')return;var cmd=this.value.trim().toLowerCase();this.value='';if(!cmd)return;tl('<span class="g">$</span> '+cmd);switch(cmd){case'help':tl('about skills contact blog neofetch clear exit hire','d');break;case'about':tl('Siddhanth Dwivedi . Lead SecOps . 6+ yrs AWS','d');break;case'skills':tl('ECS Docker CloudWatch K8s Pentesting Python TS','d');break;case'contact':tl('iamsiddhanthdwivedi@gmail.com','g');tl('github.com/mafiaguy','g');break;case'blog':tl('mafiaguy.medium.com','d');break;case'neofetch':tl('OS: SecOps Linux | Host: AWS ap-south-1','d');tl('Uptime: 6+ yrs | Coffee: too much chai','d');break;case'clear':document.getElementById('tBody').innerHTML='';break;case'sudo':tl('[ACCESS DENIED] nice try ;)','r');break;case'exit':toggleTerm();break;case'hire':window.location.href='mailto:iamsiddhanthdwivedi@gmail.com';tl('Opening mail...','g');break;default:tl('not found: '+cmd+' - try help','r')}tl('')});
 </script>
 </body>
 </html>
