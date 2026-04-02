@@ -19,8 +19,32 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--green2);border-radius:2px}
 a{color:inherit;text-decoration:none}
 
+/* INTRO SCREEN */
+#intro{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+#introText{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--green);max-width:500px;width:90%;line-height:2;white-space:pre-wrap}
+#introText .caret{animation:blink .6s infinite}
+#introSkip{position:absolute;bottom:2rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);cursor:pointer;border:1px solid var(--border);padding:.3rem .8rem;border-radius:4px;transition:all .2s}
+#introSkip:hover{border-color:var(--green);color:var(--green)}
+
+/* CUSTOM CURSOR GLOW */
+#cursorGlow{position:fixed;width:300px;height:300px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(0,255,136,.04) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity .3s}
+
 /* SCROLL PROGRESS */
 #sp{position:fixed;top:0;left:0;height:2px;background:var(--green);z-index:9998;width:0;box-shadow:0 0 10px var(--green)}
+
+/* HACKER AVATAR */
+#hacker{position:fixed;bottom:0;right:2rem;z-index:80;width:140px;height:200px;pointer-events:none;transition:transform .3s}
+#hacker svg{width:100%;height:100%;filter:drop-shadow(0 0 15px rgba(0,255,136,.15))}
+#hackerScreen{transition:fill .5s}
+#hackerEyeL,#hackerEyeR{transition:transform .1s}
+#hackerBubble{position:absolute;bottom:170px;right:10px;background:var(--card);border:1px solid var(--green);border-radius:8px 8px 8px 0;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--green);white-space:nowrap;opacity:0;transform:translateY(5px);transition:all .4s;pointer-events:none;max-width:160px}
+#hackerBubble.show{opacity:1;transform:translateY(0)}
+#hackerBubble::after{content:'';position:absolute;bottom:-6px;left:8px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--green)}
+.hacker-particles{position:fixed;bottom:0;right:0;width:200px;height:250px;pointer-events:none;z-index:79;overflow:hidden}
+.h-particle{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--green);opacity:0;animation:hFloat linear infinite}
+@keyframes hFloat{0%{opacity:0;transform:translateY(0)}10%{opacity:.4}90%{opacity:.4}100%{opacity:0;transform:translateY(-200px)}}
+@media(max-width:768px){#hacker{display:none}.hacker-particles{display:none}#cursorGlow{display:none}}
 
 /* NAV */
 nav{position:fixed;top:2px;width:100%;z-index:100;background:rgba(6,6,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
@@ -248,6 +272,59 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 </style>
 </head>
 <body>
+<!-- INTRO BOOT SEQUENCE -->
+<div id="intro">
+<div id="introText"></div>
+<div id="introSkip" onclick="skipIntro()">skip &rarr;</div>
+</div>
+
+<!-- CURSOR GLOW -->
+<div id="cursorGlow"></div>
+
+<!-- HACKER AVATAR -->
+<div class="hacker-particles" id="hParticles"></div>
+<div id="hacker">
+<div id="hackerBubble"></div>
+<svg viewBox="0 0 140 200" xmlns="http://www.w3.org/2000/svg">
+<!-- Body/Hoodie -->
+<path d="M30,200 L30,130 C30,100 40,85 70,75 C100,85 110,100 110,130 L110,200" fill="#0e1118" stroke="#1a2030" stroke-width="1"/>
+<!-- Hood -->
+<path d="M35,95 C35,55 45,35 70,30 C95,35 105,55 105,95 C105,105 95,115 70,118 C45,115 35,105 35,95Z" fill="#141a24" stroke="#1e2a3a" stroke-width="1"/>
+<!-- Face shadow -->
+<ellipse cx="70" cy="90" rx="28" ry="22" fill="#0a0e14"/>
+<!-- Eyes -->
+<circle id="hackerEyeL" cx="58" cy="88" r="3" fill="#00ff88">
+<animate attributeName="opacity" values="1;1;.3;1" dur="3s" repeatCount="indefinite"/>
+</circle>
+<circle id="hackerEyeR" cx="82" cy="88" r="3" fill="#00ff88">
+<animate attributeName="opacity" values="1;1;.3;1" dur="3s" repeatCount="indefinite"/>
+</circle>
+<!-- Eye glow -->
+<circle cx="58" cy="88" r="6" fill="none" stroke="#00ff88" stroke-width=".5" opacity=".2"/>
+<circle cx="82" cy="88" r="6" fill="none" stroke="#00ff88" stroke-width=".5" opacity=".2"/>
+<!-- Laptop base -->
+<rect x="35" y="145" width="70" height="5" rx="2" fill="#1a2030" stroke="#2a3a50" stroke-width=".5"/>
+<!-- Laptop screen -->
+<rect x="40" y="118" width="60" height="27" rx="2" fill="#0d1117" stroke="#1e2a3a" stroke-width=".8"/>
+<rect id="hackerScreen" x="43" y="121" width="54" height="21" rx="1" fill="#0a1a0a" opacity=".9"/>
+<!-- Screen content lines -->
+<g id="screenLines">
+<rect x="46" y="124" width="20" height="1.5" rx=".5" fill="#00ff88" opacity=".6"/>
+<rect x="46" y="128" width="35" height="1.5" rx=".5" fill="#00e5ff" opacity=".4"/>
+<rect x="46" y="132" width="15" height="1.5" rx=".5" fill="#ff8a00" opacity=".4"/>
+<rect x="46" y="136" width="28" height="1.5" rx=".5" fill="#00ff88" opacity=".3"/>
+</g>
+<!-- Screen glow -->
+<rect x="40" y="118" width="60" height="27" rx="2" fill="url(#screenGlow)" opacity=".15"/>
+<!-- Hands on keyboard -->
+<ellipse cx="50" cy="143" rx="8" ry="4" fill="#1a1a2e" opacity=".7"/>
+<ellipse cx="90" cy="143" rx="8" ry="4" fill="#1a1a2e" opacity=".7"/>
+<defs>
+<radialGradient id="screenGlow" cx="50%" cy="50%"><stop offset="0%" stop-color="#00ff88"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+</defs>
+</svg>
+</div>
+
 <div id="sp"></div>
 
 <nav><div class="ni">
@@ -403,7 +480,119 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 <div class="tp" id="tPanel"><div class="tb"><div class="tds"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span></div><span class="ttl">sd@secops</span><button class="tcl" onclick="toggleTerm()">X</button></div><div class="tbd" id="tBody"></div><div class="tir"><span class="tpr">$</span><input class="tin" id="tIn" type="text" autocomplete="off" spellcheck="false"></div></div>
 
 <script>
-// ===== ROUTING =====
+// ===== INTRO BOOT SEQUENCE =====
+var introLines=[
+'[BOOT] initializing sd@secops kernel...',
+'[OK] loading security modules',
+'[OK] mounting encrypted volumes',
+'[OK] scanning network interfaces',
+'[OK] aws credentials loaded',
+'[OK] cloudwatch agent started',
+'[OK] ecs cluster connected',
+'[OK] docker daemon running',
+'[WARN] vulnerability scan: 0 critical',
+'[OK] firewall rules applied',
+'[OK] iso 27001 compliance: PASSED',
+'',
+'> welcome to siddhanth dwivedi\'s portfolio',
+'> establishing secure connection...',
+'> ACCESS GRANTED'
+];
+var introEl=document.getElementById('introText');
+var introIdx=0,introChar=0,introTimer,introDone=false;
+function typeIntro(){
+  if(introDone)return;
+  if(introIdx>=introLines.length){setTimeout(skipIntro,600);return}
+  var line=introLines[introIdx];
+  if(introChar===0&&introIdx>0)introEl.innerHTML+='\n';
+  if(introChar<line.length){
+    var ch=line[introChar];
+    var span=line.startsWith('[OK]')?'<span style="color:var(--green)">'+ch+'</span>':line.startsWith('[WARN]')?'<span style="color:var(--orange)">'+ch+'</span>':line.startsWith('>')?'<span style="color:var(--cyan)">'+ch+'</span>':ch;
+    introEl.innerHTML=introEl.innerHTML.replace(/<span class="caret">_<\/span>$/,'')+span+'<span class="caret">_</span>';
+    introChar++;
+    introTimer=setTimeout(typeIntro,line.startsWith('>')?40:15);
+  }else{introIdx++;introChar=0;introTimer=setTimeout(typeIntro,introIdx>=introLines.length?0:100)}
+}
+function skipIntro(){if(introDone)return;introDone=true;clearTimeout(introTimer);document.getElementById('intro').classList.add('done');document.body.style.overflow=''}
+document.body.style.overflow='hidden';
+setTimeout(typeIntro,400);
+
+// ===== CURSOR GLOW =====
+var cursorGlow=document.getElementById('cursorGlow');
+var mouseX=0,mouseY=0;
+document.addEventListener('mousemove',function(e){
+  mouseX=e.clientX;mouseY=e.clientY;
+  cursorGlow.style.left=e.clientX+'px';
+  cursorGlow.style.top=e.clientY+'px';
+  trackEyes(e.clientX,e.clientY);
+},{passive:true});
+
+// ===== HACKER EYE TRACKING =====
+function trackEyes(mx,my){
+  var hk=document.getElementById('hacker');if(!hk)return;
+  var rect=hk.getBoundingClientRect();
+  var cx=rect.left+70,cy=rect.top+88;
+  var dx=mx-cx,dy=my-cy;
+  var dist=Math.sqrt(dx*dx+dy*dy);
+  var maxMove=2.5;
+  var moveX=dist>0?(dx/dist)*Math.min(maxMove,dist/50):0;
+  var moveY=dist>0?(dy/dist)*Math.min(maxMove,dist/50):0;
+  var eL=document.getElementById('hackerEyeL');
+  var eR=document.getElementById('hackerEyeR');
+  if(eL)eL.setAttribute('transform','translate('+moveX+','+moveY+')');
+  if(eR)eR.setAttribute('transform','translate('+moveX+','+moveY+')');
+}
+
+// ===== HACKER AVATAR STATE =====
+var hackerBubble=document.getElementById('hackerBubble');
+var currentSection='';
+var bubbleTexts={
+  hero:'> initializing...',
+  skills:['> docker pull nginx','> kubectl get pods','> aws ecs describe','> nmap -sV target','> python exploit.py'],
+  experience:'> 6+ years and counting',
+  projects:'> git push origin main',
+  blog:'> writing new post...',
+  contact:'> open to opportunities!'
+};
+var skillBubbleIdx=0;
+function updateHackerState(section){
+  if(section===currentSection)return;
+  currentSection=section;
+  var bubble=hackerBubble;
+  bubble.classList.remove('show');
+  var lines=document.getElementById('screenLines');
+  if(!lines)return;
+  var colors={hero:['#00ff88','#00e5ff','#ff8a00','#00ff88'],skills:['#00e5ff','#a78bfa','#00ff88','#00e5ff'],experience:['#00ff88','#ff8a00','#00ff88','#a78bfa'],projects:['#a78bfa','#00ff88','#00e5ff','#ff8a00'],blog:['#00e5ff','#00ff88','#f472b6','#00e5ff'],contact:['#00ff88','#00ff88','#00e5ff','#00ff88']};
+  var c=colors[section]||colors.hero;
+  var rects=lines.querySelectorAll('rect');
+  rects.forEach(function(r,i){r.setAttribute('fill',c[i]||c[0])});
+  setTimeout(function(){
+    var txt;
+    if(section==='skills'){txt=bubbleTexts.skills[skillBubbleIdx%bubbleTexts.skills.length];skillBubbleIdx++}
+    else txt=bubbleTexts[section]||'';
+    if(txt){bubble.textContent=txt;bubble.classList.add('show')}
+  },200);
+}
+
+// ===== HACKER PARTICLES =====
+(function(){
+  var container=document.getElementById('hParticles');
+  var chars='01{}[]<>/\\|;:=+-*&^%$#@!~'.split('');
+  function spawnParticle(){
+    var p=document.createElement('div');
+    p.className='h-particle';
+    p.textContent=chars[Math.floor(Math.random()*chars.length)];
+    p.style.left=(40+Math.random()*120)+'px';
+    p.style.bottom='10px';
+    p.style.animationDuration=(3+Math.random()*4)+'s';
+    p.style.animationDelay=(Math.random()*2)+'s';
+    p.style.fontSize=(.45+Math.random()*.3)+'rem';
+    p.style.color=Math.random()>.7?'var(--cyan)':'var(--green)';
+    container.appendChild(p);
+    setTimeout(function(){p.remove()},8000);
+  }
+  setInterval(spawnParticle,400);
+})();
 function nav(p){history.pushState(null,'',p);route();window.scrollTo(0,0);document.querySelector('.nk').classList.remove('open')}
 function route(){var p=location.pathname.replace(/\/$/,'')||'/';var q=new URLSearchParams(location.search);if(q.has('route')){p=q.get('route').replace(/\/$/,'')||'/';history.replaceState(null,'',p==='/'?'/':p)}document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});if(p==='/tools'){document.getElementById('page-tools').classList.add('active');initTools()}else if(p==='/play'){document.getElementById('page-play').classList.add('active');initGames()}else document.getElementById('page-main').classList.add('active')}
 window.addEventListener('popstate',route);route();
@@ -416,14 +605,20 @@ window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(o
 function onScroll(){
   ticking=false;
   var sy=window.scrollY,wh=window.innerHeight,dh=document.documentElement.scrollHeight;
-  // Progress bar
   document.getElementById('sp').style.width=(sy/(dh-wh)*100)+'%';
-  // Hero parallax
   heroParallax(sy,wh);
-  // Skills showcase
   skillsScroll(sy,wh);
-  // Timeline fill
   timelineFill(sy,wh);
+  // Hacker avatar section detection
+  var sections=['contact','blog','projects','experience','skills','about'];
+  var detected='hero';
+  for(var i=0;i<sections.length;i++){var el=document.getElementById(sections[i]);if(el&&el.getBoundingClientRect().top<wh*.6){detected=sections[i];break}}
+  var ss=document.getElementById('skillsShowcase');
+  if(ss){var r=ss.getBoundingClientRect();if(r.top<wh*.5&&r.bottom>wh*.3)detected='skills'}
+  updateHackerState(detected);
+  // Subtle hacker bob
+  var bob=Math.sin(sy*.005)*4;
+  var hk=document.getElementById('hacker');if(hk)hk.style.transform='translateY('+bob+'px)';
 }
 
 // ===== HERO PARALLAX =====
