@@ -20,12 +20,20 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 a{color:inherit;text-decoration:none}
 
 /* INTRO SCREEN */
-#intro{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s,visibility .8s}
+#intro{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s,visibility .6s}
 #intro.done{opacity:0;visibility:hidden;pointer-events:none}
-#introText{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--green);max-width:500px;width:90%;line-height:2;white-space:pre-wrap}
-#introText .caret{animation:blink .6s infinite}
-#introSkip{position:absolute;bottom:2rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);cursor:pointer;border:1px solid var(--border);padding:.3rem .8rem;border-radius:4px;transition:all .2s}
+#introCanvas{position:absolute;inset:0;opacity:.15}
+#introCenter{position:relative;z-index:1;text-align:center}
+#introCenter h2{font-family:'JetBrains Mono',monospace;font-size:clamp(1.5rem,4vw,3rem);font-weight:700;color:var(--green);opacity:0;transform:scale(.8);transition:all .5s;text-shadow:0 0 40px rgba(0,255,136,.3)}
+#introCenter h2.show{opacity:1;transform:scale(1)}
+#introCenter .sub{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text3);margin-top:.5rem;opacity:0;transition:opacity .4s .2s}
+#introCenter .sub.show{opacity:1}
+#introBar{width:200px;height:2px;background:var(--border);margin:1.5rem auto 0;border-radius:1px;overflow:hidden}
+#introBarFill{height:100%;width:0;background:var(--green);border-radius:1px;box-shadow:0 0 10px var(--green);transition:width .1s linear}
+#introSkip{position:absolute;bottom:2rem;right:2rem;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--text3);cursor:pointer;border:1px solid var(--border);padding:.25rem .6rem;border-radius:3px;z-index:2;transition:all .2s}
 #introSkip:hover{border-color:var(--green);color:var(--green)}
+#introGlitch{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .1s}
+#introGlitch.flash{opacity:1;background:rgba(0,255,136,.08)}
 
 /* CUSTOM CURSOR GLOW */
 #cursorGlow{position:fixed;width:300px;height:300px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(0,255,136,.04) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity .3s}
@@ -34,13 +42,47 @@ a{color:inherit;text-decoration:none}
 #sp{position:fixed;top:0;left:0;height:2px;background:var(--green);z-index:9998;width:0;box-shadow:0 0 10px var(--green)}
 
 /* HACKER AVATAR */
-#hacker{position:fixed;bottom:0;right:2rem;z-index:80;width:140px;height:200px;pointer-events:none;transition:transform .3s}
-#hacker svg{width:100%;height:100%;filter:drop-shadow(0 0 15px rgba(0,255,136,.15))}
-#hackerScreen{transition:fill .5s}
+#hacker{position:fixed;z-index:80;width:120px;height:170px;transition:left .8s cubic-bezier(.16,1,.3,1),right .8s cubic-bezier(.16,1,.3,1),bottom .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none;bottom:10px;right:3rem}
+#hacker.walk{animation:hackerWalk .4s ease-in-out infinite}
+#hacker.flipped svg{transform:scaleX(-1)}
+#hacker.clickable{pointer-events:auto;cursor:pointer}
+#hacker.clickable:hover{filter:drop-shadow(0 0 20px rgba(0,255,136,.3))!important}
+@keyframes hackerWalk{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#hacker svg{width:100%;height:100%;filter:drop-shadow(0 0 12px rgba(0,255,136,.12));transition:transform .3s}
 #hackerEyeL,#hackerEyeR{transition:transform .1s}
-#hackerBubble{position:absolute;bottom:170px;right:10px;background:var(--card);border:1px solid var(--green);border-radius:8px 8px 8px 0;padding:6px 10px;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--green);white-space:nowrap;opacity:0;transform:translateY(5px);transition:all .4s;pointer-events:none;max-width:160px}
-#hackerBubble.show{opacity:1;transform:translateY(0)}
-#hackerBubble::after{content:'';position:absolute;bottom:-6px;left:8px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--green)}
+#hackerBubble{position:absolute;bottom:145px;background:var(--card);border:1px solid var(--green);border-radius:10px 10px 10px 2px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--green);opacity:0;transform:translateY(8px) scale(.95);transition:all .4s cubic-bezier(.16,1,.3,1);pointer-events:none;width:220px;line-height:1.6;left:0}
+#hackerBubble.show{opacity:1;transform:translateY(0) scale(1)}
+#hackerBubble.right{left:auto;right:0;border-radius:10px 10px 2px 10px}
+#hackerBubble::after{content:'';position:absolute;bottom:-7px;left:12px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid var(--green)}
+#hackerBubble.right::after{left:auto;right:12px}
+#hackerWave{transform-origin:70% 70%;display:none}
+#hackerWave.show{display:block;animation:wave .6s ease-in-out 3}
+@keyframes wave{0%,100%{transform:rotate(0)}25%{transform:rotate(15deg)}75%{transform:rotate(-10deg)}}
+#hackerHint{position:fixed;bottom:185px;right:3rem;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--text3);z-index:80;animation:float 2s ease-in-out infinite;pointer-events:none;opacity:0;transition:opacity .8s 4s}
+#hackerHint.show{opacity:1}
+
+/* CHAT PANEL */
+#chatPanel{position:fixed;bottom:0;right:0;left:0;margin:0 auto;width:min(420px,94vw);height:min(520px,75vh);background:var(--bg2);border:1px solid var(--green);border-bottom:none;border-radius:14px 14px 0 0;z-index:85;display:none;flex-direction:column;box-shadow:0 -10px 50px rgba(0,0,0,.6),0 0 40px rgba(0,255,136,.06)}
+#chatPanel.open{display:flex}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:.55rem .9rem;background:rgba(0,255,136,.04);border-bottom:1px solid var(--border);border-radius:14px 14px 0 0}
+.chat-head h4{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--green);display:flex;align-items:center;gap:.4rem}
+.chat-head h4 .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.chat-close{background:none;border:1px solid var(--border);color:var(--text3);font-size:.68rem;cursor:pointer;padding:.2rem .5rem;border-radius:3px;font-family:'JetBrains Mono',monospace;transition:all .2s}.chat-close:hover{border-color:var(--red);color:var(--red)}
+.chat-msgs{flex:1;overflow-y:auto;padding:.7rem;display:flex;flex-direction:column;gap:.5rem}
+.chat-msg{max-width:85%;padding:.45rem .7rem;border-radius:8px;font-size:.75rem;line-height:1.5;animation:msgIn .3s ease-out}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.chat-msg.bot{background:var(--card);border:1px solid var(--border);color:var(--text);align-self:flex-start;border-radius:8px 8px 8px 2px}
+.chat-msg.bot .bot-name{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--green);margin-bottom:.15rem}
+.chat-msg.user{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.15);color:var(--green);align-self:flex-end;border-radius:8px 8px 2px 8px;font-family:'JetBrains Mono',monospace}
+.chat-msg.bot.typing .dots{display:inline-flex;gap:3px}.dots span{width:4px;height:4px;border-radius:50%;background:var(--green);animation:dotBounce .6s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes dotBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:.25rem;padding:0 .7rem .4rem}
+.chat-sug{font-family:'JetBrains Mono',monospace;font-size:.6rem;padding:.2rem .45rem;border:1px solid var(--border);border-radius:10px;color:var(--text2);cursor:pointer;background:transparent;transition:all .2s}.chat-sug:hover{border-color:var(--green);color:var(--green)}
+.chat-input-row{display:flex;gap:.35rem;padding:.5rem .7rem;border-top:1px solid var(--border);background:rgba(0,0,0,.2)}
+.chat-input{flex:1;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:.4rem .55rem;border-radius:6px;outline:none;transition:border-color .2s}.chat-input:focus{border-color:var(--green)}
+.chat-send{background:var(--green);color:var(--bg);border:none;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;padding:.4rem .6rem;border-radius:6px;cursor:pointer;transition:opacity .2s}.chat-send:hover{opacity:.85}
+@media(max-width:768px){#hacker{width:80px;height:120px;right:1rem}#hackerBubble{width:160px;font-size:.55rem;bottom:105px}#hackerHint{display:none}}
 .hacker-particles{position:fixed;bottom:0;right:0;width:200px;height:250px;pointer-events:none;z-index:79;overflow:hidden}
 .h-particle{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--green);opacity:0;animation:hFloat linear infinite}
 @keyframes hFloat{0%{opacity:0;transform:translateY(0)}10%{opacity:.4}90%{opacity:.4}100%{opacity:0;transform:translateY(-200px)}}
@@ -272,18 +314,25 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 </style>
 </head>
 <body>
-<!-- INTRO BOOT SEQUENCE -->
+<!-- INTRO -->
 <div id="intro">
-<div id="introText"></div>
-<div id="introSkip" onclick="skipIntro()">skip &rarr;</div>
+<canvas id="introCanvas"></canvas>
+<div id="introGlitch"></div>
+<div id="introCenter">
+<h2 id="introTitle">SIDDHANTH DWIVEDI</h2>
+<div class="sub" id="introSub">security operations engineer</div>
+<div id="introBar"><div id="introBarFill"></div></div>
+</div>
+<div id="introSkip" onclick="skipIntro()">skip</div>
 </div>
 
 <!-- CURSOR GLOW -->
 <div id="cursorGlow"></div>
 
-<!-- HACKER AVATAR -->
+<!-- HACKER AVATAR + CHAT -->
 <div class="hacker-particles" id="hParticles"></div>
-<div id="hacker">
+<div id="hackerHint">i'll guide you &darr;</div>
+<div id="hacker" onclick="if(this.classList.contains('clickable'))toggleChat()">
 <div id="hackerBubble"></div>
 <svg viewBox="0 0 140 200" xmlns="http://www.w3.org/2000/svg">
 <!-- Body/Hoodie -->
@@ -326,6 +375,25 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 </div>
 
 <div id="sp"></div>
+
+<!-- CHAT PANEL -->
+<div id="chatPanel">
+<div class="chat-head"><h4><span class="dot"></span> sd_bot // ask me anything</h4><button class="chat-close" onclick="toggleChat()">X</button></div>
+<div class="chat-msgs" id="chatMsgs">
+<div class="chat-msg bot"><div class="bot-name">siddhanth // sd_bot</div>hey! thanks for scrolling through my portfolio. i'm siddhanth — ask me anything about my experience, skills, projects, or if you want to hire me for SRE roles!</div>
+</div>
+<div class="chat-suggestions" id="chatSugs">
+<button class="chat-sug" onclick="askSug(this)">What do you do?</button>
+<button class="chat-sug" onclick="askSug(this)">Why hire you?</button>
+<button class="chat-sug" onclick="askSug(this)">Tech stack?</button>
+<button class="chat-sug" onclick="askSug(this)">Generate a password</button>
+<button class="chat-sug" onclick="askSug(this)">Fun facts?</button>
+</div>
+<div class="chat-input-row">
+<input class="chat-input" id="chatIn" placeholder="ask about siddhanth..." autocomplete="off" spellcheck="false">
+<button class="chat-send" onclick="sendChat()">send</button>
+</div>
+</div>
 
 <nav><div class="ni">
 <a class="nl" onclick="nav('/')">sd<span>@</span>secops<span>:~$</span></a>
@@ -480,121 +548,233 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 <div class="tp" id="tPanel"><div class="tb"><div class="tds"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span></div><span class="ttl">sd@secops</span><button class="tcl" onclick="toggleTerm()">X</button></div><div class="tbd" id="tBody"></div><div class="tir"><span class="tpr">$</span><input class="tin" id="tIn" type="text" autocomplete="off" spellcheck="false"></div></div>
 
 <script>
-// ===== INTRO BOOT SEQUENCE =====
-var introLines=[
-'[BOOT] initializing sd@secops kernel...',
-'[OK] loading security modules',
-'[OK] mounting encrypted volumes',
-'[OK] scanning network interfaces',
-'[OK] aws credentials loaded',
-'[OK] cloudwatch agent started',
-'[OK] ecs cluster connected',
-'[OK] docker daemon running',
-'[WARN] vulnerability scan: 0 critical',
-'[OK] firewall rules applied',
-'[OK] iso 27001 compliance: PASSED',
-'',
-'> welcome to siddhanth dwivedi\'s portfolio',
-'> establishing secure connection...',
-'> ACCESS GRANTED'
-];
-var introEl=document.getElementById('introText');
-var introIdx=0,introChar=0,introTimer,introDone=false;
-function typeIntro(){
-  if(introDone)return;
-  if(introIdx>=introLines.length){setTimeout(skipIntro,600);return}
-  var line=introLines[introIdx];
-  if(introChar===0&&introIdx>0)introEl.innerHTML+='\n';
-  if(introChar<line.length){
-    var ch=line[introChar];
-    var span=line.startsWith('[OK]')?'<span style="color:var(--green)">'+ch+'</span>':line.startsWith('[WARN]')?'<span style="color:var(--orange)">'+ch+'</span>':line.startsWith('>')?'<span style="color:var(--cyan)">'+ch+'</span>':ch;
-    introEl.innerHTML=introEl.innerHTML.replace(/<span class="caret">_<\/span>$/,'')+span+'<span class="caret">_</span>';
-    introChar++;
-    introTimer=setTimeout(typeIntro,line.startsWith('>')?40:15);
-  }else{introIdx++;introChar=0;introTimer=setTimeout(typeIntro,introIdx>=introLines.length?0:100)}
-}
-function skipIntro(){if(introDone)return;introDone=true;clearTimeout(introTimer);document.getElementById('intro').classList.add('done');document.body.style.overflow=''}
+// ===== FAST CINEMATIC INTRO =====
+var introDone=false;
+(function(){
+  // Matrix rain on intro canvas
+  var cv=document.getElementById('introCanvas'),cx=cv.getContext('2d');
+  cv.width=window.innerWidth;cv.height=window.innerHeight;
+  var cols=Math.floor(cv.width/12),drops=Array(cols).fill(0),chars='01アウエカキサシスセソ><{}[];=+-*/&|~';
+  function drawRain(){cx.fillStyle='rgba(6,6,10,.1)';cx.fillRect(0,0,cv.width,cv.height);cx.fillStyle='#00ff88';cx.font='10px JetBrains Mono,monospace';for(var i=0;i<drops.length;i++){cx.fillText(chars[Math.floor(Math.random()*chars.length)],i*12,drops[i]*12);if(drops[i]*12>cv.height&&Math.random()>.97)drops[i]=0;drops[i]++}}
+  var rainId=setInterval(drawRain,40);
+  // Sequence: flash > show title > fill bar > done
+  var bar=document.getElementById('introBarFill'),title=document.getElementById('introTitle'),sub=document.getElementById('introSub'),gl=document.getElementById('introGlitch');
+  var progress=0;
+  setTimeout(function(){gl.classList.add('flash');setTimeout(function(){gl.classList.remove('flash')},100)},200);
+  setTimeout(function(){title.classList.add('show');sub.classList.add('show')},400);
+  setTimeout(function(){
+    var iv=setInterval(function(){progress+=4;bar.style.width=progress+'%';if(progress>=100){clearInterval(iv);gl.classList.add('flash');setTimeout(function(){gl.classList.remove('flash');skipIntro()},150)}},30);
+  },600);
+  setTimeout(function(){clearInterval(rainId)},3500);
+})();
+function skipIntro(){if(introDone)return;introDone=true;document.getElementById('intro').classList.add('done');document.body.style.overflow='';setTimeout(function(){document.getElementById('hackerHint').classList.add('show')},2000)}
 document.body.style.overflow='hidden';
-setTimeout(typeIntro,400);
 
 // ===== CURSOR GLOW =====
 var cursorGlow=document.getElementById('cursorGlow');
-var mouseX=0,mouseY=0;
 document.addEventListener('mousemove',function(e){
-  mouseX=e.clientX;mouseY=e.clientY;
-  cursorGlow.style.left=e.clientX+'px';
-  cursorGlow.style.top=e.clientY+'px';
+  cursorGlow.style.left=e.clientX+'px';cursorGlow.style.top=e.clientY+'px';
   trackEyes(e.clientX,e.clientY);
 },{passive:true});
 
 // ===== HACKER EYE TRACKING =====
 function trackEyes(mx,my){
   var hk=document.getElementById('hacker');if(!hk)return;
-  var rect=hk.getBoundingClientRect();
-  var cx=rect.left+70,cy=rect.top+88;
-  var dx=mx-cx,dy=my-cy;
-  var dist=Math.sqrt(dx*dx+dy*dy);
-  var maxMove=2.5;
-  var moveX=dist>0?(dx/dist)*Math.min(maxMove,dist/50):0;
-  var moveY=dist>0?(dy/dist)*Math.min(maxMove,dist/50):0;
-  var eL=document.getElementById('hackerEyeL');
-  var eR=document.getElementById('hackerEyeR');
+  var rect=hk.getBoundingClientRect();var cx=rect.left+70,cy=rect.top+88;
+  var dx=mx-cx,dy=my-cy,dist=Math.sqrt(dx*dx+dy*dy),m=2.5;
+  var moveX=dist>0?(dx/dist)*Math.min(m,dist/50):0,moveY=dist>0?(dy/dist)*Math.min(m,dist/50):0;
+  var eL=document.getElementById('hackerEyeL'),eR=document.getElementById('hackerEyeR');
   if(eL)eL.setAttribute('transform','translate('+moveX+','+moveY+')');
   if(eR)eR.setAttribute('transform','translate('+moveX+','+moveY+')');
 }
 
-// ===== HACKER AVATAR STATE =====
-var hackerBubble=document.getElementById('hackerBubble');
-var currentSection='';
-var bubbleTexts={
-  hero:'> initializing...',
-  skills:['> docker pull nginx','> kubectl get pods','> aws ecs describe','> nmap -sV target','> python exploit.py'],
-  experience:'> 6+ years and counting',
-  projects:'> git push origin main',
-  blog:'> writing new post...',
-  contact:'> open to opportunities!'
+// ===== HACKER STATE + MOVEMENT =====
+var hackerBubble=document.getElementById('hackerBubble'),currentSection='',bubbleTimer,moveTimer;
+var hacker=document.getElementById('hacker');
+var tourGuide={
+  about:{left:'auto',right:'3rem',bottom:'10px',flip:false,bubble:"hey! i'm siddhanth. scroll down and i'll show you my world.",side:'right'},
+  skills:{left:'2rem',right:'auto',bottom:'30%',flip:false,bubble:"these are my core skills. docker, ecs, cloudwatch, pentesting — i live in the AWS world.",side:'left'},
+  experience:{left:'auto',right:'2rem',bottom:'20%',flip:true,bubble:"6+ years, all at Great Learning. grew from teaching pentesting to leading cloud security.",side:'right'},
+  projects:{left:'2rem',right:'auto',bottom:'15%',flip:false,bubble:"my open source repos — fetched live from github. i build security tools and more.",side:'left'},
+  blog:{left:'auto',right:'2rem',bottom:'20%',flip:true,bubble:"i write technical deep-dives on medium. ecs, redis scaling, cloud security — check them out!",side:'right'},
+  contact:{left:'0',right:'0',bottom:'10px',flip:false,bubble:"enjoyed the tour? let's connect! click me to chat about opportunities.",side:'left',center:true,clickable:true}
 };
-var skillBubbleIdx=0;
+
 function updateHackerState(section){
   if(section===currentSection)return;
+  var prevSection=currentSection;
   currentSection=section;
-  var bubble=hackerBubble;
-  bubble.classList.remove('show');
+  var cfg=tourGuide[section];
+  if(!cfg)return;
+  
+  // Move avatar
+  hacker.classList.add('walk');
+  clearTimeout(moveTimer);
+  
+  if(cfg.center){
+    hacker.style.left='50%';hacker.style.right='auto';hacker.style.bottom=cfg.bottom;
+    hacker.style.marginLeft='-60px';
+  }else{
+    hacker.style.left=cfg.left;hacker.style.right=cfg.right;hacker.style.bottom=cfg.bottom;
+    hacker.style.marginLeft='0';
+  }
+  
+  // Flip direction
+  if(cfg.flip)hacker.classList.add('flipped');else hacker.classList.remove('flipped');
+  
+  // Clickable at contact
+  if(cfg.clickable)hacker.classList.add('clickable');else hacker.classList.remove('clickable');
+  
+  // Stop walking after transition
+  moveTimer=setTimeout(function(){hacker.classList.remove('walk')},800);
+  
+  // Update screen colors
   var lines=document.getElementById('screenLines');
-  if(!lines)return;
-  var colors={hero:['#00ff88','#00e5ff','#ff8a00','#00ff88'],skills:['#00e5ff','#a78bfa','#00ff88','#00e5ff'],experience:['#00ff88','#ff8a00','#00ff88','#a78bfa'],projects:['#a78bfa','#00ff88','#00e5ff','#ff8a00'],blog:['#00e5ff','#00ff88','#f472b6','#00e5ff'],contact:['#00ff88','#00ff88','#00e5ff','#00ff88']};
-  var c=colors[section]||colors.hero;
-  var rects=lines.querySelectorAll('rect');
-  rects.forEach(function(r,i){r.setAttribute('fill',c[i]||c[0])});
-  setTimeout(function(){
-    var txt;
-    if(section==='skills'){txt=bubbleTexts.skills[skillBubbleIdx%bubbleTexts.skills.length];skillBubbleIdx++}
-    else txt=bubbleTexts[section]||'';
-    if(txt){bubble.textContent=txt;bubble.classList.add('show')}
-  },200);
+  if(lines){
+    var colors={about:['#00ff88','#00e5ff','#ff8a00','#00ff88'],skills:['#00e5ff','#a78bfa','#00ff88','#00e5ff'],experience:['#00ff88','#ff8a00','#00ff88','#a78bfa'],projects:['#a78bfa','#00ff88','#00e5ff','#ff8a00'],blog:['#00e5ff','#00ff88','#f472b6','#00e5ff'],contact:['#00ff88','#00ff88','#00e5ff','#00ff88']};
+    var c=colors[section]||colors.about;
+    lines.querySelectorAll('rect').forEach(function(r,i){r.setAttribute('fill',c[i]||c[0])});
+  }
+  
+  // Speech bubble
+  if(!chatOpen){
+    clearTimeout(bubbleTimer);
+    hackerBubble.classList.remove('show');
+    hackerBubble.classList.remove('right');
+    if(cfg.side==='right')hackerBubble.classList.add('right');
+    
+    bubbleTimer=setTimeout(function(){
+      hackerBubble.textContent=cfg.bubble;
+      hackerBubble.classList.add('show');
+      // Auto-hide after a while (except contact)
+      if(section!=='contact'){
+        bubbleTimer=setTimeout(function(){hackerBubble.classList.remove('show')},5000);
+      }
+    },900);
+  }
 }
 
 // ===== HACKER PARTICLES =====
-(function(){
-  var container=document.getElementById('hParticles');
-  var chars='01{}[]<>/\\|;:=+-*&^%$#@!~'.split('');
-  function spawnParticle(){
-    var p=document.createElement('div');
-    p.className='h-particle';
-    p.textContent=chars[Math.floor(Math.random()*chars.length)];
-    p.style.left=(40+Math.random()*120)+'px';
-    p.style.bottom='10px';
-    p.style.animationDuration=(3+Math.random()*4)+'s';
-    p.style.animationDelay=(Math.random()*2)+'s';
-    p.style.fontSize=(.45+Math.random()*.3)+'rem';
-    p.style.color=Math.random()>.7?'var(--cyan)':'var(--green)';
-    container.appendChild(p);
-    setTimeout(function(){p.remove()},8000);
+(function(){var c=document.getElementById('hParticles'),chars='01{}[]<>/\\|;:=+-*'.split('');function sp(){var p=document.createElement('div');p.className='h-particle';p.textContent=chars[Math.floor(Math.random()*chars.length)];p.style.left=(40+Math.random()*120)+'px';p.style.bottom='10px';p.style.animationDuration=(3+Math.random()*4)+'s';p.style.fontSize=(.45+Math.random()*.3)+'rem';p.style.color=Math.random()>.7?'var(--cyan)':'var(--green)';c.appendChild(p);setTimeout(function(){p.remove()},8000)}setInterval(sp,500)})();
+
+// ===== CHAT PANEL =====
+var chatOpen=false;
+// Knowledge base - all Siddhanth's data in searchable chunks
+var KB=[
+{k:['who','about','intro','siddhanth','tell me','what does he do','describe'],a:"siddhanth dwivedi (aka mafiaguy) is a Lead Security Operations Engineer at Great Learning, Bangalore. 6+ years securing and operating AWS cloud platforms. currently looking for SRE roles where he can bring his security-first mindset."},
+{k:['experience','years','work','career','history','journey','how long'],a:"6+ years, all at Great Learning — started as a Cyber Security Instructor (2019), moved to Security Engineer (2021), then Senior SecOps (2022), and now Lead SecOps Engineer since May 2025. he grew from teaching pentesting to leading AWS infrastructure security."},
+{k:['current','now','present','today','role','lead','position'],a:"currently Lead Security Operations Engineer at Great Learning, Bangalore (May 2025–present). he cut AWS spend by 30%, built the CloudWatch observability stack, maintains ISO 27001 compliance, and owns incident response for production infrastructure."},
+{k:['skill','tech','stack','tools','know','technology','proficient'],a:"containers: Docker, ECS (Fargate/EC2), ECR, Kubernetes (personal projects). observability: CloudWatch, X-Ray, Prometheus & Grafana. cloud: AWS (20+ services), CDK, CloudFormation. security: pentesting, WAF, Shield, ISO 27001, Snyk, CodeQL. languages: TypeScript, Python, Node.js."},
+{k:['container','docker','ecs','kubernetes','k8s','fargate','ecr','orchestr'],a:"deep hands-on with Docker and Amazon ECS (both EC2 and Fargate launch types). hardened container images with multi-stage builds, non-root users, and ECR scanning. also has personal project experience with Kubernetes (Minikube/kind), Prometheus, and Grafana dashboards."},
+{k:['observ','monitor','cloudwatch','x-ray','prometheus','grafana','log','alarm','dashboard','metric'],a:"built comprehensive CloudWatch observability stacks — custom metrics, composite alarms, Log Insights queries, dashboards for ECS service health. also X-Ray distributed tracing. Prometheus & Grafana experience from personal Kubernetes home lab project."},
+{k:['cloud','aws','infra','infrastructure','lambda','s3','ec2','iam','vpc','cdk','cloudformation','iac'],a:"AWS is his home turf — EC2, Lambda, ALB/NLB, Route 53, S3, RDS, IAM, VPC, Security Hub, GuardDuty. migrated all environments to IaC using AWS CDK and CloudFormation. also did ARM/Graviton migration that saved 30% on AWS costs."},
+{k:['security','pentest','hack','owasp','waf','shield','vulnerability','compliance','iso','27001','cspm','sast'],a:"started in pentesting — web apps, mobile (iOS/Android), OWASP Top 10. now focuses on cloud security: CIS Benchmarks, WAF, Shield, Security Hub, GuardDuty, CloudTrail audit. achieved ISO 27001:2013 certification by authoring all the policies and governance docs himself."},
+{k:['language','python','typescript','node','code','programming','database','sql','postgres','mysql'],a:"primary languages: TypeScript, Python, Node.js. databases: PostgreSQL, MySQL (did zero-downtime major version upgrades). also uses Burp Suite, Wireshark, Nmap for security work, and Snyk + CodeQL for SAST in CI/CD pipelines."},
+{k:['achieve','award','accomplish','proud','mile','recognition','nciipc','iit'],a:"2x Extra Mile Award at Great Learning (Sep 2023 & May 2025). NCIIPC (India's national cyber security body) appreciated his work towards securing the nation's cyberspace. found a vulnerability in IIT Guwahati's website and received appreciation. also an AWS Community Builder and Arctic Code Vault Contributor on GitHub."},
+{k:['cost','save','optimi','30%','graviton','arm','money','reduce','spend'],a:"cut AWS infrastructure spend by 30% by migrating ECS workloads to ARM-based Graviton instances and implementing target-tracking autoscaling policies. also achieved 5% database cost savings and 10% performance gains through zero-downtime PostgreSQL/MySQL upgrades."},
+{k:['education','degree','college','university','study','btech','diploma','msit'],a:"B.Tech in Computer Science from Maharaja Surajmal Institute of Technology, Delhi (2017–2020). Diploma in CS from Government Polytechnic College, Mohali (2013–2016)."},
+{k:['blog','write','medium','article','post','content'],a:"writes on mafiaguy.medium.com — topics include ECS Service Discovery, Scaling Redis, GPU-Based ECS Containers with CDK, ECS Autoscaling, CloudFront Signed URLs, IAM Auth for RDS, Graviton migration, Docker Trivy scanning, and securing vibe coding projects. 100+ followers."},
+{k:['github','repo','project','open source','code','contribute'],a:"86 GitHub repos at github.com/mafiaguy! pinned projects include awesome-biohacking (7 stars), exploit_tools (subdomain scanner with FastAPI + React), BadUino (Arduino-based bad USB, 8 stars), securityguide, and portfolio. also an Arctic Code Vault Contributor."},
+{k:['hire','job','sre','opportunity','open','available','looking','recruit','work with','join'],a:"yes! siddhanth is actively seeking SRE (Site Reliability Engineering) roles. he brings 6+ years of security + infrastructure experience — a rare combination. he's done the containers, observability, incident response, and IaC work that SREs do, plus a security mindset most SREs lack. reach out at iamsiddhanthdwivedi@gmail.com or +91 8968562055."},
+{k:['contact','email','phone','reach','connect','linkedin','twitter','social'],a:"email: iamsiddhanthdwivedi@gmail.com | phone: +91 8968562055 | github: github.com/mafiaguy | linkedin: linkedin.com/in/mafiaguy | twitter/X: @mafiaaguy | blog: mafiaguy.medium.com"},
+{k:['location','where','city','country','based','live','bangalore','delhi'],a:"currently based in Bangalore, India. originally from New Delhi. works at Great Learning's Bangalore office."},
+{k:['ieee','stanford','teach','mentor','instructor','train'],a:"was a Cyber Security Instructor at Great Learning (2019-2021) where he taught pentesting and cloud security. also mentored for Stanford's Advanced Computer Security Program (ACSP). served as IEEE Education Program Assistant and Technical Lead for the Student Voluntership Program."},
+{k:['incident','mttr','response','resolve','patch','monitor'],a:"owns incident response for production infrastructure. reduced mean time to resolution (MTTR) through runbook automation and improved alerting fidelity. delivers patching, monitoring, and incident resolution for critical systems."},
+{k:['devops','devsecops','ci','cd','pipeline','automat'],a:"championed DevSecOps practices — embedded security and reliability gates into CI/CD pipelines. integrated Snyk & CodeQL for automated vulnerability scanning, reducing critical vulnerabilities by 25%. automated operational workflows with AWS Lambda."},
+{k:['disaster','recovery','dr','resilience','backup','failover'],a:"deployed CDK-based disaster recovery systems that reduced recovery time by 30%. maintains ISO 27001 compliance through quarterly DR drills and tabletop exercises. strengthened platform resilience with IAM hardening, CloudTrail monitoring, and DDoS prevention via Shield & WAF."},
+{k:['fun','hobby','personal','interest','food','biryani'],a:"describes himself as 'a foodie hungry for security'. loves biryani (his reddit username is thebiryanimonsterr). active participant at BSides Delhi security conference. builds security tools and games in his spare time. his portfolio site has a hidden terminal and 4 security-themed games!"},
+{k:['tool','website','site','portfolio','game','play','feature'],a:"this portfolio has: Apple-style scroll animations, a hacker avatar (me!) that walks you through the site, 10 browser-based security tools at /tools, and 4 games at /play. you can ask me to open any tool — try 'generate a password' or 'hash something' or 'decode a jwt'!"},
+{k:['show','tour','guide','around','section','navigate','scroll'],a:"scroll down to explore — Skills (cinematic animations), Experience (timeline), Projects (live from GitHub), Blog (Medium articles), Education, and Contact. or ask me to open any tool like 'password generator' or 'subnet calculator'!"},
+{k:['recommend','review','colleague','testimonial','say about'],a:"colleagues describe him as 'a true asset to any team' with 'deep understanding of infrastructure combined with keen interest in DevOps.' they say he 'consistently demonstrated ability to think strategically while executing complex projects with precision.' a natural leader who mentors junior team members."},
+{k:['phishing','training','awareness','social engineer'],a:"orchestrated phishing simulations and security awareness training programs that reduced employee risk behavior by 35%. also developed cybersecurity curriculum content and lab environments during his instructor role."},
+];
+var defaultAnswer="hmm, not sure about that one. but ask me about my skills, experience, achievements, projects, blog, or how to reach me — i've got answers for all of those!";
+
+// Tool trigger map - keywords that open tools
+var toolTriggers={
+  password:['password','passwd','generate password','strong password','random password','pass gen'],
+  hash:['hash','sha','sha256','sha512','md5','checksum','digest'],
+  base64:['base64','encode base64','decode base64','b64'],
+  jwt:['jwt','json web token','decode token','token decode','parse token'],
+  url:['url encode','url decode','urlencode','urldecode','percent encode'],
+  uuid:['uuid','guid','unique id','generate id','random id'],
+  subnet:['subnet','cidr','ip calc','network calc','ip range','subnet mask'],
+  regex:['regex','regular expression','pattern match','regexp','test regex'],
+  json:['json','prettify','format json','minify json','validate json','json format'],
+  headers:['http header','inspect header','response header','check header','fetch header']
+};
+
+function detectTool(msg){
+  msg=msg.toLowerCase();
+  for(var tool in toolTriggers){
+    for(var i=0;i<toolTriggers[tool].length;i++){
+      if(msg.indexOf(toolTriggers[tool][i])!==-1)return tool;
+    }
   }
-  setInterval(spawnParticle,400);
-})();
-function nav(p){history.pushState(null,'',p);route();window.scrollTo(0,0);document.querySelector('.nk').classList.remove('open')}
-function route(){var p=location.pathname.replace(/\/$/,'')||'/';var q=new URLSearchParams(location.search);if(q.has('route')){p=q.get('route').replace(/\/$/,'')||'/';history.replaceState(null,'',p==='/'?'/':p)}document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});if(p==='/tools'){document.getElementById('page-tools').classList.add('active');initTools()}else if(p==='/play'){document.getElementById('page-play').classList.add('active');initGames()}else document.getElementById('page-main').classList.add('active')}
+  return null;
+}
+
+function findAnswer(q){
+  q=q.toLowerCase().replace(/[?!.,]/g,'');
+  // Check if user wants a tool
+  var tool=detectTool(q);
+  if(tool){
+    setTimeout(function(){
+      if(currentPage!=='/tools')nav('/tools');
+      setTimeout(function(){openTool(tool)},400);
+    },600);
+    var toolNames={password:'Password Generator',hash:'Hash Generator',base64:'Base64 Encoder/Decoder',jwt:'JWT Decoder',url:'URL Encoder/Decoder',uuid:'UUID Generator',subnet:'Subnet Calculator',regex:'Regex Tester',json:'JSON Formatter',headers:'HTTP Header Inspector'};
+    return "opening the "+toolNames[tool]+" for you! it runs 100% in your browser — no data leaves your machine.";
+  }
+  // Otherwise search knowledge base
+  var best=null,bestScore=0;
+  KB.forEach(function(entry){
+    var score=0;
+    entry.k.forEach(function(keyword){
+      if(q.indexOf(keyword)!==-1)score+=keyword.length;
+    });
+    var words=q.split(/\s+/);
+    words.forEach(function(w){
+      entry.k.forEach(function(keyword){
+        if(keyword.indexOf(w)!==-1&&w.length>2)score+=1;
+      });
+    });
+    if(score>bestScore){bestScore=score;best=entry}
+  });
+  return bestScore>2?best.a:defaultAnswer;
+}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open',chatOpen);
+  document.getElementById('hackerHint').style.display='none';
+  hackerBubble.classList.remove('show');
+  if(chatOpen)document.getElementById('chatIn').focus();
+}
+function askSug(btn){document.getElementById('chatIn').value=btn.textContent;sendChat()}
+document.getElementById('chatIn').addEventListener('keydown',function(e){if(e.key==='Enter')sendChat()});
+
+function sendChat(){
+  var input=document.getElementById('chatIn'),msg=input.value.trim();
+  if(!msg)return;input.value='';
+  var msgs=document.getElementById('chatMsgs');
+  var um=document.createElement('div');um.className='chat-msg user';um.textContent=msg;msgs.appendChild(um);
+  document.getElementById('chatSugs').style.display='none';
+  // Typing indicator
+  var typing=document.createElement('div');typing.className='chat-msg bot typing';typing.innerHTML='<div class="bot-name">sd_bot</div><div class="dots"><span></span><span></span><span></span></div>';msgs.appendChild(typing);msgs.scrollTop=msgs.scrollHeight;
+  // Simulate brief thinking delay
+  var delay=300+Math.random()*400;
+  setTimeout(function(){
+    typing.remove();
+    var answer=findAnswer(msg);
+    var bm=document.createElement('div');bm.className='chat-msg bot';bm.innerHTML='<div class="bot-name">sd_bot</div>'+answer;msgs.appendChild(bm);
+    msgs.scrollTop=msgs.scrollHeight;
+  },delay);
+}
+// Track current page in memory (fallback for sandboxed environments)
+var currentPage='/';
+function nav(p){currentPage=p;try{history.pushState(null,'',p)}catch(e){}route();window.scrollTo(0,0);document.querySelector('.nk').classList.remove('open')}
+function route(){var p=currentPage;try{var pathname=location.pathname.replace(/\/$/,'')||'/';if(pathname!=='/'&&pathname!=='/tools'&&pathname!=='/play'){}else p=pathname;var q=new URLSearchParams(location.search);if(q.has('route')){p=q.get('route').replace(/\/$/,'')||'/';currentPage=p;try{history.replaceState(null,'',p==='/'?'/':p)}catch(e){}}}catch(e){}document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});if(p==='/tools'){document.getElementById('page-tools').classList.add('active');initTools()}else if(p==='/play'){document.getElementById('page-play').classList.add('active');initGames()}else document.getElementById('page-main').classList.add('active')}
 window.addEventListener('popstate',route);route();
 document.querySelectorAll('.nk a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){if(a.dataset.page==='/'){var cp=location.pathname.replace(/\/$/,'')||'/';if(cp!=='/'){e.preventDefault();nav('/');setTimeout(function(){document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})},100)}}document.querySelector('.nk').classList.remove('open')})});
 
@@ -610,15 +790,21 @@ function onScroll(){
   skillsScroll(sy,wh);
   timelineFill(sy,wh);
   // Hacker avatar section detection
-  var sections=['contact','blog','projects','experience','skills','about'];
-  var detected='hero';
-  for(var i=0;i<sections.length;i++){var el=document.getElementById(sections[i]);if(el&&el.getBoundingClientRect().top<wh*.6){detected=sections[i];break}}
+  var detected='about';
+  var checkSections=[
+    {id:'contact',name:'contact'},
+    {id:'blog',name:'blog'},
+    {id:'projects',name:'projects'},
+    {id:'experience',name:'experience'}
+  ];
+  for(var i=0;i<checkSections.length;i++){
+    var el=document.getElementById(checkSections[i].id);
+    if(el&&el.getBoundingClientRect().top<wh*.5){detected=checkSections[i].name;break}
+  }
+  // Skills showcase override
   var ss=document.getElementById('skillsShowcase');
-  if(ss){var r=ss.getBoundingClientRect();if(r.top<wh*.5&&r.bottom>wh*.3)detected='skills'}
+  if(ss){var sr=ss.getBoundingClientRect();if(sr.top<wh*.4&&sr.bottom>wh*.4)detected='skills'}
   updateHackerState(detected);
-  // Subtle hacker bob
-  var bob=Math.sin(sy*.005)*4;
-  var hk=document.getElementById('hacker');if(hk)hk.style.transform='translateY('+bob+'px)';
 }
 
 // ===== HERO PARALLAX =====
@@ -683,7 +869,41 @@ var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){i
 document.querySelectorAll('[data-a],[data-dot]').forEach(function(el){obs.observe(el)});
 
 // ===== GITHUB =====
-(async function(){var g=document.getElementById('pgrid');try{var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');var d=await r.json();var f=d.filter(function(x){return!x.fork&&x.name.toLowerCase()!=='mafiaguy'}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).slice(0,9);g.innerHTML=f.map(function(x,i){return'<a href="'+x.html_url+'" target="_blank" class="pc" data-a="flip" data-d="'+(i*60)+'"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stargazers_count?'<span class="star">* '+x.stargazers_count+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.description||'No description.')+'</p>'+(x.language?'<div class="pl"><span>'+x.language+'</span></div>':'')+'</a>'}).join('');document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)})}catch(e){g.innerHTML='<a href="https://github.com/mafiaguy?tab=repositories" target="_blank" class="pc"><h3>View on GitHub</h3></a>'}})();
+(async function(){
+  var g=document.getElementById('pgrid');
+  try{
+    var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');
+    if(!r.ok)throw new Error('API '+r.status);
+    var d=await r.json();
+    if(!Array.isArray(d))throw new Error('not array');
+    var f=d.filter(function(x){return!x.fork&&x.name.toLowerCase()!=='mafiaguy'&&x.name.toLowerCase()!=='mafiaguy.github.io'}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).slice(0,9);
+    if(!f.length)throw new Error('empty');
+    g.innerHTML=f.map(function(x,i){
+      return'<a href="'+x.html_url+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stargazers_count?'<span class="star">* '+x.stargazers_count+'</span>':'')+(x.forks_count?'<span>Y '+x.forks_count+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.description||'No description.')+'</p>'+(x.language?'<div class="pl"><span>'+x.language+'</span></div>':'')+'</a>'
+    }).join('');
+    // Re-observe new elements
+    setTimeout(function(){
+      document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)});
+    },100);
+  }catch(e){
+    console.log('GitHub fetch:',e);
+    // Fallback: hardcoded top repos
+    var fallback=[
+      {name:'awesome-biohacking',desc:'A curated list of biohacking resources.',lang:'',stars:7},
+      {name:'BadUino',desc:'An Arduino based bad USB device.',lang:'C++',stars:8},
+      {name:'exploit_tools',desc:'Subdomain Scanner with FastAPI + React frontend.',lang:'Python',stars:1},
+      {name:'securityguide',desc:'A guide to become a cyber-security researcher.',lang:'JavaScript',stars:1},
+      {name:'portfolio',desc:'Personal portfolio website using Gatsby.',lang:'JavaScript',stars:0},
+      {name:'Vulnerable-Web-Application',desc:'Vulnerable web app for security testing practice.',lang:'PHP',stars:0}
+    ];
+    g.innerHTML=fallback.map(function(x,i){
+      return'<a href="https://github.com/mafiaguy/'+x.name+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stars?'<span class="star">* '+x.stars+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+x.desc+'</p>'+(x.lang?'<div class="pl"><span>'+x.lang+'</span></div>':'')+'</a>'
+    }).join('');
+    setTimeout(function(){
+      document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)});
+    },100);
+  }
+})();
 
 // ===== RESUME =====
 function openResume(){document.getElementById('rOverlay').classList.add('open');document.body.style.overflow='hidden'}
@@ -758,9 +978,45 @@ function g4Check(){if(+document.getElementById('g4shift').value===g4.shift)g4.sc
 
 // ===== TERMINAL =====
 var tOpen=false;
-function toggleTerm(){tOpen=!tOpen;document.getElementById('tPanel').classList.toggle('open',tOpen);document.getElementById('ttg').style.display=tOpen?'none':'block';if(tOpen&&!document.getElementById('tBody').children.length){tl('Type <span class="g">help</span> for commands.','d');tl('')}if(tOpen)document.getElementById('tIn').focus()}
+function toggleTerm(){tOpen=!tOpen;document.getElementById('tPanel').classList.toggle('open',tOpen);document.getElementById('ttg').style.display=tOpen?'none':'block';if(tOpen&&!document.getElementById('tBody').children.length){tl('Type <span class="g">help</span> for commands, or ask me anything.','d');tl('')}if(tOpen)document.getElementById('tIn').focus()}
 function tl(t,c){var d=document.createElement('div');d.className='ln';d.innerHTML=c?'<span class="'+c+'">'+t+'</span>':t;var tb=document.getElementById('tBody');tb.appendChild(d);tb.scrollTop=tb.scrollHeight}
-document.getElementById('tIn').addEventListener('keydown',function(e){if(e.key!=='Enter')return;var cmd=this.value.trim().toLowerCase();this.value='';if(!cmd)return;tl('<span class="g">$</span> '+cmd);switch(cmd){case'help':tl('about skills contact blog neofetch clear exit hire','d');break;case'about':tl('Siddhanth Dwivedi . Lead SecOps . 6+ yrs AWS','d');break;case'skills':tl('ECS Docker CloudWatch K8s Pentesting Python TS','d');break;case'contact':tl('iamsiddhanthdwivedi@gmail.com','g');break;case'blog':tl('mafiaguy.medium.com','d');break;case'neofetch':tl('OS: SecOps Linux | Host: AWS | Coffee: too much','d');break;case'clear':document.getElementById('tBody').innerHTML='';break;case'sudo':tl('[ACCESS DENIED] nice try ;)','r');break;case'exit':toggleTerm();break;case'hire':window.location.href='mailto:iamsiddhanthdwivedi@gmail.com';tl('Opening mail...','g');break;default:tl('not found: '+cmd,'r')}tl('')});
+document.getElementById('tIn').addEventListener('keydown',function(e){if(e.key!=='Enter')return;var cmd=this.value.trim();var cmdLow=cmd.toLowerCase();this.value='';if(!cmd)return;tl('<span class="g">$</span> '+cmd);
+// Tool commands
+var toolCmd={password:'password',hash:'hash',base64:'base64',jwt:'jwt',url:'url',uuid:'uuid',subnet:'subnet',regex:'regex',json:'json',headers:'headers'};
+if(toolCmd[cmdLow]){
+  tl('opening '+cmdLow+' tool...','g');
+  setTimeout(function(){
+    if(currentPage!=='/tools')nav('/tools');
+    setTimeout(function(){openTool(toolCmd[cmdLow])},400);
+  },300);
+  tl('');return;
+}
+// Built-in commands
+switch(cmdLow){
+case'help':tl('  <span class="g">about skills contact blog neofetch clear exit hire</span>','');tl('  <span class="c">tools:</span> password hash base64 jwt url uuid subnet regex json headers','');tl('  <span class="c">pages:</span> tools play home','');tl('  <span class="d">or ask me anything about siddhanth!</span>','');break;
+case'about':tl('Siddhanth Dwivedi . Lead SecOps . 6+ yrs AWS','d');break;
+case'skills':tl('ECS Docker CloudWatch K8s Pentesting Python TS','d');break;
+case'contact':tl('iamsiddhanthdwivedi@gmail.com','g');tl('github.com/mafiaguy | linkedin.com/in/mafiaguy','g');tl('+91 8968562055','g');break;
+case'blog':tl('mafiaguy.medium.com','d');break;
+case'neofetch':tl('OS: SecOps Linux | Host: AWS | Coffee: too much','d');break;
+case'clear':document.getElementById('tBody').innerHTML='';break;
+case'sudo':case'sudo su':tl('[ACCESS DENIED] nice try ;)','r');break;
+case'exit':toggleTerm();break;
+case'hire':window.location.href='mailto:iamsiddhanthdwivedi@gmail.com';tl('Opening mail...','g');break;
+case'tools':nav('/tools');tl('navigating to /tools...','g');break;
+case'play':case'games':nav('/play');tl('navigating to /play...','g');break;
+case'home':nav('/');tl('navigating home...','g');break;
+case'ls':tl('index.html  resume.tex  404.html  README.md','d');break;
+case'pwd':tl('/home/siddhanth/portfolio','d');break;
+case'whoami':tl('visitor — but siddhanth built this','d');break;
+case'date':tl(new Date().toString(),'d');break;
+default:
+  // Try KB for questions
+  var answer=findAnswer(cmdLow);
+  if(answer!==defaultAnswer){tl(answer,'c')}
+  else{tl('not found: '+cmd+' — try <span class="g">help</span> or ask a question','r')}
+}
+tl('')});
 
 // Trigger initial scroll calc
 requestAnimationFrame(onScroll);
