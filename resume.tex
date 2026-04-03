@@ -1,123 +1,246 @@
-\documentclass[11pt,a4paper]{article}
+%-------------------------
+% Resume in LaTeX - Siddhanth Dwivedi
+% Compile with pdflatex
+%-------------------------
 
-% ---- Packages ----
-\usepackage[margin=0.6in]{geometry}
-\usepackage{enumitem}
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
 \usepackage{titlesec}
-\usepackage{hyperref}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
 \usepackage{fontawesome5}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{xcolor}
 
-% ---- Formatting ----
-\pagestyle{empty}
-\setlength{\parindent}{0pt}
-\setlist[itemize]{leftmargin=1.2em, itemsep=2pt, parsep=0pt, topsep=4pt}
+% ---------- PAGE STYLE ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
 
-\titleformat{\section}{\large\bfseries\scshape}{}{0em}{}[\titlerule]
-\titlespacing*{\section}{0pt}{10pt}{6pt}
+% ---------- MARGINS ----------
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1.0in}
 
-\hypersetup{colorlinks=true, urlcolor=blue!70!black}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
 
-% ---- Commands ----
-\newcommand{\resumeheading}[4]{%
-  \vspace{4pt}
-  \textbf{#1} \hfill \textit{#2} \\
-  \textit{#3} \hfill \textit{#4}
+% ---------- SECTION FORMATTING ----------
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% ---------- CUSTOM COMMANDS ----------
+\newcommand{\resumeItem}[1]{\item\small{#1 \vspace{-2pt}}}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubheadingContinue}[2]{
   \vspace{2pt}
+  \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textit{\small\textbf{#1}} \\
+  \end{tabular*}\vspace{-7pt}
 }
 
-\newcommand{\achievement}[1]{%
-  \item \textbf{Achievement:} #1
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
 }
 
-% ---- Document ----
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+% ==================== DOCUMENT START ====================
 \begin{document}
 
-% ---- Header ----
+% ---------- HEADING ----------
 \begin{center}
-  {\LARGE\bfseries Siddhanth Dwivedi} \\[6pt]
-  \faPhone\ +91 8968562055 \quad
-  \faEnvelope\ \href{mailto:iamsiddhanthdwivedi@gmail.com}{iamsiddhanthdwivedi@gmail.com} \quad
-  \faGithub\ \href{https://github.com/mafiaguy}{mafiaguy} \quad
-  \faLinkedin\ \href{http://linkedin.com/in/mafiaguy}{mafiaguy}
+    \textbf{\Huge \scshape Siddhanth Dwivedi} \\ \vspace{1pt}
+    \small
+    \faPhone\ +91 8968562055 $|$
+    \href{mailto:iamsiddhanthdwivedi@gmail.com}{\faEnvelope\ iamsiddhanthdwivedi@gmail.com} $|$
+    \href{https://github.com/mafiaguy}{\faGithub\ mafiaguy} $|$
+    \href{https://linkedin.com/in/mafiaguy}{\faLinkedin\ mafiaguy}
 \end{center}
 
-% ---- Summary ----
+% ---------- SUMMARY ----------
 \section{Summary}
-Security Operations Engineer with 6+ years of experience securing and operating cloud platforms on AWS. Beyond core security responsibilities, have hands-on experience running ECS/Docker workloads in production, building CloudWatch observability stacks, driving infrastructure cost optimization (30\% AWS spend reduction), and owning incident response for critical systems. Seeking to transition into Site Reliability Engineering, combining deep security expertise with proven infrastructure and reliability skills. Two-time Extra Mile Award recipient for operational excellence.
+\small{Infrastructure \& Reliability Engineer with 6+ years of experience operating and securing production cloud platforms on AWS. Core strengths in designing resilient architectures, building data pipelines (CDC/ETL), automating disaster recovery, and driving observability across distributed systems. Delivered 30\% AWS cost reduction, sub-hour disaster recovery RTOs, zero-downtime database failovers, and 99.92\% platform uptime. Experienced across ECS/Fargate container orchestration, auto-scaling, capacity planning, database operations, IaC (CDK), and incident response. Two-time Extra Mile Award recipient for operational excellence.}
 
-% ---- Skills ----
+% ---------- SKILLS ----------
 \section{Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+        \textbf{Reliability \& Operations:}{ Capacity Planning, Auto-Scaling (ECS, Redis/Valkey, OpenSearch), Disaster Recovery (IaC-based), Database Failover Testing, Incident Response \& RCA, Runbook Automation, On-Call Operations, SLI/SLO Monitoring} \\
+        \textbf{Containers \& Orchestration:}{ Docker, Amazon ECS (EC2 \& Fargate), ECR, Kubernetes (personal projects), SOCI (Seekable OCI), Container Image Hardening, Task Definition Tuning, ARM/Graviton Migration} \\
+        \textbf{Observability:}{ CloudWatch Metrics, Logs, Alarms \& Dashboards, Log Insights, Anomaly Detection, X-Ray Distributed Tracing, Prometheus \& Grafana (personal projects), CloudTrail Audit Logging} \\
+        \textbf{Data \& Pipelines:}{ PostgreSQL CDC (Debezium), Amazon MSK (Kafka), AWS Glue, Amazon Redshift, S3 Data Lake, Schema Mapping \& Retry Mechanisms} \\
+        \textbf{Cloud \& Infrastructure:}{ AWS (EC2, Lambda, ALB/NLB, Route 53, S3, RDS, IAM, VPC, OpenSearch, MSK, Glue, Redshift, CloudFront, Security Hub, GuardDuty), IaC (AWS CDK, CloudFormation), Multi-AZ \& Multi-Region} \\
+        \textbf{Security \& Compliance:}{ CIS Benchmarks, WAF, Shield, ISO 27001, GDPR, DPDPA, OWASP Top 10, CSPM, SAST (Snyk), AWS Inspector, Penetration Testing} \\
+        \textbf{Languages \& Databases:}{ TypeScript, Python, Ruby, Node.js, PostgreSQL, MySQL, Valkey/Redis, OpenSearch}
+    }}
+\end{itemize}
 
-\textbf{Containers \& Orchestration:} Docker, Amazon ECS (EC2 \& Fargate), ECR, Kubernetes (personal projects), Container Image Hardening, Task Definition Tuning, Autoscaling, ARM/Graviton Migration \\[3pt]
-\textbf{Observability:} CloudWatch Metrics, Logs, Alarms \& Dashboards, CloudWatch Log Insights, X-Ray Distributed Tracing, Prometheus \& Grafana (personal projects), CloudTrail Audit Logging, Incident Detection \& Response \\[3pt]
-\textbf{Cloud \& Infrastructure:} AWS (EC2, Lambda, ALB/NLB, Route~53, S3, RDS, IAM, VPC, Security Hub, GuardDuty), Infrastructure-as-Code (AWS CDK, CloudFormation), Capacity Planning, Cost Optimization \\[3pt]
-\textbf{Security \& Compliance:} Penetration Testing, Cloud Security (CIS Benchmarks, WAF, Shield), ISO~27001, OWASP Top~10, Secure SDLC, CSPM, SAST, Snyk, CodeQL \\[3pt]
-\textbf{Languages \& Databases:} TypeScript, Python, Node.js, PostgreSQL, MySQL \\[3pt]
-\textbf{Tools:} Burp Suite, Wireshark, Nmap
-
-% ---- Experience ----
+% ---------- EXPERIENCE ----------
 \section{Experience}
+\resumeSubHeadingListStart
 
-\resumeheading{Great Learning}{Bangalore, India}{Lead Security Operations Engineer}{May 2025 -- Present}
-\begin{itemize}
-  \item Cut AWS infrastructure spend by 30\% by migrating ECS workloads to ARM-based Graviton instances and implementing target-tracking autoscaling policies across services.
-  \item Built and maintained CloudWatch observability stack---custom metrics, dashboards, composite alarms, and Log Insights queries---providing end-to-end visibility into ECS service health and application performance.
-  \item Maintained ISO 27001 compliance through quarterly disaster recovery drills, tabletop exercises, and periodic user access reviews.
-  \item Improved application performance by 20--30\% through ECS task definition tuning, container resource right-sizing, and stack modernization.
-  \item Upgraded major PostgreSQL/MySQL databases with zero-downtime strategies, achieving 5\% cost savings and 10\% performance gains.
-  \item Migrated all environments to Infrastructure-as-Code (AWS CDK, CloudFormation), enabling repeatable, auditable, drift-free deployments.
-  \item Owned patching, monitoring, and incident resolution for production infrastructure; improved alerting fidelity and reduced mean time to resolution through runbook automation.
-  \achievement{Extra Mile Award (May 2025) for cost optimization and security leadership.}
-\end{itemize}
+    % ===== LEAD ROLE =====
+    \resumeSubheading
+      {Lead Infrastructure \& Security Operations Engineer}{May 2025 -- Present}
+      {Great Learning}{Bangalore, India}
 
-\resumeheading{Great Learning}{Bangalore, India}{Senior Security Operations Engineer}{Apr 2022 -- May 2025}
-\begin{itemize}
-  \item Architected cloud security posture aligned with CIS AWS Benchmarks; managed Security Hub, GuardDuty, and CloudTrail for continuous monitoring.
-  \item Operated and maintained ECS-based container platform running production microservices, managing rolling deployments, service health, and scaling.
-  \item Built CloudWatch observability pipelines---structured logging, metric filters, anomaly detection alarms, and dashboards---to track service availability, latency, and error rates.
-  \item Deployed AWS WAF and CDK-based disaster recovery systems, reducing recovery time by 30\%.
-  \item Achieved ISO 27001:2013 certification by authoring security policies, governance documentation, and operational procedures.
-  \item Automated toil-heavy operational and security workflows using AWS Lambda (Python/Node.js), significantly reducing manual intervention and MTTR.
-  \item Conducted penetration testing and vulnerability assessments; integrated Snyk \& CodeQL into CI/CD pipelines, reducing critical vulnerabilities by 25\%.
-  \item Hardened Docker images by enforcing multi-stage builds, non-root users, minimal base images, and regular vulnerability scanning via ECR image scanning.
-  \item Strengthened platform resilience with IAM least-privilege policies, DDoS prevention via Shield \& WAF, and CloudTrail-based audit monitoring.
-  \achievement{Extra Mile Award (Sep 2023) for ISO certification success and advancing DevSecOps adoption.}
-\end{itemize}
+    \resumeSubheadingContinue{Reliability \& Disaster Recovery}{}
+    \resumeItemListStart
+        \resumeItem{Led production database failover drill with zero downtime --- PostgreSQL auto-reconnect monkey patch worked flawlessly, with only 2 minutes of degraded performance across all services.}
+        \resumeItem{Moved OpenSearch, Redshift, and CloudFront to CDK-based IaC, closing the last critical gaps in disaster recovery --- infrastructure is now fully recreatable programmatically in under 2 hours.}
+        \resumeItem{Automated OpenSearch snapshots and backups to S3, reducing disaster recovery RTO from \textasciitilde1 week to 30--40 minutes.}
+        \resumeItem{Conducted comprehensive Multi-AZ audit across all AWS services, identified gaps, and created a remediation plan to improve fault tolerance and availability posture.}
+    \resumeItemListEnd
 
-\resumeheading{Great Learning}{Bangalore, India}{Security Operations Engineer}{Feb 2021 -- May 2022}
-\begin{itemize}
-  \item Conducted penetration testing, source code reviews, and vulnerability assessments across web and mobile applications (iOS \& Android, OWASP Top~10).
-  \item Managed WAF rules and CloudWatch alarm configurations, improving incident detection and response capabilities.
-  \item Orchestrated phishing simulations and security awareness training, reducing employee risk behavior by 35\%.
-  \item Built standardized security and operational reporting dashboards for leadership visibility into risk posture and system health.
-\end{itemize}
+    \resumeSubheadingContinue{Scaling \& Performance}{}
+    \resumeItemListStart
+        \resumeItem{Implemented OpenSearch storage auto-scaling via Lambda and CloudWatch; cluster has scaled 10x in production over 4 months, maintaining 100\% availability.}
+        \resumeItem{Migrated Redis to Valkey across all three production services (LTI, LMS, Website), achieving \textasciitilde20\% cost savings and lower P99 latencies via multithreading --- then successfully enabled auto-scaling on the clusters.}
+        \resumeItem{Implemented dynamic scaling for background delayed jobs, significantly improving processing throughput and enabling elastic handling of variable workloads without manual intervention.}
+        \resumeItem{Implemented ETag caching in CloudFront, reducing OPTIONS request latency from 300--400ms to 60--90ms by eliminating unnecessary round-trips to origin servers.}
+        \resumeItem{Converted remaining EC2-based delayed job instances (LMS, LTI, Payments) to ECS Fargate, completing the move to fully serverless container operations.}
+    \resumeItemListEnd
 
-\resumeheading{Great Learning}{Delhi, India}{Cyber Security Instructor}{Sep 2019 -- Feb 2021}
-\begin{itemize}
-  \item Delivered penetration testing and cloud security training sessions; mentored students on hands-on security practices.
-  \item Developed and maintained cybersecurity curriculum content and lab environments.
-\end{itemize}
+    \resumeSubheadingContinue{Data Pipeline Engineering}{}
+    \resumeItemListStart
+        \resumeItem{Designed and deployed GL-CloudETL, an in-house ETL pipeline replacing a third-party tool, using Debezium $\rightarrow$ MSK  $\rightarrow$ Glue with schema mapping and retry mechanisms --- eliminating vendor dependency and reducing data pipeline costs.}
+    \resumeItemListEnd
 
-% ---- Projects ----
+    \resumeSubheadingContinue{Platform Engineering \& Developer Productivity}{}
+    \resumeItemListStart
+        \resumeItem{Built an AWS Cloud Manager application with Google SSO, enabling one-click ECS deployments, compute instance control, and ALB configuration --- used regularly to deploy/restart services without Jenkins dependency.}
+        \resumeItem{Set up reproducible local development environments, reducing new developer onboarding from 3--4 days to 20--30 minutes. Deployed Android build pipeline on Mac Studio, cutting build time from 30 min to 7 min.}
+        \resumeItem{Upgraded Ruby on Rails to 7.2.3 across four production services and upgraded all databases (MySQL 8.0.41, PostgreSQL 14.17) before end-of-support deadlines with zero unplanned downtime.}
+    \resumeItemListEnd
+
+    \resumeSubheadingContinue{Security \& Compliance}{}
+    \resumeItemListStart
+        \resumeItem{Reduced Node.js Docker image vulnerabilities by 25 CVEs (including 6 High, 1 Critical) through base image upgrades (Node 19 $\rightarrow$ 22 LTS, Alpine 3.17 $\rightarrow$ 3.22).}
+        \resumeItem{Adopted AWS Inspector for shift-left code security scanning across all applications; conducted security risk assessment of 27 AI tools to establish organizational guardrails.}
+        \resumeItem{Supported ISO 27001, GDPR, and DPDPA audits; closed all external VAPT findings within stipulated timelines.}
+        \resumeItem{\textbf{Achievement:} Extra Mile Award (May 2025) for cost optimization and security leadership.}
+    \resumeItemListEnd
+
+    % ===== SENIOR ROLE =====
+    \resumeSubheading
+      {Senior Security Operations Engineer}{Apr 2022 -- May 2025}
+      {Great Learning}{Bangalore, India}
+
+    \resumeSubheadingContinue{Reliability \& Incident Response}{}
+    \resumeItemListStart
+        \resumeItem{Contributed to achieving 99.92\% platform uptime across all production services. Owned on-call incident response, RCA authoring, and runbook creation for production infrastructure.}
+        \resumeItem{Deployed CDK-based disaster recovery systems and conducted production/staging DR drills, achieving full infrastructure recreation in under 2 hours with minimal data loss.}
+        \resumeItem{Implemented zero-downtime database reconnection strategy during RDS auto-upgrades, eliminating 20--30 minutes of previously required redeployment downtime.}
+        \resumeItem{Resolved a 4-year-old HLS video playback failure on iOS browsers by architecting a dedicated service handling 800 RPS, replacing a costly Lambda@Edge approach.}
+        \resumeItem{Orchestrated DDoS resilience testing in staging and production, validating autoscaling to handle 5x traffic spikes and fine-tuning scaling policies across multiple iterations.}
+    \resumeItemListEnd
+
+    \resumeSubheadingContinue{Scaling \& Cost Optimization}{}
+    \resumeItemListStart
+        \resumeItem{Cut AWS infrastructure spend by 30\% through ARM/Graviton migration across ECS, RDS, Redis, and OpenSearch, combined with target-tracking autoscaling and resource right-sizing.}
+        \resumeItem{Implemented SOCI (Seekable OCI) for all containerized applications, reducing container startup time by 70\% and enabling significantly faster autoscaling response.}
+        \resumeItem{Scaled delayed job processing by splitting database tables (Website, Sales, Ad-Hoc), reducing Website RDS CPU by 20\% and enabling 50\% more background worker scale-out without additional DB cost.}
+        \resumeItem{Reduced ECS build and deployment times from 30+ minutes to under 10 minutes, directly improving deployment velocity and rollback speed.}
+    \resumeItemListEnd
+
+    \resumeSubheadingContinue{Observability \& Monitoring}{}
+    \resumeItemListStart
+        \resumeItem{Built and maintained CloudWatch observability stack --- custom metrics, dashboards, composite alarms, anomaly detection, and Log Insights queries --- providing end-to-end visibility into ECS service health, latency, and error rates.}
+        \resumeItem{Created infrastructure-wide health alarms across CPU, memory, disk, and network for all services, enabling early detection and reducing mean time to resolution.}
+        \resumeItem{Moved Jenkins deployment logs to CloudWatch for centralized log management, improving cross-service debugging and audit trail visibility.}
+    \resumeItemListEnd
+
+    \resumeSubheadingContinue{Platform \& IaC}{}
+    \resumeItemListStart
+        \resumeItem{Migrated entire production infrastructure to IaC (AWS CDK/CloudFormation) --- VPC, IAM, RDS, Redis, ECS, WAF, S3, ALB, SQS, Transcoder --- enabling repeatable, drift-free, auditable deployments.}
+        \resumeItem{Upgraded Ruby on Rails from 5.2 to 7.1 and Ruby from 2.5 to 3.3, reducing latency by 20--22\% and improving scalability by 30\%.}
+        \resumeItem{Implemented AWS SSO with Google OAuth and automated IAM key rotation via Lambda, reducing manual toil and improving access management.}
+    \resumeItemListEnd
+
+    \resumeSubheadingContinue{Security}{}
+    \resumeItemListStart
+        \resumeItem{Raised AWS Foundational Security Best Practices score from 64\% to 98\% and maintained CIS Benchmark v1.4 at 100\%. Achieved ISO 27001:2013 certification.}
+        \resumeItem{Hardened Docker images with multi-stage builds, non-root users, and minimal base images --- reducing critical/high vulnerabilities from hundreds to single digits per service.}
+        \resumeItem{Integrated Snyk into CI/CD pipelines and conducted regular penetration testing across web and mobile applications.}
+        \resumeItem{\textbf{Achievement:} Extra Mile Award (Sep 2023) for ISO certification success and advancing DevSecOps adoption.}
+    \resumeItemListEnd
+
+    % ===== JUNIOR ROLE =====
+    \resumeSubheading
+      {Security Operations Engineer}{Feb 2021 -- May 2022}
+      {Great Learning}{Bangalore, India}
+    \resumeItemListStart
+        \resumeItem{Conducted penetration testing, source code reviews, and vulnerability assessments across web and mobile applications (iOS \& Android, OWASP Top 10).}
+        \resumeItem{Managed WAF rules and CloudWatch alarm configurations, improving incident detection and response capabilities.}
+        \resumeItem{Orchestrated phishing simulations and security awareness training, reducing employee risk behavior by 35\%.}
+        \resumeItem{Built standardized security and operational reporting dashboards for leadership visibility into risk posture and system health.}
+    \resumeItemListEnd
+
+    % ===== INSTRUCTOR ROLE =====
+    \resumeSubheading
+      {Cyber Security Instructor}{Sep 2019 -- Feb 2021}
+      {Great Learning}{Delhi, India}
+    \resumeItemListStart
+        \resumeItem{Delivered penetration testing and cloud security training sessions; mentored students on hands-on security practices.}
+        \resumeItem{Developed and maintained cybersecurity curriculum content and lab environments.}
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+% ---------- PROJECTS ----------
 \section{Projects}
+\resumeSubHeadingListStart
+    \resumeProjectHeading
+      {\textbf{Kubernetes Observability Home Lab} $|$ \emph{\href{https://github.com/mafiaguy}{github.com/mafiaguy}}}{}
+    \resumeItemListStart
+        \resumeItem{Deployed a multi-service application on a local Kubernetes cluster (Minikube/kind), configured Prometheus for metrics collection and alerting rules, and built Grafana dashboards for monitoring pod health, resource utilization, and service latency. Hands-on with Helm charts, kubectl, and Kubernetes networking.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
 
-\textbf{Kubernetes Observability Home Lab} \hfill \href{https://github.com/mafiaguy}{github.com/mafiaguy} \\
-Deployed a multi-service application on a local Kubernetes cluster (Minikube/kind), set up Prometheus for metrics collection and alerting rules, and built Grafana dashboards for monitoring pod health, resource utilization, and service latency. Gained hands-on experience with Helm charts, kubectl operations, and Kubernetes networking.
-
-% ---- Education ----
+% ---------- EDUCATION ----------
 \section{Education}
+\resumeSubHeadingListStart
+    \resumeSubheading
+      {B.Tech, Computer Science \& Engineering}{2017 -- 2020}
+      {Maharaja Surajmal Institute of Technology}{Delhi}
+    \resumeSubheading
+      {Diploma, Computer Science \& Engineering}{2013 -- 2016}
+      {Government Polytechnic College}{Mohali}
+\resumeSubHeadingListEnd
 
-\textbf{B.Tech, Computer Science \& Engineering} \hfill 2017 -- 2020 \\
-Maharaja Surajmal Institute of Technology, Delhi \\[6pt]
-\textbf{Diploma, Computer Science \& Engineering} \hfill 2013 -- 2016 \\
-Government Polytechnic College, Mohali
-
-% ---- Achievements ----
+% ---------- ACHIEVEMENTS ----------
 \section{Achievements}
-
-\textbf{Extra Mile Award} -- Great Learning (Sep 2023, May 2025) for exceptional contributions to ISO certification, DevSecOps adoption, and cloud cost/reliability optimization.
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+        \textbf{Extra Mile Award} --- Great Learning (Sep 2023, May 2025) for exceptional contributions to ISO certification, DevSecOps adoption, and cloud cost/reliability optimization.
+    }}
+\end{itemize}
 
 \end{document}
