@@ -871,38 +871,32 @@ document.querySelectorAll('[data-a],[data-dot]').forEach(function(el){obs.observ
 // ===== GITHUB =====
 (async function(){
   var g=document.getElementById('pgrid');
+  var fallback=[
+    {name:'awesome-biohacking',desc:'A curated list of biohacking resources.',lang:'',stars:7,forks:0},
+    {name:'BadUino',desc:'An Arduino based bad USB device.',lang:'C++',stars:8,forks:7},
+    {name:'exploit_tools',desc:'Subdomain Scanner with FastAPI + React frontend.',lang:'Python',stars:1,forks:1},
+    {name:'securityguide',desc:'A guide to become a cyber-security researcher.',lang:'JavaScript',stars:1,forks:4},
+    {name:'portfolio',desc:'Personal portfolio website using Gatsby.',lang:'JavaScript',stars:0,forks:0},
+    {name:'Vulnerable-Web-Application',desc:'Vulnerable web app for security testing practice.',lang:'PHP',stars:0,forks:0},
+    {name:'kubernetes-observability-lab',desc:'K8s home lab with Prometheus and Grafana dashboards.',lang:'YAML',stars:0,forks:0},
+    {name:'GL-CloudETL',desc:'In-house ETL pipeline: Debezium + MSK + Glue.',lang:'TypeScript',stars:0,forks:0},
+    {name:'aws-cloud-manager',desc:'One-click ECS deployments with Google SSO.',lang:'TypeScript',stars:0,forks:0}
+  ];
+  function renderRepos(repos){
+    g.innerHTML=repos.map(function(x,i){
+      var url=x.html_url||('https://github.com/mafiaguy/'+x.name);
+      return'<a href="'+url+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stars||x.stargazers_count?'<span class="star">* '+(x.stars||x.stargazers_count)+'</span>':'')+(x.forks||x.forks_count?'<span>Y '+(x.forks||x.forks_count)+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.desc||x.description||'No description.')+'</p>'+(x.lang||x.language?'<div class="pl"><span>'+(x.lang||x.language)+'</span></div>':'')+'</a>'
+    }).join('');
+    setTimeout(function(){document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)})},100);
+  }
   try{
     var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');
-    if(!r.ok)throw new Error('API '+r.status);
+    if(!r.ok)throw 0;
     var d=await r.json();
-    if(!Array.isArray(d))throw new Error('not array');
+    if(!Array.isArray(d)||!d.length)throw 0;
     var f=d.filter(function(x){return!x.fork&&x.name.toLowerCase()!=='mafiaguy'&&x.name.toLowerCase()!=='mafiaguy.github.io'}).sort(function(a,b){return b.stargazers_count-a.stargazers_count}).slice(0,9);
-    if(!f.length)throw new Error('empty');
-    g.innerHTML=f.map(function(x,i){
-      return'<a href="'+x.html_url+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stargazers_count?'<span class="star">* '+x.stargazers_count+'</span>':'')+(x.forks_count?'<span>Y '+x.forks_count+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.description||'No description.')+'</p>'+(x.language?'<div class="pl"><span>'+x.language+'</span></div>':'')+'</a>'
-    }).join('');
-    // Re-observe new elements
-    setTimeout(function(){
-      document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)});
-    },100);
-  }catch(e){
-    console.log('GitHub fetch:',e);
-    // Fallback: hardcoded top repos
-    var fallback=[
-      {name:'awesome-biohacking',desc:'A curated list of biohacking resources.',lang:'',stars:7},
-      {name:'BadUino',desc:'An Arduino based bad USB device.',lang:'C++',stars:8},
-      {name:'exploit_tools',desc:'Subdomain Scanner with FastAPI + React frontend.',lang:'Python',stars:1},
-      {name:'securityguide',desc:'A guide to become a cyber-security researcher.',lang:'JavaScript',stars:1},
-      {name:'portfolio',desc:'Personal portfolio website using Gatsby.',lang:'JavaScript',stars:0},
-      {name:'Vulnerable-Web-Application',desc:'Vulnerable web app for security testing practice.',lang:'PHP',stars:0}
-    ];
-    g.innerHTML=fallback.map(function(x,i){
-      return'<a href="https://github.com/mafiaguy/'+x.name+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stars?'<span class="star">* '+x.stars+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+x.desc+'</p>'+(x.lang?'<div class="pl"><span>'+x.lang+'</span></div>':'')+'</a>'
-    }).join('');
-    setTimeout(function(){
-      document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)});
-    },100);
-  }
+    if(f.length)renderRepos(f);else renderRepos(fallback);
+  }catch(e){renderRepos(fallback)}
 })();
 
 // ===== RESUME =====
