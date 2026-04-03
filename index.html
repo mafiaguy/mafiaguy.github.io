@@ -885,9 +885,18 @@ document.querySelectorAll('[data-a],[data-dot]').forEach(function(el){obs.observ
   function renderRepos(repos){
     g.innerHTML=repos.map(function(x,i){
       var url=x.html_url||('https://github.com/mafiaguy/'+x.name);
-      return'<a href="'+url+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'" style="opacity:0;transform:translateY(50px)"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stars||x.stargazers_count?'<span class="star">* '+(x.stars||x.stargazers_count)+'</span>':'')+(x.forks||x.forks_count?'<span>Y '+(x.forks||x.forks_count)+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.desc||x.description||'No description.')+'</p>'+(x.lang||x.language?'<div class="pl"><span>'+(x.lang||x.language)+'</span></div>':'')+'</a>'
+      return'<a href="'+url+'" target="_blank" rel="noopener" class="pc" data-a="up" data-d="'+(i*70)+'"><div class="pt"><span class="pf">~/'+x.name+'</span><div class="ps">'+(x.stars||x.stargazers_count?'<span class="star">* '+(x.stars||x.stargazers_count)+'</span>':'')+(x.forks||x.forks_count?'<span>Y '+(x.forks||x.forks_count)+'</span>':'')+'</div></div><h3>'+x.name.replace(/[-_]/g,' ')+'</h3><p>'+(x.desc||x.description||'No description.')+'</p>'+(x.lang||x.language?'<div class="pl"><span>'+(x.lang||x.language)+'</span></div>':'')+'</a>'
     }).join('');
-    setTimeout(function(){document.querySelectorAll('#pgrid [data-a]').forEach(function(el){obs.observe(el)})},100);
+    setTimeout(function(){
+      var cards=document.querySelectorAll('#pgrid [data-a]');
+      cards.forEach(function(el){
+        var rect=el.getBoundingClientRect();
+        if(rect.top<window.innerHeight&&rect.bottom>0){
+          var d=+(el.dataset.d||0);
+          setTimeout(function(){el.classList.add('vis')},d);
+        }else{obs.observe(el)}
+      });
+    },50);
   }
   try{
     var r=await fetch('https://api.github.com/users/mafiaguy/repos?sort=stars&per_page=30&direction=desc');
