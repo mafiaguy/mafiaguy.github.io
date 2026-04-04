@@ -213,7 +213,30 @@ nav{position:fixed;top:2px;width:100%;z-index:100;background:rgba(6,6,10,.92);ba
 .bc h3{font-size:.88rem;font-weight:600;margin-bottom:.35rem;line-height:1.4}.bc p{color:var(--text2);font-size:.78rem;flex:1;line-height:1.6}
 .bl{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--cyan);margin-top:.6rem}
 
-/* CONTACT */
+/* PODCAST */
+.podcast-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;margin-top:1rem}
+.podcast-player{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;transition:border-color .3s;position:relative;overflow:hidden}
+.podcast-player:hover{border-color:var(--green)}
+.podcast-player::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(30,215,96,.06),transparent 70%);pointer-events:none}
+.podcast-art{width:120px;height:120px;border-radius:12px;background:linear-gradient(135deg,#1a1a2e,#0e0e18);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;position:relative;box-shadow:0 0 30px rgba(0,255,136,.08)}
+.podcast-art .mic{font-size:2.5rem}
+.podcast-art .pulse-ring{position:absolute;inset:-8px;border-radius:16px;border:1px solid var(--green);opacity:.3;animation:pulse 2s ease-out infinite}
+.podcast-art .pulse-ring:nth-child(2){inset:-16px;border-radius:20px;animation-delay:.5s;opacity:.15}
+.podcast-player h3{font-family:'JetBrains Mono',monospace;font-size:.95rem;font-weight:600;margin-bottom:.3rem;color:var(--text)}
+.podcast-player .ai-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--purple);background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);padding:.15rem .4rem;border-radius:3px;display:inline-block;margin-bottom:.8rem}
+.podcast-player p{color:var(--text2);font-size:.8rem;line-height:1.6;margin-bottom:1.2rem;max-width:300px;margin-left:auto;margin-right:auto}
+.podcast-play-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600;padding:.6rem 1.5rem;background:#1DB954;color:#000;border-radius:50px;transition:all .3s;border:none;cursor:pointer;text-decoration:none}
+.podcast-play-btn:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(29,185,84,.3)}
+.podcast-info{display:flex;flex-direction:column;gap:.8rem}
+.podcast-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.1rem;transition:border-color .3s}
+.podcast-card:hover{border-color:var(--green)}
+.podcast-card h3{font-size:.88rem;font-weight:600;margin-bottom:.3rem;display:flex;align-items:center;gap:.4rem}
+.podcast-card h3 .live-dot{width:6px;height:6px;border-radius:50%;background:#1DB954;animation:blink 1.5s infinite}
+.podcast-card p{color:var(--text2);font-size:.78rem;line-height:1.6}
+.podcast-links{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
+.podcast-links a{font-family:'JetBrains Mono',monospace;font-size:.65rem;padding:.25rem .6rem;border:1px solid var(--border);border-radius:4px;color:var(--text2);transition:all .2s}
+.podcast-links a:hover{border-color:#1DB954;color:#1DB954}
+@media(max-width:768px){.podcast-wrap{grid-template-columns:1fr}}
 .cs{background:linear-gradient(180deg,var(--bg),#080812);border-top:1px solid var(--green);position:relative;overflow:hidden}
 .cs::before{content:'';position:absolute;top:0;left:0;width:80px;height:1px;background:var(--green);box-shadow:0 0 20px var(--green);animation:scanline 3s linear infinite}
 @keyframes scanline{0%{left:-80px}100%{left:100%}}
@@ -398,7 +421,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 <nav><div class="ni">
 <a class="nl" onclick="nav('/')">sd<span>@</span>secops<span>:~$</span></a>
 <button class="hm" onclick="document.querySelector('.nk').classList.toggle('open')">[ = ]</button>
-<ul class="nk"><li><a href="#skills" data-page="/">skills</a></li><li><a href="#experience" data-page="/">exp</a></li><li><a href="#projects" data-page="/">projects</a></li><li><a onclick="nav('/tools')" data-page="/tools">tools</a></li><li><a onclick="nav('/play')" data-page="/play">play</a></li><li><a href="#blog" data-page="/">blog</a></li><li><a href="#contact" data-page="/">contact</a></li></ul>
+<ul class="nk"><li><a href="#skills" data-page="/">skills</a></li><li><a href="#experience" data-page="/">exp</a></li><li><a href="#projects" data-page="/">projects</a></li><li><a onclick="nav('/tools')" data-page="/tools">tools</a></li><li><a onclick="nav('/play')" data-page="/play">play</a></li><li><a href="#blog" data-page="/">blog</a></li><li><a href="#podcast" data-page="/">podcast</a></li><li><a href="#contact" data-page="/">contact</a></li></ul>
 <div><button class="nb" onclick="openResume()">resume</button></div>
 </div></nav>
 
@@ -493,9 +516,46 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 <a href="https://mafiaguy.medium.com/from-code-to-cloud-a-comprehensive-guide-to-deploy-your-code-on-the-cloud-1c78cf615cc0" target="_blank" class="bc" data-a="up" data-d="300"><div class="bdt">DEC 2023</div><h3>From Code to Cloud</h3><p>Deploy to AWS end-to-end.</p><span class="bl">read &rarr;</span></a>
 </div></div></div>
 
+<!-- PODCAST -->
+<div class="sec-pad" id="podcast" style="background:var(--bg2)"><div class="si">
+<div class="sl" data-a="left">05 // PODCAST</div><h2 class="st2" data-a="up">Listen In</h2><div class="sd2" data-a="up" data-d="80">AI-generated podcast turning my technical experience into listenable content.</div>
+<div class="podcast-wrap">
+<div class="podcast-player" data-a="up" data-d="0">
+<div class="podcast-art">
+<div class="pulse-ring"></div>
+<div class="pulse-ring"></div>
+<span class="mic" style="font-family:'JetBrains Mono',monospace;font-size:1.5rem;color:var(--green);font-weight:700">SD</span>
+</div>
+<h3>The Mafiaguy Podcast</h3>
+<span class="ai-tag">AI-generated podcast</span>
+<p>Tech conversations powered by AI — covering cloud, infrastructure, security, and engineering stories from my career.</p>
+<a href="https://open.spotify.com/show/5z9Pi4PjMqUbc5G1I1GXlN" target="_blank" rel="noopener" class="podcast-play-btn"><svg width="16" height="16" viewBox="0 0 16 16" style="flex-shrink:0"><polygon points="3,1 14,8 3,15" fill="#000"/></svg> Listen on Spotify</a>
+</div>
+<div class="podcast-info">
+<div class="podcast-card" data-a="up" data-d="100">
+<h3><span class="live-dot"></span> Available on Spotify</h3>
+<p>AI-generated episodes exploring topics from my day-to-day work — disaster recovery automation, container orchestration, scaling production systems, and building resilient cloud platforms.</p>
+<div class="podcast-links">
+<a href="https://open.spotify.com/show/5z9Pi4PjMqUbc5G1I1GXlN" target="_blank" rel="noopener">Spotify</a>
+<a href="https://mafiaguy.medium.com" target="_blank" rel="noopener">Written Blog</a>
+<a href="https://twitter.com/mafiaaguy" target="_blank" rel="noopener">Twitter/X</a>
+</div>
+</div>
+<div class="podcast-card" data-a="up" data-d="200">
+<h3>Why AI-Generated?</h3>
+<p>I use AI tools to turn my technical blog posts and experience into podcast-format audio content. It's an experiment in making deep technical knowledge more accessible and listenable.</p>
+</div>
+<div class="podcast-card" data-a="up" data-d="300">
+<h3>Want Me On Your Podcast?</h3>
+<p>Always up for a real conversation about cloud infra, reliability engineering, or the SecOps-to-SRE journey. Hit me up at iamsiddhanthdwivedi@gmail.com</p>
+</div>
+</div>
+</div>
+</div></div>
+
 <!-- EDUCATION -->
 <div class="sec-pad" style="background:var(--bg2)"><div class="si">
-<div class="sl" data-a="left">05 // EDUCATION</div><h2 class="st2" data-a="up">Education</h2>
+<div class="sl" data-a="left">06 // EDUCATION</div><h2 class="st2" data-a="up">Education</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.7rem;margin-top:1.2rem">
 <article data-a="up" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.1rem"><h3 style="font-size:.88rem;font-weight:600">B.Tech, CS&E</h3><div style="color:var(--green2);font-size:.8rem">MSIT, Delhi</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-top:.2rem">2017 - 2020</div></article>
 <article data-a="up" data-d="80" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.1rem"><h3 style="font-size:.88rem;font-weight:600">Diploma, CS&E</h3><div style="color:var(--green2);font-size:.8rem">Govt Polytechnic, Mohali</div><div style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);margin-top:.2rem">2013 - 2016</div></article>
@@ -503,7 +563,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--tex
 
 <!-- CONTACT -->
 <div class="sec-pad cs" id="contact"><div class="si">
-<div class="cc"><div class="sl" data-a="left">06 // CONTACT</div><h2 data-a="up">Let's <span class="ac">Work Together</span></h2><p style="color:var(--text2);font-size:.9rem" data-a="up" data-d="80">Open to SRE and Security Engineering roles.</p></div>
+<div class="cc"><div class="sl" data-a="left">07 // CONTACT</div><h2 data-a="up">Let's <span class="ac">Work Together</span></h2><p style="color:var(--text2);font-size:.9rem" data-a="up" data-d="80">Open to SRE and Security Engineering roles.</p></div>
 <div class="cg">
 <a href="mailto:iamsiddhanthdwivedi@gmail.com" class="ck" data-a="up" data-d="0"><div class="ci" style="background:var(--gD);color:var(--green)">E</div><div><div class="clb">Email</div><div class="cv">iamsiddhanthdwivedi@gmail.com</div></div></a>
 <a href="tel:+918968562055" class="ck" data-a="up" data-d="60"><div class="ci" style="background:var(--cD);color:var(--cyan)">P</div><div><div class="clb">Phone</div><div class="cv">+91 8968562055</div></div></a>
@@ -683,7 +743,7 @@ var KB=[
 {k:['devops','devsecops','ci','cd','pipeline','automat'],a:"championed DevSecOps practices — embedded security and reliability gates into CI/CD pipelines. integrated Snyk & CodeQL for automated vulnerability scanning, reducing critical vulnerabilities by 25%. automated operational workflows with AWS Lambda."},
 {k:['disaster','recovery','dr','resilience','backup','failover'],a:"deployed CDK-based disaster recovery systems that reduced recovery time by 30%. maintains ISO 27001 compliance through quarterly DR drills and tabletop exercises. strengthened platform resilience with IAM hardening, CloudTrail monitoring, and DDoS prevention via Shield & WAF."},
 {k:['fun','hobby','personal','interest','food','biryani'],a:"describes himself as 'a foodie hungry for security'. loves biryani (his reddit username is thebiryanimonsterr). active participant at BSides Delhi security conference. builds security tools and games in his spare time. his portfolio site has a hidden terminal and 4 security-themed games!"},
-{k:['tool','website','site','portfolio','game','play','feature'],a:"this portfolio has: Apple-style scroll animations, a hacker avatar (me!) that walks you through the site, 10 browser-based security tools at /tools, and 4 games at /play. you can ask me to open any tool — try 'generate a password' or 'hash something' or 'decode a jwt'!"},
+{k:['tool','website','site','portfolio','game','play','feature'],a:"this portfolio has: Apple-style scroll animations, a hacker avatar (me!) that guides you, embedded Spotify podcast player, 10 browser security tools at /tools, and 4 games at /play. ask me to open any tool — 'generate a password' or 'decode a jwt'!"},
 {k:['show','tour','guide','around','section','navigate','scroll'],a:"scroll down to explore — Skills (cinematic animations), Experience (timeline), Projects (live from GitHub), Blog (Medium articles), Education, and Contact. or ask me to open any tool like 'password generator' or 'subnet calculator'!"},
 {k:['recommend','review','colleague','testimonial','say about'],a:"colleagues describe him as 'a true asset to any team' with 'deep understanding of infrastructure combined with keen interest in DevOps.' they say he 'consistently demonstrated ability to think strategically while executing complex projects with precision.' a natural leader who mentors junior team members."},
 {k:['phishing','training','awareness','social engineer'],a:"orchestrated phishing simulations and security awareness training programs that reduced employee risk behavior by 35%. also developed cybersecurity curriculum content and lab environments during his instructor role."},
@@ -793,6 +853,7 @@ function onScroll(){
   var detected='about';
   var checkSections=[
     {id:'contact',name:'contact'},
+    {id:'podcast',name:'blog'},
     {id:'blog',name:'blog'},
     {id:'projects',name:'projects'},
     {id:'experience',name:'experience'}
@@ -996,11 +1057,12 @@ if(toolCmd[cmdLow]){
 }
 // Built-in commands
 switch(cmdLow){
-case'help':tl('  <span class="g">about skills contact blog neofetch clear exit hire</span>','');tl('  <span class="c">tools:</span> password hash base64 jwt url uuid subnet regex json headers','');tl('  <span class="c">pages:</span> tools play home','');tl('  <span class="d">or ask me anything about siddhanth!</span>','');break;
+case'help':tl('  <span class="g">about skills contact blog podcast neofetch clear exit hire</span>','');tl('  <span class="c">tools:</span> password hash base64 jwt url uuid subnet regex json headers','');tl('  <span class="c">pages:</span> tools play home','');tl('  <span class="d">or ask me anything about siddhanth!</span>','');break;
 case'about':tl('Siddhanth Dwivedi . Lead SecOps . 6+ yrs AWS','d');break;
 case'skills':tl('ECS Docker CloudWatch K8s Pentesting Python TS','d');break;
 case'contact':tl('iamsiddhanthdwivedi@gmail.com','g');tl('github.com/mafiaguy | linkedin.com/in/mafiaguy','g');tl('+91 8968562055','g');break;
 case'blog':tl('mafiaguy.medium.com','d');break;
+case'podcast':tl('AI-generated podcast on Spotify','d');tl('<span class="g">open.spotify.com/show/5z9Pi4PjMqUbc5G1I1GXlN</span>','');break;
 case'neofetch':tl('OS: SecOps Linux | Host: AWS | Coffee: too much','d');break;
 case'clear':document.getElementById('tBody').innerHTML='';break;
 case'sudo':case'sudo su':tl('[ACCESS DENIED] nice try ;)','r');break;
